@@ -15,13 +15,13 @@
 #include <opencv2/ml/ml.hpp>
 
 #include <boost/filesystem.hpp>
-
+#include "feature_extractor.h"
 
 #define FRAMES 2
 
 using namespace std;
-using namespace cv;
 using namespace boost::filesystem;
+using namespace cv;
 
 
 bool isHidden(const path &p)
@@ -102,6 +102,7 @@ int main (int argc, char *argv[])
 
 	vector<Mat> images;
 	vector<int> labels;
+    FeatureExtractor *featureExtractor = new FeatureExtractor();
 
 	int nr_class = read_images(argv[1], images, labels);
 
@@ -109,7 +110,7 @@ int main (int argc, char *argv[])
 	cout << "nr_class: " << nr_class << endl;
 	
     Mat cv_labels(labels.size(), 1, CV_32SC1, &labels[0]);
-
+    
  //    if (model_output) {
  //        cout << "Creating model and vocab..." << endl;
  //        classifier.train_bow(images, cv_labels);
@@ -121,4 +122,3 @@ int main (int argc, char *argv[])
 
 	return 0;
 }
-	
