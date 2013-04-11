@@ -10,5 +10,6 @@ set(CMAKE_INCLUDE_PATH ${CMAKE_LIBRARY_PATH} /opt/local/include)
 add_executable(
 	trainer
 	trainer.cpp
+	feature_extractor.cpp
 )
 target_link_libraries( trainer ${OpenCV_LIBS} ${Boost_LIBRARIES})
