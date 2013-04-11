@@ -129,9 +129,12 @@ int main (int argc, char *argv[])
     cout << "count: " << labels.size() << endl;
 	cout << "nr_class: " << nr_class << endl;
 	cout << "Size of Names: " << Names.size() << endl;
-	
-	
+
     Mat cv_labels(labels.size(), 1, CV_32SC1, &labels[0]);
+
+	vector<Mat> features;
+    featureExtractor->extract_features_batch(images, features);
+
 	
  //    if (model_output) {
  //        cout << "Creating model and vocab..." << endl;
