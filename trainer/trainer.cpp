@@ -49,7 +49,7 @@ int read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<str
 	copy(directory_iterator(p), directory_iterator(), back_inserter(vec));
 
 	vector<path>::const_iterator it;
-
+	
 	int num = 0;
 	int count = 0;
 	int stringlength, found_char, namelength;
@@ -94,11 +94,8 @@ int read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<str
 			
 			count++;
 		}
-
 		num++;
-
 	}
-
 	return num;
 }
 
