@@ -47,6 +47,10 @@
 #include <opencv2/ml/ml.hpp>
 #include <opencv2/flann/flann.hpp>
 
+using namespace std;
+using namespace cv;
+
+
 CvVocabTree::CvVocabTree()
 {
     // TODO: fill this in
@@ -103,6 +107,15 @@ void CvVocabTree::write( CvFileStorage* fs, const char* name ) const
 void CvVocabTree::read( CvFileStorage* fs, CvFileNode* root_node )
 {
 }
+
+// Functions -- Not in the class header file
+void TF_Idf(Mat &Raw_CountMats, Mat &TF_IDF_Mat)
+{
+	// This function calculates the TF_IDF score for each value and each hit of the matrix
+	
+	
+}
+
 
 /* End of file. */
 
