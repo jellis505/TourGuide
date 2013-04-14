@@ -44,8 +44,11 @@
 // #include "precomp.hpp"
 
 #include "vocabtree.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/highgui/highgui.hpp"
 #include <opencv2/ml/ml.hpp>
 #include <opencv2/flann/flann.hpp>
+#include <cmath>
 
 using namespace std;
 using namespace cv;
@@ -71,7 +74,7 @@ CvVocabTree::~CvVocabTree()
 CvVocabTree::CvVocabTree(
     const CvMat* _train_data, const CvMat* _responses,
     const CvMat* _var_idx, const CvMat* _sample_idx,
-    const int _branch_factor, const int _depth );
+    const int _branch_factor, const int _depth )
 {
     branch_factor = _branch_factor;
     depth = _depth;
@@ -84,12 +87,46 @@ bool CvVocabTree::train( const CvMat* _train_data, const CvMat* _responses,
                             const CvMat* _var_idx, const CvMat* _sample_idx, bool update )
 {
     // Generate words by running (k^l)-means
+    Mat means;
+    int max_iterations = 10;
+    TermCriteria criteria(TermCriteria::EPS, 10, .2);
+    int attempts = 10;
+    int nr_means = pow((double)branch_factor, depth);
+    Mat cluster_labels(_responses);
+    double compactness = kmeans(*(Mat *)_train_data, nr_means, cluster_labels,
+                                criteria, attempts, KMEANS_PP_CENTERS, means);
 
     // Construct flann index with means
+    cvflann::flann_centers_init_t centers_init = cvflann::CENTERS_KMEANSPP;
+    float cluster_boundary_index = 0.2;
+    flann::KMeansIndexParams indexParams(branch_factor,
+                                         depth, centers_init,
+                                         cluster_boundary_index);
+    flann::Index flann_index(means, indexParams);
 
     // Generate weights matrix of size num(responses) x num(means)
-    
-    return result;
+    Mat *new_weights = new cv::Mat( cv::Mat::zeros(_responses->rows,
+                                                   means.rows,
+                                                   CV_32F) );
+
+    for (int i = 0; i < _train_data->rows; i++) {
+        // Pointer to the i-th row
+        const double* p = ((Mat *)_train_data)->ptr<double>(i);
+        // Copy data to a vector.  Note that (p + mat.cols) points to the
+        // end of the row.
+        std::vector<double> vec(p, p + _train_data->cols);
+        
+        vector<int> nearest;
+        vector<float> dists;
+        flann_index.knnSearch(vec, nearest, dists, 1, 0);
+
+        new_weights->at<int>(i,nearest[0])++;
+    }
+
+    delete weights;
+    weights = new_weights;
+
+    return true;
 }
 
 float CvVocabTree::predict( const CvMat* samples, CvMat* results ) const
@@ -109,7 +146,7 @@ void CvVocabTree::read( CvFileStorage* fs, CvFileNode* root_node )
 }
 
 // Functions -- Not in the class header file
-void TF_Idf(Mat &Raw_CountMats, Mat &TF_IDF_Mat)
+void TF_Idf(Mat &raw_counts, Mat &TF_IDF_Mat)
 {
 	// This function calculates the TF_IDF score for each value and each hit of the matrix
 	
