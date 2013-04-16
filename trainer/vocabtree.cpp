@@ -53,6 +53,8 @@
 using namespace std;
 using namespace cv;
 
+// Function Declarations
+void TF_IDF(const Mat &raw_counts, vector<double> &TF_IDF_weights);
 
 CvVocabTree::CvVocabTree()
 {
@@ -73,18 +75,20 @@ CvVocabTree::~CvVocabTree()
 
 CvVocabTree::CvVocabTree(
     const CvMat* _train_data, const CvMat* _responses,
+	const vector<int> labels, 
     const CvMat* _var_idx, const CvMat* _sample_idx,
-    const int _branch_factor, const int _depth )
+    const int _branch_factor, const int _depth)
 {
     branch_factor = _branch_factor;
     depth = _depth;
 
-    train( _train_data, _responses, _var_idx, _sample_idx );
+    train( _train_data, _responses, labels, _var_idx, _sample_idx);
 }
 
 
 bool CvVocabTree::train( const CvMat* _train_data, const CvMat* _responses,
-                            const CvMat* _var_idx, const CvMat* _sample_idx, bool update )
+							vector<int> labels, const CvMat* _var_idx, 
+							const CvMat* _sample_idx, bool update )
 {
     // Generate words by running (k^l)-means
     Mat means;
@@ -125,6 +129,33 @@ bool CvVocabTree::train( const CvMat* _train_data, const CvMat* _responses,
 
     delete weights;
     weights = (CvMat *)new_weights;
+	
+	// This section of the code creates weights for the TF-IDF documentiaton work
+    Mat *image_vec_counts = new cv::Mat( cv::Mat::zeros(*max_element(labels.begin(),labels.end()),
+                                                   means.rows,
+                                                   CV_32F) );
+	
+	// This section of the code will return the list of images that have each of the values 
+	for(int j = 0; j < _train_data->rows; j++ ) 
+	{
+        // Pointer to the i-th row
+        const double* p = ((Mat *)_train_data)->ptr<double>(j);
+        // Copy data to a vector.  Note that (p + mat.cols) points to the
+        // end of the row.
+        std::vector<double> vec(p, p + _train_data->cols);
+        
+        vector<int> nearest;
+        vector<float> dists;
+        flann_index.knnSearch(vec, nearest, dists, 1, 0);
+		
+		// Now increment this point with this image
+		image_vec_counts->at<int>(labels[j],nearest[0])++;
+	}
+	
+	// This portion calculates the TF_IDF weighting scheme
+	vector<double> TF_IDF_weights;
+	Mat image_feat_counts = (CvMat *)image_vec_counts;
+	TF_IDF(image_feat_counts,TF_IDF_weights);
 
     return true;
 }
@@ -146,9 +177,37 @@ void CvVocabTree::read( CvFileStorage* fs, CvFileNode* root_node )
 }
 
 // Functions -- Not in the class header file
-void TF_Idf(Mat &raw_counts, Mat &TF_IDF_Mat)
+void TF_IDF(const Mat &raw_counts, vector<double> &TF_IDF_weights)
 {
 	// This function calculates the TF_IDF score for each value and each hit of the matrix
+	// Mat raw counts is the matrix that contains
+	// The raw counts file should be a matrix of dim. #ofimages x #ofcodewords
+	// The TF_IDF_weights are the weights of the each respective codeword in the algorithm,
+	// and these are computed by w_i = ln(N/Ni), where N is the number of images, and Ni is the number
+	// of images that contain at least one example of codeword i
+	
+	int num_of_images = raw_counts.rows;
+	int num_of_feats = raw_counts.cols;
+	int N_i;
+	double weight;
+	for (int i = 0; i < num_of_feats; i++)
+	{
+		// Set the counts to 0
+		N_i = 1; 	// This is one to eliminate dividing by 0 in the weighting scheme
+		weight = 0;
+		// This goes through one whole column and counts the number of values that 
+		for(int j = 0; j < num_of_images; j++)
+		{
+			// If this image had this codeword within it add increment our counter 
+			if (raw_counts.at<int>(j,i) > 0){
+				N_i++;
+			}
+		}
+		// Now calculate the weight of this leaf node using the weighting scheme described above
+		weight = log(num_of_images/N_i);
+		TF_IDF_weights.push_back(weight);
+		
+	} 
 	
 	
 }

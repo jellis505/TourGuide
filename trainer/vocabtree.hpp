@@ -20,11 +20,12 @@ public:
     ~CvVocabTree();
 
     CvVocabTree( const CvMat* trainData, const CvMat* responses,
+		const std::vector<int> labels,
         const CvMat* varIdx=0, const CvMat* sampleIdx=0,
         const int branch_factor=4, const int depth=3 );
 
     virtual bool train( const CvMat* trainData, const CvMat* responses,
-        const CvMat* varIdx=0, const CvMat* sampleIdx=0, bool update=false );
+        std::vector<int> labels, const CvMat* varIdx=0, const CvMat* sampleIdx=0, bool update=false );
 
     virtual float predict( const CvMat* samples, CV_OUT CvMat* results=0 ) const;
     virtual void clear();
@@ -38,6 +39,7 @@ protected:
     CvMat*                      weights;
     int branch_factor;
     int depth;
+	std::vector<int> labels;
 };
 
 #endif
