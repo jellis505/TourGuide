@@ -124,7 +124,7 @@ bool CvVocabTree::train( const CvMat* _train_data, const CvMat* _responses,
     }
 
     delete weights;
-    weights = new_weights;
+    weights = (CvMat *)new_weights;
 
     return true;
 }
