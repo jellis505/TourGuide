@@ -16,6 +16,7 @@
 
 #include <boost/filesystem.hpp>
 #include "feature_extractor.h"
+#include "vocabtree.hpp"
 
 #define FRAMES 2
 
@@ -57,10 +58,13 @@ int read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<str
 	string picname;
 	string slash = "/";
 	
+	int counter_to_break_2 = 0;
 	for (it = vec.begin(); it != vec.end() ; ++it) {
 		if (isHidden(*it) || !is_directory(*it))
 			continue;
-		
+		if (counter_to_break_2 == 4)
+			break;
+		counter_to_break_2++;
 		// Get the name of this image within the filepath
 		cout << (*it).string() << endl;
 		str = (*it).string();
@@ -78,7 +82,7 @@ int read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<str
 		for (it2 = vec2.begin(); it2 != vec2.end(); ++it2) {
 			if (isHidden(*it2))
 				continue;
-			if (counter_to_break == 2){
+			if (counter_to_break == 1){
 				counter_to_break = 0;
 				break;
 			}
@@ -126,12 +130,33 @@ int main (int argc, char *argv[])
     cout << "count: " << labels.size() << endl;
 	cout << "nr_class: " << nr_class << endl;
 	cout << "Size of Names: " << Names.size() << endl;
+	cout << "number of images: " << images.size() << endl;
 
     Mat cv_labels(labels.size(), 1, CV_32SC1, &labels[0]);
 
+	// Extract the features in batch mode for the pictures available
 	vector<Mat> features;
     featureExtractor->extract_features_batch(images, features);
-
+	
+	// Concatenate the vector of Mats into a big Mat file
+	cout << "We just got out of the extract features batch code" << endl;
+	Mat train_data;
+	vector<int> features_img_labels;
+	int features_size;
+	for (int j = 0; j < features.size(); j++)
+	{
+		train_data.push_back(features[j]);
+		features_size = features[j].rows;
+		for (int i = 0; i < features_size; i++)
+		{
+			features_img_labels.push_back(labels[j]);
+		}
+		cout << "Finished Feature: " << j << " of " << features.size() << endl;
+	} 
+	
+	//Set up the Vocab Tree Trainer
+	CvVocabTree *cvVocabtree = new CvVocabTree();
+	
 	
  //    if (model_output) {
  //        cout << "Creating model and vocab..." << endl;
