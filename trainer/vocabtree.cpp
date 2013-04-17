@@ -127,13 +127,15 @@ bool CvVocabTree::train(const Mat* _train_data,
 		Mat dists;
         flann_index->knnSearch(_train_data->row(i), nearest, dists, 1, flann::SearchParams(1));
         new_weights->at<int>(labels[i], nearest.at<int>(0,0))++;
-
+		cout << "this is the new value for row: " << labels[i] << " and col: " << nearest.at<int>(0,0) << endl;
+		cout << new_weights->at<int>(labels[i],nearest.at<int>(0,0)) << endl;
+		
     }
-
+	Mat tmp;
     weights = new_weights;
-	cout << weights->rows << endl;
-	cout << weights->cols << endl;
-	cout << "made it number one" << endl;
+	weights->row(5).copyTo(tmp);
+	cout << "Now we have this mat: " << endl;
+	cout << tmp << endl;
 	
 	// This section of the code creates weights for the TF-IDF documentiaton work
     Mat *image_vec_counts = new Mat( Mat::zeros(_nr_unique_labels,
@@ -159,7 +161,20 @@ bool CvVocabTree::train(const Mat* _train_data,
     Mat tf_idf(TF_IDF_weights);
 	tf_idf = tf_idf.t();
 	
-	// normalize the weights row
+	// normalize the weights row 
+	// This is breaking because when we take weights->row(i) the row that we get back is junk.
+	// When accessing the values with the ->at<int> structure we get the write answer, but otherwise it break
+	
+	double Norm_Factor;
+	Scalar sum_val;
+	double desired_sum = 1000;
+	for (int i = 0; i <weights->rows; i++)
+	{
+		sum_val = sum(weights->row(i));
+		Norm_Factor = desired_sum/sum_val[0];
+		weights->row(i) = (weights->row(i)) * Norm_Factor;
+	}
+	cout << "Finished Normalization: YES!" << endl;
 	
 	for (int i = 0; i < weights->rows; i++) 
 	{
@@ -179,7 +194,6 @@ float CvVocabTree::predict(const Mat* samples, Mat* results) const
 		Mat nearest;
 		Mat dists;
         flann_index->knnSearch(samples->row(i), nearest, dists, 1, 0);
-		cout << nearest.at<int>(0,0) << endl;
 		sum->at<int>(0, nearest.at<int>(0,0))++;
     }
 

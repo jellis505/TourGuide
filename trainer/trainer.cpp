@@ -165,7 +165,7 @@ int main (int argc, char *argv[])
 	cout << "We made it past train!" << endl;
 	Mat* results;
 	
-	cout << vocab_tree->predict(&features[0],results) << endl;
+	vocab_tree->predict(&features[0],results);
 	
 	
  //    if (model_output) {

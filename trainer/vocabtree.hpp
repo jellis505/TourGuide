@@ -37,7 +37,7 @@ public:
 protected:
     cv::Mat* cls_labels;
     cv::flann::Index* flann_index;
-    cv::Mat* weights;
+    cv::Mat *weights;
     int branch_factor;
     int depth;
 	std::vector<int> labels;
