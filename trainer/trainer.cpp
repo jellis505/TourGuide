@@ -17,6 +17,7 @@
 #include <boost/filesystem.hpp>
 #include "feature_extractor.h"
 #include "vocabtree.hpp"
+#include <algorithm>
 
 #define FRAMES 2
 
@@ -62,6 +63,8 @@ int read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<str
 	for (it = vec.begin(); it != vec.end() ; ++it) {
 		if (isHidden(*it) || !is_directory(*it))
 			continue;
+		if (counter_to_break_2 == 6)
+			break;
 		counter_to_break_2++;
 		// Get the name of this image within the filepath
 		cout << (*it).string() << endl;
@@ -124,7 +127,7 @@ int main (int argc, char *argv[])
     FeatureExtractor *featureExtractor = new FeatureExtractor();
 
 	int nr_class = read_images(argv[1], images, labels, Names);
-
+	cout << "max of labels: " << *max_element(labels.begin(),labels.end()) << endl;
     cout << "count: " << labels.size() << endl;
 	cout << "nr_class: " << nr_class << endl;
 	cout << "Size of Names: " << Names.size() << endl;
@@ -147,13 +150,22 @@ int main (int argc, char *argv[])
 		features_size = features[j].rows;
 		for (int i = 0; i < features_size; i++)
 		{
-			features_img_labels.push_back(labels[j]);
+			features_img_labels.push_back(j);
 		}
 		cout << "Finished Image: " << j << " of " << features.size() << endl;
 	} 
 	
+	cout << features.size() << endl;
+	cout << features_img_labels[0] << endl;
+	cout << train_data.rows << endl;
+	
 	//Set up the Vocab Tree Trainer
-	CvVocabTree *cvVocabtree = new CvVocabTree();
+	CvVocabTree *vocab_tree = new CvVocabTree();
+	vocab_tree->train(&train_data, features_img_labels, nr_class);
+	cout << "We made it past train!" << endl;
+	Mat* results;
+	
+	cout << vocab_tree->predict(&features[0],results) << endl;
 	
 	
  //    if (model_output) {

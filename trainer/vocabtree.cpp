@@ -58,6 +58,8 @@ void TF_IDF(const Mat &raw_counts, vector<double> &TF_IDF_weights);
 
 CvVocabTree::CvVocabTree()
 {
+	branch_factor = 3;
+	depth = 5; 
     // TODO: fill this in
 }
 
@@ -91,75 +93,81 @@ bool CvVocabTree::train(const Mat* _train_data,
     // Generate words by running (k^l)-means
     Mat means;
     int max_iterations = 10;
-    TermCriteria criteria(TermCriteria::EPS, 10, .2);
-    int attempts = 10;
+    TermCriteria criteria(TermCriteria::EPS, 1, 200);
+    int attempts = 1;
     int nr_means = pow((double)branch_factor, depth);
-    Mat cluster_labels(labels);
-    double compactness = kmeans(*(Mat *)_train_data, nr_means, cluster_labels,
+    Mat cluster_labels;
+	cout << "The number of means" << nr_means << endl;
+	cout << "The number of rows" << _train_data->rows << endl;
+	cout << "The number of cols" << _train_data->cols << endl;
+	
+    double compactness = kmeans(*_train_data, nr_means, cluster_labels,
                                 criteria, attempts, KMEANS_PP_CENTERS, means);
 
+								cout << "Got out of kmeans code" << endl;
+								
     // Construct flann index with means
     cvflann::flann_centers_init_t centers_init = cvflann::CENTERS_KMEANSPP;
     float cluster_boundary_index = 0.2;
     flann::KMeansIndexParams indexParams(branch_factor,
                                          depth, centers_init,
                                          cluster_boundary_index);
-
+	
     flann_index = new flann::Index(means, indexParams);
+	cout << "Got out of the Flann Shit" << endl;
 
     // Generate weights matrix of size num(train_data) x num(means)
     Mat *new_weights = new Mat( Mat::zeros(_nr_unique_labels,
                                                    means.rows,
                                                    CV_32F) );
 
-    for (int i = 0; i < _train_data->rows; i++) {
-        // Pointer to the i-th row
-        const double* p = ((Mat *)_train_data)->ptr<double>(i);
-        // Copy data to a vector.  Note that (p + mat.cols) points to the
-        // end of the row.
-        std::vector<double> vec(p, p + _train_data->cols);
-        
-        vector<int> nearest;
-        vector<float> dists;
-        flann_index->knnSearch(vec, nearest, dists, 1, 0);
+    for (int i = 0; i < _train_data->rows; i++) 
+	{
+		Mat nearest;
+		Mat dists;
+        flann_index->knnSearch(_train_data->row(i), nearest, dists, 1, flann::SearchParams(1));
+        new_weights->at<int>(labels[i], nearest.at<int>(0,0))++;
 
-        new_weights->at<int>(labels[i],nearest[0])++;
     }
 
-    delete weights;
     weights = new_weights;
+	cout << weights->rows << endl;
+	cout << weights->cols << endl;
+	cout << "made it number one" << endl;
 	
 	// This section of the code creates weights for the TF-IDF documentiaton work
-    Mat *image_vec_counts = new Mat( Mat::zeros(*max_element(labels.begin(),labels.end()),
+    Mat *image_vec_counts = new Mat( Mat::zeros(_nr_unique_labels,
                                                    means.rows,
                                                    CV_32F) );
 	
 	// This section of the code will return the list of images that have each of the values 
-	for (int j = 0; j < _train_data->rows; j++) {
-        // Pointer to the i-th row
-        const double* p = ((Mat *)_train_data)->ptr<double>(j);
-        // Copy data to a vector.  Note that (p + mat.cols) points to the
-        // end of the row.
-        std::vector<double> vec(p, p + _train_data->cols);
-        
-        vector<int> nearest;
-        vector<float> dists;
-        flann_index->knnSearch(vec, nearest, dists, 1, 0);
-		
+	for (int j = 0; j < _train_data->rows; j++) 
+	{
+		Mat nearest;
+		Mat dists;
+        flann_index->knnSearch(_train_data->row(j), nearest, dists, 1, flann::SearchParams(64));
 		// Now increment this point with this image
-		image_vec_counts->at<int>(labels[j],nearest[0])++;
+		image_vec_counts->at<int>(labels[j],nearest.at<int>(0,0))++;
 	}
 	
 	// This portion calculates the TF_IDF weighting scheme
 	vector<double> TF_IDF_weights;
-	Mat image_feat_counts = (CvMat *)image_vec_counts;
-	TF_IDF(image_feat_counts,TF_IDF_weights);
 
+	TF_IDF(*image_vec_counts, TF_IDF_weights);
+	
+	
     Mat tf_idf(TF_IDF_weights);
-    for (int i = 0; i < weights->rows; i++) {
-        weights->row(i) *= tf_idf;
+	tf_idf = tf_idf.t();
+	
+	// normalize the weights row
+	
+	for (int i = 0; i < weights->rows; i++) 
+	{
+		for (int j = 0; j < weights->cols; j++ )
+		{
+			weights->at<float>(i,j) = weights->at<float>(i,j) * tf_idf.at<double>(0,j);
+		}
     }
-
     return true;
 }
 
@@ -168,17 +176,11 @@ float CvVocabTree::predict(const Mat* samples, Mat* results) const
     Mat *sum = new Mat( Mat::zeros(1, weights->cols, CV_32F) );
 
     for (int i = 0; i < samples->rows; i++) {
-        // Pointer to the i-th row
-        const double* p = ((Mat *)samples)->ptr<double>(i);
-        // Copy data to a vector.  Note that (p + mat.cols) points to the
-        // end of the row.
-        std::vector<double> vec(p, p + samples->cols);
-
-        vector<int> nearest;
-        vector<float> dists;
-        flann_index->knnSearch(vec, nearest, dists, 1, 0);
-
-        sum->row(1) += weights->row(nearest[0]);
+		Mat nearest;
+		Mat dists;
+        flann_index->knnSearch(samples->row(i), nearest, dists, 1, 0);
+		cout << nearest.at<int>(0,0) << endl;
+		sum->at<int>(0, nearest.at<int>(0,0))++;
     }
 
     double min, max;
