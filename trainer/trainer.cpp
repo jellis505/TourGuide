@@ -62,8 +62,6 @@ int read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<str
 	for (it = vec.begin(); it != vec.end() ; ++it) {
 		if (isHidden(*it) || !is_directory(*it))
 			continue;
-		if (counter_to_break_2 == 4)
-			break;
 		counter_to_break_2++;
 		// Get the name of this image within the filepath
 		cout << (*it).string() << endl;
@@ -151,7 +149,7 @@ int main (int argc, char *argv[])
 		{
 			features_img_labels.push_back(labels[j]);
 		}
-		cout << "Finished Feature: " << j << " of " << features.size() << endl;
+		cout << "Finished Image: " << j << " of " << features.size() << endl;
 	} 
 	
 	//Set up the Vocab Tree Trainer
