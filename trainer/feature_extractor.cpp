@@ -11,13 +11,9 @@ void FeatureExtractor::extract_features_batch(vector<Mat> &images, vector<Mat> &
 
 void FeatureExtractor::extract_features(Mat &image, Mat &feature_descriptors) {
     vector<KeyPoint> keypoints;
-    imshow("hey", image);
-    cout << "detecting features" << endl;
     detector->detect(image, keypoints);
-    cout << "extracting features" << endl;
     extractor->compute(image, keypoints, feature_descriptors);
-    cout << "outputting features over image" << endl;
-    display_features(image, keypoints, feature_descriptors);
+//    display_features(image, keypoints, feature_descriptors);
 };
 
 void FeatureExtractor::display_features(Mat &image, vector<KeyPoint> &keypoints, Mat &feature_descriptors) {
