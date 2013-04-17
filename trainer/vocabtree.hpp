@@ -13,30 +13,31 @@
 
 /* This structure is... */
 
-class CvVocabTree : public CvStatModel
+class CvVocabTree
 {
 public:
     CvVocabTree();
     ~CvVocabTree();
 
-    CvVocabTree( const CvMat* trainData, const CvMat* responses,
-		const std::vector<int> labels,
-        const CvMat* varIdx=0, const CvMat* sampleIdx=0,
-        const int branch_factor=4, const int depth=3 );
+    CvVocabTree(const cv::Mat* trainData, const std::vector<int> _labels,
+                const int _nr_unique_labels, const int _branch_factor,
+                const int _depth);
 
-    virtual bool train( const CvMat* trainData, const CvMat* responses,
-        std::vector<int> labels, const CvMat* varIdx=0, const CvMat* sampleIdx=0, bool update=false );
 
-    virtual float predict( const CvMat* samples, CV_OUT CvMat* results=0 ) const;
+    virtual bool train(const cv::Mat* _train_data,
+                       const std::vector<int>& labels,
+                       const int _nr_unique_labels);
+
+    virtual float predict(const cv::Mat* samples, cv::Mat* results=0) const;
     virtual void clear();
 
-    virtual void write( CvFileStorage* storage, const char* name ) const;
-    virtual void read( CvFileStorage* storage, CvFileNode* node );
+    virtual void write(CvFileStorage* storage, const char* name) const;
+    virtual void read(CvFileStorage* storage, CvFileNode* node);
 
 protected:
-    CvMat*                      cls_labels;
-    cv::flann::Index_<CvMat*>*  flann_index;
-    CvMat*                      weights;
+    cv::Mat* cls_labels;
+    cv::flann::Index* flann_index;
+    cv::Mat* weights;
     int branch_factor;
     int depth;
 	std::vector<int> labels;
