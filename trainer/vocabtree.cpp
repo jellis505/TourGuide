@@ -53,8 +53,35 @@
 using namespace std;
 using namespace cv;
 
-// Function Declarations
-void TF_IDF(const Mat &raw_counts, vector<double> &TF_IDF_weights);
+void _TF_IDF(const Mat &raw_counts, vector<float> &TF_IDF_weights)
+{
+	// This function calculates the TF_IDF score for each value and each hit of the matrix
+	// Mat raw counts is the matrix that contains
+	// The raw counts should be a CV_32F matrix of dim. nr_classes x nr_words.
+	// The TF_IDF_weights are the weights of the each respective codeword in the algorithm,
+	// and these are computed by w_i = ln(N/Ni), where N is the number of images, and Ni is the number
+	// of images that contain at least one example of codeword i
+
+	float nr_images = raw_counts.rows;
+	float nr_feats = raw_counts.cols;
+	float N_i;
+	float weight;
+	for (int i = 0; i < nr_feats; i++) {
+		// Set the counts to 0
+		N_i = 1; 	// This is one to eliminate dividing by 0 in the weighting scheme
+		weight = 0;
+		// This goes through one whole column and counts the number of values that
+		for (int j = 0; j < nr_images; j++) {
+			// If this image had this codeword within it add increment our counter
+			if (raw_counts.at<float>(j,i) > 0) {
+				N_i++;
+			}
+		}
+		// Now calculate the weight of this leaf node using the weighting scheme described above
+		weight = log(nr_images/N_i);
+		TF_IDF_weights.push_back(weight);
+	}
+}
 
 CvVocabTree::CvVocabTree()
 {
@@ -87,122 +114,100 @@ CvVocabTree::CvVocabTree(
 }
 
 
-bool CvVocabTree::train(const Mat* _train_data,
-                        const vector<int>& labels, const int _nr_unique_labels)
+bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels,
+                        const int _nr_unique_labels)
 {
-    // Generate words by running (k^l)-means
+    nr_classes = _nr_unique_labels;
+
+    // Generate words by running (k^l)-means.
     Mat means;
     int max_iterations = 10;
     TermCriteria criteria(TermCriteria::EPS, 1, 200);
     int attempts = 1;
-    int nr_means = pow((double)branch_factor, depth);
+    nr_words = pow((float)branch_factor, depth);
     Mat cluster_labels;
-	cout << "The number of means" << nr_means << endl;
-	cout << "The number of rows" << _train_data->rows << endl;
-	cout << "The number of cols" << _train_data->cols << endl;
 	
-    double compactness = kmeans(*_train_data, nr_means, cluster_labels,
-                                criteria, attempts, KMEANS_PP_CENTERS, means);
+    kmeans(*_train_data, nr_words, cluster_labels, criteria, attempts,
+           KMEANS_PP_CENTERS, means);
 
-								cout << "Got out of kmeans code" << endl;
-								
-    // Construct flann index with means
+    // Construct kd-tree of words (means).
     cvflann::flann_centers_init_t centers_init = cvflann::CENTERS_KMEANSPP;
     float cluster_boundary_index = 0.2;
-    flann::KMeansIndexParams indexParams(branch_factor,
-                                         depth, centers_init,
+    flann::KMeansIndexParams indexParams(branch_factor, depth, centers_init,
                                          cluster_boundary_index);
 	
-    flann_index = new flann::Index(means, indexParams);
-	cout << "Got out of the Flann Shit" << endl;
+    word_tree = new flann::Index(means, indexParams);
+    
+	cout << "Constructed kd-tree of words." << endl;
 
-    // Generate weights matrix of size num(train_data) x num(means)
-    Mat *new_weights = new Mat( Mat::zeros(_nr_unique_labels,
-                                                   means.rows,
-                                                   CV_32F) );
-
-    for (int i = 0; i < _train_data->rows; i++) 
-	{
+    // Generate word occurence histograms for each class.
+    // Each row of class_counts is a histogram with nr_words columns.
+    Mat class_counts = Mat::zeros(_nr_unique_labels, nr_words, CV_32F);
+    for (int i = 0; i < _train_data->rows; i++) {
 		Mat nearest;
 		Mat dists;
-        flann_index->knnSearch(_train_data->row(i), nearest, dists, 1, flann::SearchParams(1));
-        new_weights->at<int>(labels[i], nearest.at<int>(0,0))++;
-		cout << "this is the new value for row: " << labels[i] << " and col: " << nearest.at<int>(0,0) << endl;
-		cout << new_weights->at<int>(labels[i],nearest.at<int>(0,0)) << endl;
-		
+        word_tree->knnSearch(_train_data->row(i), nearest, dists, 1,
+                               flann::SearchParams(1));
+        class_counts.at<float>(labels[i], nearest.at<int>(0,0))++;
     }
-	Mat tmp;
-    weights = new_weights;
-	weights->row(5).copyTo(tmp);
-	cout << "Now we have this mat: " << endl;
-	cout << tmp << endl;
-	
-	// This section of the code creates weights for the TF-IDF documentiaton work
-    Mat *image_vec_counts = new Mat( Mat::zeros(_nr_unique_labels,
-                                                   means.rows,
-                                                   CV_32F) );
-	
-	// This section of the code will return the list of images that have each of the values 
-	for (int j = 0; j < _train_data->rows; j++) 
-	{
-		Mat nearest;
-		Mat dists;
-        flann_index->knnSearch(_train_data->row(j), nearest, dists, 1, flann::SearchParams(64));
-		// Now increment this point with this image
-		image_vec_counts->at<int>(labels[j],nearest.at<int>(0,0))++;
-	}
-	
-	// This portion calculates the TF_IDF weighting scheme
-	vector<double> TF_IDF_weights;
 
-	TF_IDF(*image_vec_counts, TF_IDF_weights);
-	
-	
-    Mat tf_idf(TF_IDF_weights);
-	tf_idf = tf_idf.t();
-	
-	// normalize the weights row 
-	// This is breaking because when we take weights->row(i) the row that we get back is junk.
-	// When accessing the values with the ->at<int> structure we get the write answer, but otherwise it break
-	
-	double Norm_Factor;
+	vector<float> TF_IDF_weights;
+	_TF_IDF(class_counts, TF_IDF_weights);
+
+    Mat tf_idf_weights_t(TF_IDF_weights);
+    tf_idf_weights = new Mat(tf_idf_weights_t.t());
+
+	// Normalize class_counts.
+	float norm_factor;
 	Scalar sum_val;
-	double desired_sum = 1000;
-	for (int i = 0; i <weights->rows; i++)
-	{
-		sum_val = sum(weights->row(i));
-		Norm_Factor = desired_sum/sum_val[0];
-		weights->row(i) = (weights->row(i)) * Norm_Factor;
+	float desired_sum = 1000;
+	for (int i = 0; i < nr_classes; i++) {
+		sum_val = sum(class_counts.row(i));
+		norm_factor = desired_sum / sum_val[0];
+		class_counts.row(i) = class_counts.row(i) * norm_factor;
 	}
-	cout << "Finished Normalization: YES!" << endl;
-	
-	for (int i = 0; i < weights->rows; i++) 
-	{
-		for (int j = 0; j < weights->cols; j++ )
-		{
-			weights->at<float>(i,j) = weights->at<float>(i,j) * tf_idf.at<double>(0,j);
-		}
+
+    cout << "normalized" << endl;
+
+    // Multiply each row of the counts matrix by the tf_idf weights.
+	for (int i = 0; i < class_counts.rows; i++) {
+        class_counts.row(i) = class_counts.row(i).mul(tf_idf_weights->row(0));
     }
+
+    // Construct a kd-tree for running knn on the classes.
+    class_tree = new flann::Index(class_counts, indexParams);
+
     return true;
 }
 
-float CvVocabTree::predict(const Mat* samples, Mat* results) const
+int CvVocabTree::predict(const Mat* samples, Mat* results) const
 {
-    Mat *sum = new Mat( Mat::zeros(1, weights->cols, CV_32F) );
-
+    // Construct a histogram of word occurences.
+    Mat counts = Mat::zeros(1, nr_words, CV_32F);
     for (int i = 0; i < samples->rows; i++) {
 		Mat nearest;
 		Mat dists;
-        flann_index->knnSearch(samples->row(i), nearest, dists, 1, 0);
-		sum->at<int>(0, nearest.at<int>(0,0))++;
+        word_tree->knnSearch(samples->row(i), nearest, dists, 1, 0);
+        counts.at<float>(0, nearest.at<int>(0,0))++;
     }
+    
+	// Normalize the histogram.
+	float norm_factor;
+	Scalar sum_val;
+	float desired_sum = 1000;
+    sum_val = sum(counts);
+    norm_factor = desired_sum / sum_val[0];
+    counts = counts * norm_factor;
 
-    double min, max;
-    int minInd, maxInd;
-    minMaxIdx(*sum, &min, &max, &minInd, &maxInd, Mat());
+    // Multiply by the tf_idf weights.
+    counts = counts.mul(tf_idf_weights->row(0));
 
     // Run flann, return the label based on the weights matrix.
-    return maxInd;
+    Mat nearest;
+    Mat dists;
+    class_tree->knnSearch(counts, nearest, dists, 1, flann::SearchParams(1));
+
+    return nearest.at<int>(0,0);
 }
 
 
@@ -213,40 +218,6 @@ void CvVocabTree::write( CvFileStorage* fs, const char* name ) const
 
 void CvVocabTree::read( CvFileStorage* fs, CvFileNode* root_node )
 {
-}
-
-// Functions -- Not in the class header file
-void TF_IDF(const Mat &raw_counts, vector<double> &TF_IDF_weights)
-{
-	// This function calculates the TF_IDF score for each value and each hit of the matrix
-	// Mat raw counts is the matrix that contains
-	// The raw counts file should be a matrix of dim. #ofimages x #ofcodewords
-	// The TF_IDF_weights are the weights of the each respective codeword in the algorithm,
-	// and these are computed by w_i = ln(N/Ni), where N is the number of images, and Ni is the number
-	// of images that contain at least one example of codeword i
-	
-	int num_of_images = raw_counts.rows;
-	int num_of_feats = raw_counts.cols;
-	int N_i;
-	double weight;
-	for (int i = 0; i < num_of_feats; i++) {
-		// Set the counts to 0
-		N_i = 1; 	// This is one to eliminate dividing by 0 in the weighting scheme
-		weight = 0;
-		// This goes through one whole column and counts the number of values that 
-		for (int j = 0; j < num_of_images; j++) {
-			// If this image had this codeword within it add increment our counter 
-			if (raw_counts.at<int>(j,i) > 0) {
-				N_i++;
-			}
-		}
-		// Now calculate the weight of this leaf node using the weighting scheme described above
-		weight = log(num_of_images/N_i);
-		TF_IDF_weights.push_back(weight);
-		
-	} 
-	
-	
 }
 
 
