@@ -50,6 +50,7 @@ int main (int argc, char *argv[])
   /* main loop for testing */
   for (int i = 0; i < number_of_tests; ++i) {
     int random_index = rand() % images.size();
+
     /* extract a random image, along with its name and label */
     Mat image = images[random_index];
     int label = labels[random_index];
@@ -57,7 +58,7 @@ int main (int argc, char *argv[])
 
     cout << "Testing " << name << " against training set" << endl;
 
-    /* remove items from theri respective vectors */
+    /* remove items from their respective vectors */
     images.erase(images.begin() + random_index);
     labels.erase(labels.begin() + random_index);
     names.erase(names.begin() + random_index);
@@ -80,8 +81,23 @@ int main (int argc, char *argv[])
         features_img_labels.push_back(labels[j]);
       }
       cout << "Finished Image: " << j << " of " << features.size() << endl;
-    } 
-  
+    }
+
+    cout << "Training vocab tree..." << endl;
+
+    //Set up the Vocab Tree Trainer
+    CvVocabTree *vocab_tree = new CvVocabTree();
+    vocab_tree->train(&train_data, features_img_labels, images.size());
+    Mat* results;
+
+
+    cout << "\"Predicting\" (on images I should know)..." << endl;
+    cout << "image 0 is image..." << vocab_tree->predict(&features[0], results) << endl;
+    cout << "image 1 is image..." << vocab_tree->predict(&features[1], results) << endl;
+    cout << "image 2 is image..." << vocab_tree->predict(&features[2], results) << endl;
+    cout << "image 3 is image..." << vocab_tree->predict(&features[3], results) << endl;
+    cout << "image 4 is image..." << vocab_tree->predict(&features[4], results) << endl;
+    cout << "image 5 is image..." << vocab_tree->predict(&features[5], results) << endl;     
   }
 
 }

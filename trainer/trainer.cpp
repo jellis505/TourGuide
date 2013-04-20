@@ -19,11 +19,15 @@
 
 #include <boost/filesystem.hpp>
 
+#include <algorithm>
+
+
 #define FRAMES 2
 
 using namespace std;
 using namespace boost::filesystem;
 using namespace cv;
+
 
 int main (int argc, char *argv[])
 {
@@ -43,38 +47,45 @@ int main (int argc, char *argv[])
 
 	vector<Mat> images;
 	vector<int> labels;
-	vector<string> Names;
+	vector<string> names;
     FeatureExtractor *featureExtractor = new FeatureExtractor();
 
-	int nr_class = FileUtils::read_images(argv[1], images, labels, Names);
-
-    cout << "count: " << labels.size() << endl;
-	cout << "nr_class: " << nr_class << endl;
-	cout << "Size of Names: " << Names.size() << endl;
-	cout << "number of images: " << images.size() << endl;
+	int nr_class = FileUtils::read_images(argv[1], images, labels, names);
+	cout << "Number of images: " << images.size() << endl;
+	cout << "Number of buildings: " << nr_class << endl;
 
 	// Extract the features in batch mode for the pictures available
+    cout << "Extracting features..." << endl;
 	vector<Mat> features;
     featureExtractor->extract_features_batch(images, features);
-	
+
 	// Concatenate the vector of Mats into a big Mat file
-	cout << "We just got out of the extract features batch code" << endl;
 	Mat train_data;
 	vector<int> features_img_labels;
 	int features_size;
-	for (int j = 0; j < features.size(); j++)
-	{
+	for (int j = 0; j < features.size(); j++) {
 		train_data.push_back(features[j]);
 		features_size = features[j].rows;
-		for (int i = 0; i < features_size; i++)
-		{
-			features_img_labels.push_back(labels[j]);
+		for (int i = 0; i < features_size; i++) {
+			features_img_labels.push_back(j);
 		}
-		cout << "Finished Image: " << j << " of " << features.size() << endl;
 	} 
-	
+
+    cout << "Extracted " << train_data.rows << " features." << endl;
+
+    cout << "Training vocab tree..." << endl;
 	//Set up the Vocab Tree Trainer
-	CvVocabTree *cvVocabtree = new CvVocabTree();
-	
+	CvVocabTree *vocab_tree = new CvVocabTree();
+	vocab_tree->train(&train_data, features_img_labels, images.size());
+	Mat* results;
+
+    cout << "\"Predicting\" (on images I should know)..." << endl;
+	cout << "image 0 is image..." << vocab_tree->predict(&features[0], results) << endl;
+	cout << "image 1 is image..." << vocab_tree->predict(&features[1], results) << endl;
+	cout << "image 2 is image..." << vocab_tree->predict(&features[2], results) << endl;
+	cout << "image 3 is image..." << vocab_tree->predict(&features[3], results) << endl;
+	cout << "image 4 is image..." << vocab_tree->predict(&features[4], results) << endl;
+	cout << "image 5 is image..." << vocab_tree->predict(&features[5], results) << endl;
+
 	return 0;
 }

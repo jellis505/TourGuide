@@ -17,7 +17,7 @@ class FeatureExtractor
 	public:
 		FeatureExtractor() 
 		{
-            detector = FeatureDetector::create("Dense");
+            detector = FeatureDetector::create("STAR");
             extractor = new SiftDescriptorExtractor();
 		}
         ~FeatureExtractor() {};

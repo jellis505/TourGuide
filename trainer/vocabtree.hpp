@@ -28,16 +28,18 @@ public:
                        const std::vector<int>& labels,
                        const int _nr_unique_labels);
 
-    virtual float predict(const cv::Mat* samples, cv::Mat* results=0) const;
+    virtual int predict(const cv::Mat* samples, cv::Mat* results=0) const;
     virtual void clear();
 
     virtual void write(CvFileStorage* storage, const char* name) const;
     virtual void read(CvFileStorage* storage, CvFileNode* node);
 
 protected:
-    cv::Mat* cls_labels;
-    cv::flann::Index* flann_index;
-    cv::Mat* weights;
+    cv::flann::Index* word_tree;
+    int nr_words;
+    cv::flann::Index* class_tree;
+    int nr_classes;
+    cv::Mat *tf_idf_weights;
     int branch_factor;
     int depth;
 	std::vector<int> labels;

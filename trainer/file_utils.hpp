@@ -12,11 +12,11 @@ using namespace boost::filesystem;
 
 class FileUtils {
 	public:
-	static bool isHidden(const path &);
+	static bool is_hidden(const path &);
 	static int read_images(char *, vector<Mat> &, vector<int> &, vector<string> &);
 };
 
-bool FileUtils::isHidden(const path &p)
+bool FileUtils::is_hidden(const path &p)
 {
 	string name = boost::filesystem::basename(p);
 	
@@ -27,9 +27,9 @@ bool FileUtils::isHidden(const path &p)
     }
 
     return false;
-};
+}
 
-int FileUtils::read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<string> &Names)
+int FileUtils::read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<string> &names)
 {
 	path p(root);
 
@@ -49,11 +49,9 @@ int FileUtils::read_images(char *root, vector<Mat> &images, vector<int> &labels,
 	string picname;
 	string slash = "/";
 	
-	int counter_to_break_2 = 0;
 	for (it = vec.begin(); it != vec.end() ; ++it) {
-		if (isHidden(*it) || !is_directory(*it))
+		if (is_hidden(*it) || !is_directory(*it))
 			continue;
-		counter_to_break_2++;
 		// Get the name of this image within the filepath
 		cout << (*it).string() << endl;
 		str = (*it).string();
@@ -67,28 +65,26 @@ int FileUtils::read_images(char *root, vector<Mat> &images, vector<int> &labels,
 		copy(directory_iterator(*it), directory_iterator(), back_inserter(vec2));
 
 		vector<path>::const_iterator it2;
-		int counter_to_break = 0;
 		for (it2 = vec2.begin(); it2 != vec2.end(); ++it2) {
-			if (isHidden(*it2))
+			if (is_hidden(*it2))
 				continue;
-			if (counter_to_break == 1){
-				counter_to_break = 0;
-				break;
-			}
-			counter_to_break++;
-			
+
 			// This fuction reads in the color image	
 			Mat im = imread( (*it2).string(), CV_LOAD_IMAGE_GRAYSCALE);
 			
 			// This iterates through the values that we have that holds the vectors
 			images.push_back(im);
 			labels.push_back(num);
-			Names.push_back(picname);
+			names.push_back(picname);
 			
 			count++;
 		}
 		num++;
+
+        // TODO: Remove this to use more than 3 classes.
+        if (num > 2)
+            break;
 	}
 	return num;
-};
+}
 #endif
