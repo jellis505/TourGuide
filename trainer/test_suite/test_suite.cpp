@@ -1,15 +1,24 @@
+//
+//    test_suite.cpp
+//
+#include "../feature_extractor.hpp"
+#include "../vocabtree.hpp"
+#include "../file_utils.hpp"
+
 #include <stdio.h>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <cmath>
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/nonfree/features2d.hpp>
+#include <opencv2/ml/ml.hpp>
+
 #include <boost/filesystem.hpp>
 
-#include "../vocabtree.hpp"
-#include "../feature_extractor.hpp"
-#include "../ml.hpp"
-#include "../file_utils.hpp"
+#include <algorithm>
 
 using namespace std;
 using namespace boost::filesystem;
@@ -17,38 +26,37 @@ using namespace cv;
 
 int main (int argc, char *argv[])
 {
-	if (argc != 2) {
-		cerr << "usage: test_suite <image-root>" << endl;
-		return -1;
-	}
+    if (argc != 2) {
+      cerr << "usage: test_suite <image-root>" << endl;
+      return -1;
+    }
+    
+    int number_of_tests;
+    /* number of times we run this test AKA number of random images we test with */
+    if (argc == 3) {
+      number_of_tests = atoi(argv[2]);
+    } else {
+      number_of_tests = 10;
+    }
 
+    char *image_root = argv[1];
+    char *model_output = NULL;
+    char *vocab_output = NULL;
+    
+    vector<Mat> images;
+    vector<int> labels;
+    vector<string> names;
+    FeatureExtractor *featureExtractor = new FeatureExtractor();
 
-  int number_of_tests;
-  /* number of times we run this test AKA number of random images we test with */
-  if (argc == 3) {
-    number_of_tests = atoi(argv[2]);
-  } else {
-    number_of_tests = 10;
-  }
+    /* load in images */
+    int nr_class = FileUtils::read_images(argv[1], images, labels, names);
 
-  char *image_root = argv[1];
-  char *model_output = NULL;
-  char *vocab_output = NULL;
+    /* take one image out of the set randomly and test it against the training set */
 
-	vector<Mat> images;
-	vector<int> labels;
-	vector<string> names;
-  FeatureExtractor *featureExtractor = new FeatureExtractor();
+    vector<string> images_used; /* keep track of images we used so we don't repeat */
 
-  /* load in images */
-  int nr_class = FileUtils::read_images(argv[1], images, labels, names);
-
-  /* take one image out of the set randomly and test it against the training set */
-
-  vector<string> images_used; /* keep track of images we used so we don't repeat */
-
-  /* main loop for testing */
-  for (int i = 0; i < number_of_tests; ++i) {
+    /* main loop for testing */
+    for (int i = 0; i < number_of_tests; ++i) {
     int random_index = rand() % images.size();
 
     /* extract a random image, along with its name and label */
@@ -90,7 +98,7 @@ int main (int argc, char *argv[])
     vocab_tree->train(&train_data, features_img_labels, images.size());
     Mat* results;
 
-
+    
     cout << "\"Predicting\" (on images I should know)..." << endl;
     cout << "image 0 is image..." << vocab_tree->predict(&features[0], results) << endl;
     cout << "image 1 is image..." << vocab_tree->predict(&features[1], results) << endl;
@@ -99,5 +107,4 @@ int main (int argc, char *argv[])
     cout << "image 4 is image..." << vocab_tree->predict(&features[4], results) << endl;
     cout << "image 5 is image..." << vocab_tree->predict(&features[5], results) << endl;     
   }
-
 }
