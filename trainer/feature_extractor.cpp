@@ -1,4 +1,4 @@
-#include "feature_extractor.h"
+#include "feature_extractor.hpp"
 
 void FeatureExtractor::extract_features_batch(vector<Mat> &images, vector<Mat> &feature_descriptors) {
     int number_of_images = images.size();

@@ -3,6 +3,9 @@
 //  
 //
 //
+#include "feature_extractor.hpp"
+#include "vocabtree.hpp"
+#include "file_utils.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -15,92 +18,12 @@
 #include <opencv2/ml/ml.hpp>
 
 #include <boost/filesystem.hpp>
-#include "feature_extractor.h"
-#include "vocabtree.hpp"
 
 #define FRAMES 2
 
 using namespace std;
 using namespace boost::filesystem;
 using namespace cv;
-
-
-bool isHidden(const path &p)
-{
-	string name = boost::filesystem::basename(p);
-	
-    if(name != ".." &&
-       name != "."  &&
-       (name[0] == '.' || name == "")) {
-		return true;
-    }
-
-    return false;
-}
-
-int read_images(char *root, vector<Mat> &images, vector<int> &labels, vector<string> &Names)
-{
-	path p(root);
-
-	if ( !exists( p ) ) return -1;
-	if ( !is_directory( p ) ) return -1;
-
-	vector<path> vec;
-	
-	copy(directory_iterator(p), directory_iterator(), back_inserter(vec));
-
-	vector<path>::const_iterator it;
-	
-	int num = 0;
-	int count = 0;
-	int stringlength, found_char, namelength;
-	string str;
-	string picname;
-	string slash = "/";
-	
-	int counter_to_break_2 = 0;
-	for (it = vec.begin(); it != vec.end() ; ++it) {
-		if (isHidden(*it) || !is_directory(*it))
-			continue;
-		counter_to_break_2++;
-		// Get the name of this image within the filepath
-		cout << (*it).string() << endl;
-		str = (*it).string();
-		stringlength = str.size();
-		found_char = str.rfind(slash);
-		namelength = stringlength-found_char;
-		picname = str.substr(found_char+1,namelength);
-		
-		vector<path> vec2;
-
-		copy(directory_iterator(*it), directory_iterator(), back_inserter(vec2));
-
-		vector<path>::const_iterator it2;
-		int counter_to_break = 0;
-		for (it2 = vec2.begin(); it2 != vec2.end(); ++it2) {
-			if (isHidden(*it2))
-				continue;
-			if (counter_to_break == 1){
-				counter_to_break = 0;
-				break;
-			}
-			counter_to_break++;
-			
-			// This fuction reads in the color image	
-			Mat im = imread( (*it2).string(), CV_LOAD_IMAGE_GRAYSCALE);
-			
-			// This iterates through the values that we have that holds the vectors
-			images.push_back(im);
-			labels.push_back(num);
-			Names.push_back(picname);
-			
-			count++;
-		}
-		num++;
-	}
-	return num;
-}
-
 
 int main (int argc, char *argv[])
 {
@@ -123,14 +46,12 @@ int main (int argc, char *argv[])
 	vector<string> Names;
     FeatureExtractor *featureExtractor = new FeatureExtractor();
 
-	int nr_class = read_images(argv[1], images, labels, Names);
+	int nr_class = FileUtils::read_images(argv[1], images, labels, Names);
 
     cout << "count: " << labels.size() << endl;
 	cout << "nr_class: " << nr_class << endl;
 	cout << "Size of Names: " << Names.size() << endl;
 	cout << "number of images: " << images.size() << endl;
-
-    Mat cv_labels(labels.size(), 1, CV_32SC1, &labels[0]);
 
 	// Extract the features in batch mode for the pictures available
 	vector<Mat> features;
@@ -155,15 +76,5 @@ int main (int argc, char *argv[])
 	//Set up the Vocab Tree Trainer
 	CvVocabTree *cvVocabtree = new CvVocabTree();
 	
-	
- //    if (model_output) {
- //        cout << "Creating model and vocab..." << endl;
- //        classifier.train_bow(images, cv_labels);
- //        classifier.save_with_bow(model_output, vocab_output);
- //    } else {
- //        cout << "Performing cross validation..." << endl;
- //        cout << classifier.cross_validate_bow(images, cv_labels) << endl;
-	// }
-
 	return 0;
 }
