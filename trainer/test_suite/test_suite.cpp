@@ -60,7 +60,7 @@ int main (int argc, char *argv[])
 
     /* main loop for testing */
     for (int i = 0; i < 10; ++i) {
-        vector<Mat> test_images;
+        vector <Mat> test_images;
         vector<int> test_labels;
         vector<string> test_names;
 
@@ -77,11 +77,10 @@ int main (int argc, char *argv[])
         /* remove items from their respective vectors */
         j = j - steps;
         for (; j >= 0; j -= steps) {
-
             images.erase(images.begin() + j);
             labels.erase(labels.begin() + j);
             names.erase(names.begin() + j);
-        }   
+        }
 
         /* now build all the features with remainder of images */
         vector<Mat> training_features;
@@ -112,14 +111,15 @@ int main (int argc, char *argv[])
         CvVocabTree *vocab_tree = new CvVocabTree();
         vocab_tree->train(&train_data, features_img_labels, images.size());
         Mat* results;
-
         int num_test_images = test_images.size();
-        for (int i = 0; i < num_test_images; i++) {
+	int i = 0;
+	for (; i < num_test_images; i++) {
             cout << "\"Predicting\" (on images I should know)..." << endl;
-            cout << "image " << test_labels[i] << " is image... " << labels[vocab_tree->predict(&test_features[i], results)] << endl;
+            cout << "image " << test_labels[i] << " is image... " 
+		 << vocab_tree->predict(&test_features[i], results) << endl;
         }
-
-        for (j = i; j < num_images; j += steps) {
+	j = i;
+        for (; j < num_images; j += steps) {
             images.insert(images.begin() + j, test_images[ j / steps]);
             labels.insert(labels.begin() + j, test_labels[j / steps]);
             names.insert(names.begin() + j, test_names[j / steps]);

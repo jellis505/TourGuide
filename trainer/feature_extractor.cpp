@@ -1,6 +1,7 @@
 #include "feature_extractor.hpp"
 
-void FeatureExtractor::extract_features_batch(vector<Mat> &images, vector<Mat> &feature_descriptors) {
+void FeatureExtractor::extract_features_batch(vector<Mat> &images, 
+					      vector<Mat> &feature_descriptors) {
     int number_of_images = images.size();
     for (int i = 0; i < number_of_images; i++) {
         Mat descriptors;
@@ -13,10 +14,11 @@ void FeatureExtractor::extract_features(Mat &image, Mat &feature_descriptors) {
     vector<KeyPoint> keypoints;
     detector->detect(image, keypoints);
     extractor->compute(image, keypoints, feature_descriptors);
-//    display_features(image, keypoints, feature_descriptors);
+    // display_features(image, keypoints, feature_descriptors);
 };
 
-void FeatureExtractor::display_features(Mat &image, vector<KeyPoint> &keypoints, Mat &feature_descriptors) {
+void FeatureExtractor::display_features(Mat &image, vector<KeyPoint> &keypoints, 
+					Mat &feature_descriptors) {
     int number_of_keypoints = keypoints.size();
     for (int i = 0; i < number_of_keypoints; i++) {
         circle(image, keypoints[i].pt, keypoints[i].size, Scalar(12,143,50));
