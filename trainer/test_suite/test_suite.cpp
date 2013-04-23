@@ -50,8 +50,8 @@ int main (int argc, char *argv[])
     cout << "Number of images: " << images.size() << endl;
     cout << "Number of buildings: " << nr_class << endl;
 
-    float current_accuracy = 1.0 //update on each round.
-    int round = 1.0;
+    float current_accuracy = 1.0; //update on each round.
+    float round = 0.0;
       
     while(1){ // this goes on forever for now; updating to a deterministic system soon
       
@@ -97,8 +97,10 @@ int main (int argc, char *argv[])
     cout << "image " << k << " is image..." << result << endl;
     cout << "reported label " << labels[result] << ", was actually " << test_label << endl;
 
-    round_success = labels[result] == test_label ? 1.0 : 0.0;
+    float round_success = labels[result] == test_label ? 1.0 : 0.0;
     current_accuracy = ((round - 1) * current_accuracy + round_success)/round;
+
+    cout << "accuracy so far: " << current_accuracy << endl;
 
     labels.insert(labels.begin() + k, test_label);
     names.insert(names.begin() + k, test_name);
