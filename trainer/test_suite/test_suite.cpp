@@ -1,5 +1,5 @@
 //
-//    trainer.cpp
+//    test_suite.cpp
 //  
 #include "../feature_extractor.hpp"
 #include "../vocabtree.hpp"
@@ -18,7 +18,6 @@
 #include <boost/filesystem.hpp>
 
 #include <algorithm>
-
 
 #define FRAMES 2
 
@@ -51,8 +50,12 @@ int main (int argc, char *argv[])
     cout << "Number of images: " << images.size() << endl;
     cout << "Number of buildings: " << nr_class << endl;
 
-    while(1){
-
+    float current_accuracy = 1.0 //update on each round.
+    int round = 1.0;
+      
+    while(1){ // this goes on forever for now; updating to a deterministic system soon
+      
+    round = round + 1.0;
     int k = rand() % images.size(); // random image
 
     int test_label = labels[k];
@@ -92,7 +95,10 @@ int main (int argc, char *argv[])
     cout << "\"Predicting\" ..." << endl;
     int result = vocab_tree->predict(&test_features, results);
     cout << "image " << k << " is image..." << result << endl;
-    cout << "reported label " << labels[k] << ", was actually " << test_label << endl;
+    cout << "reported label " << labels[result] << ", was actually " << test_label << endl;
+
+    round_success = labels[result] == test_label ? 1.0 : 0.0;
+    current_accuracy = ((round - 1) * current_accuracy + round_success)/round;
 
     labels.insert(labels.begin() + k, test_label);
     names.insert(names.begin() + k, test_name);
