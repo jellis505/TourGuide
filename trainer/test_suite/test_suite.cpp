@@ -1,9 +1,9 @@
 //
 //    trainer.cpp
 //  
-#include "feature_extractor.hpp"
-#include "vocabtree.hpp"
-#include "file_utils.hpp"
+#include "../feature_extractor.hpp"
+#include "../vocabtree.hpp"
+#include "../file_utils.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -28,8 +28,6 @@ using namespace cv;
 
 int main (int argc, char *argv[])
 {
-    cout << "Entered main loop." << endl;
-
     if (argc != 2 && argc != 4) {
       cerr << "usage: trainer <image-root> [model-output vocab-output]" << endl;
       return -1;
@@ -53,19 +51,18 @@ int main (int argc, char *argv[])
     cout << "Number of images: " << images.size() << endl;
     cout << "Number of buildings: " << nr_class << endl;
 
-    cout << "getting images" << endl;
-    int test_label = labels[8];
-    cout << "got label" << endl;
-    string test_name = names[8];
-    Mat test_image = images[8];
-    cout << "erasing images" << endl;
-    images.erase(images.begin() + 8);
-    labels.erase(labels.begin() + 8);
-    names.erase(names.begin() + 8);
-    cout << "getting features" << endl;
+    while(1){
+
+    int k = rand() % images.size(); // random image
+
+    int test_label = labels[k];
+    string test_name = names[k];
+    Mat test_image = images[k];
+    images.erase(images.begin() + k);
+    labels.erase(labels.begin() + k);
+    names.erase(names.begin() + k);
     Mat test_features;
     featureExtractor->extract_features(test_image, test_features);
-    cout << "done" << endl;
 
     // Extract the features in batch mode for the pictures available
     cout << "Extracting features..." << endl;
@@ -93,7 +90,14 @@ int main (int argc, char *argv[])
     Mat* results;
 
     cout << "\"Predicting\" ..." << endl;
-    cout << "image 4 is image..." << vocab_tree->predict(&test_features, results) << endl;
+    int result = vocab_tree->predict(&test_features, results);
+    cout << "image " << k << " is image..." << result << endl;
+    cout << "reported label " << labels[k] << ", was actually " << test_label << endl;
+
+    labels.insert(labels.begin() + k, test_label);
+    names.insert(names.begin() + k, test_name);
+    images.insert(images.begin() + k, test_image);
+    }
     
     return 0;
 }
