@@ -33,7 +33,7 @@ int rand_gen (int i){
 int main (int argc, char *argv[])
 {
     if (argc != 2 && argc != 4) {
-      cerr << "usage: trainer <image-root> [model-output vocab-output]" << endl;
+      cerr << "usage: test_suite <image-root> [model-output vocab-output]" << endl;
       return -1;
     }
     char *image_root = argv[1];
@@ -52,6 +52,22 @@ int main (int argc, char *argv[])
     int nr_class = FileUtils::read_images(argv[1], images, labels, names);
     cout << "Number of images: " << images.size() << endl;
     cout << "Number of buildings: " << nr_class << endl;
+	cout << "Number of Train Images: " << num_of_test_images;
+    float current_accuracy = 1.0; //update on each round.
+    float round = 0.0;
+      
+    while(1){ // this goes on forever for now; updating to a deterministic system soon
+      
+    round = round + 1.0;
+    int k = rand() % images.size(); // random image
+    int test_label = labels[k];
+    string test_name = names[k];
+    Mat test_image = images[k];
+    images.erase(images.begin() + k);
+    labels.erase(labels.begin() + k);
+    names.erase(names.begin() + k);
+    Mat test_features;
+    featureExtractor->extract_features(test_image, test_features);
 
     // deterministically shuffling the vectors
     srand(6421);
