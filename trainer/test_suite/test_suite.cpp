@@ -20,10 +20,15 @@
 #include <algorithm>
 
 #define FRAMES 2
+#define TEST_FRACTION 10
 
 using namespace std;
 using namespace boost::filesystem;
 using namespace cv;
+
+int rand_gen (int i){
+    return (rand() % i);
+}
 
 int main (int argc, char *argv[])
 {
@@ -31,11 +36,9 @@ int main (int argc, char *argv[])
       cerr << "usage: trainer <image-root> [model-output vocab-output]" << endl;
       return -1;
     }
-
     char *image_root = argv[1];
     char *model_output = NULL;
     char *vocab_output = NULL;
-
     if (argc == 4) {
         model_output = argv[2];
         vocab_output = argv[3];
@@ -50,24 +53,28 @@ int main (int argc, char *argv[])
     cout << "Number of images: " << images.size() << endl;
     cout << "Number of buildings: " << nr_class << endl;
 
-    float current_accuracy = 1.0; //update on each round.
-    float round = 0.0;
-      
-    while(1){ // this goes on forever for now; updating to a deterministic system soon
-      
-    round = round + 1.0;
-    int k = rand() % images.size(); // random image
+    // deterministically shuffling the vectors
+    srand(6421);
+    random_shuffle(images.begin(), images.end(), rand_gen);
+    srand(6421);
+    random_shuffle(labels.begin(), labels.end(), rand_gen);
+    srand(6421);
+    random_shuffle(names.begin(), names.end(), rand_gen);
+    
+    // extract test images 
+    int test_size = images.size() / TEST_FRACTION;
+    vector<Mat> test_images(images.begin() + 0, images.begin() + test_size);
+    images.erase(images.begin() + 0, images.begin() + test_size);
+    vector<int> test_labels(labels.begin() + 0, labels.begin() + test_size);
+    labels.erase(labels.begin() + 0, labels.begin() + test_size);
+    vector<string> test_names(names.begin() + 0, names.begin() + test_size);
+    names.erase(names.begin() + 0, names.begin() + test_size);
 
-    int test_label = labels[k];
-    string test_name = names[k];
-    Mat test_image = images[k];
-    images.erase(images.begin() + k);
-    labels.erase(labels.begin() + k);
-    names.erase(names.begin() + k);
-    Mat test_features;
-    featureExtractor->extract_features(test_image, test_features);
+    // extract test features
+    vector<Mat> test_features;
+    featureExtractor->extract_features_batch(test_images, test_features);
 
-    // Extract the features in batch mode for the pictures available
+    // extract training features
     cout << "Extracting features..." << endl;
     vector<Mat> features;
     featureExtractor->extract_features_batch(images, features);
@@ -92,20 +99,17 @@ int main (int argc, char *argv[])
     vocab_tree->train(&train_data, features_img_labels, images.size());
     Mat* results;
 
-    cout << "\"Predicting\" ..." << endl;
-    int result = vocab_tree->predict(&test_features, results);
-    cout << "image " << k << " is image..." << result << endl;
-    cout << "reported label " << labels[result] << ", was actually " << test_label << endl;
-
-    float round_success = labels[result] == test_label ? 1.0 : 0.0;
-    current_accuracy = ((round - 1) * current_accuracy + round_success)/round;
-
-    cout << "accuracy so far: " << current_accuracy << endl;
-
-    labels.insert(labels.begin() + k, test_label);
-    names.insert(names.begin() + k, test_name);
-    images.insert(images.begin() + k, test_image);
+    cout << "Predicting ..." << endl;
+    
+    for(vector<int>::size_type i = 0; i != test_images.size(); i++) {
+        int result = vocab_tree->predict(&test_features[i], results);
+	cout << "image " << test_images[i] << " is image..." << result << endl;
+	cout << "reported label " << labels[result] << ", was actually " << test_labels[i] << endl;
     }
+
+    // labels.insert(labels.begin() + k, test_label);
+    // names.insert(names.begin() + k, test_name);
+    // images.insert(images.begin() + k, test_image);
     
     return 0;
 }
