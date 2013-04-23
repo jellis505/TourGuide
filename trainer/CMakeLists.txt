@@ -14,6 +14,8 @@ add_executable(
   vocabtree.cpp
 )
 
+target_link_libraries(trainer ${OpenCV_LIBS} ${Boost_LIBRARIES})
+
 add_executable(
   test_suite
   test_suite/test_suite.cpp
@@ -21,6 +23,4 @@ add_executable(
   vocabtree.cpp
 )
 
-target_link_libraries( trainer ${OpenCV_LIBS} ${Boost_LIBRARIES})
-
-target_link_libraries( test_suite ${OpenCV_LIBS} ${Boost_LIBRARIES})
+target_link_libraries(test_suite ${OpenCV_LIBS} ${Boost_LIBRARIES})
