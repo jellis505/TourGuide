@@ -21,7 +21,7 @@
 
 #define FRAMES 2
 #define TEST_FRACTION 10
-#define SHUFFLE_SEED 6421 // is a strong, beautiful prime number, who don't need no factors
+#define SHUFFLE_SEED 6421
 
 using namespace std;
 using namespace boost::filesystem;
@@ -32,16 +32,23 @@ int rand_gen (int i){
 }
 
 template <class T>
-vector<T> get_slice(vector<T>* v, int round, int slice_size){
-    int offset = round * slice_size;
-    vector<T> slice(v->begin() + offset, v->begin() + offset + slice_size);
-    v->erase(v->begin() + offset, v->begin() + offset + slice_size);
+vector<T> get_slice(vector<T>* v, int round, int total_size){
+    int slice_size = total_size / TEST_FRACTION;
+    int start_offset = round * slice_size;
+    int end_offset = start_offset + slice_size;
+    end_offset = (end_offset > total_size) ? total_size : end_offset;
+    vector<T> slice(v->begin() + start_offset, v->begin() + end_offset);
+    v->erase(v->begin() + start_offset, v->begin() + end_offset);
+    return slice;
 } 
 
 template<class T>
-void restore_slice(vector<T>* v, vector<T>* slice, int round, int slice_size){
+void restore_slice(vector<T>* v, vector<T>* slice, int round, int total_size){
+    int slice_size = total_size / TEST_FRACTION;
     int offset = round * slice_size;
-    v->insert(v->begin() + offset, slice->begin(), slice->end());
+    for(int i = 0; i < slice->size(); i++) {
+	v->insert(v->begin() + offset + i, (*slice)[i]);
+    }
 }
 
 template<class T>
@@ -81,10 +88,10 @@ int main (int argc, char *argv[])
     int test_round = 0;
     for(; test_round < TEST_FRACTION; test_round++){
         // extract test images 
-	int test_size = images.size() / TEST_FRACTION;
-	vector<Mat> test_images = get_slice(&images, test_round, test_size);
-	vector<int> test_labels = get_slice(&labels, test_round, test_size);
-	vector<string> test_names = get_slice(&names, test_round, test_size);
+	int total_size = images.size();
+	vector<Mat> test_images = get_slice(&images, test_round, total_size);
+	vector<int> test_labels = get_slice(&labels, test_round, total_size);
+	vector<string> test_names = get_slice(&names, test_round, total_size);
 
 	// extract test features
 	vector<Mat> test_features;
@@ -95,7 +102,7 @@ int main (int argc, char *argv[])
 	vector<Mat> features;
 	featureExtractor->extract_features_batch(images, features);
 
-	// Concatenate the vector of Mats into a big Mat file
+	// concatenate the vector of Mats into a big Mat file
 	Mat train_data;
 	vector<int> features_img_labels;
 	int features_size;
@@ -115,12 +122,14 @@ int main (int argc, char *argv[])
 	vocab_tree->train(&train_data, features_img_labels, images.size());
 	Mat* results;
 
-	cout << "Predicting ..." << endl;
-    
-	float num_correct = 0;
-	for(vector<int>::size_type i = 0; i != test_images.size(); i++) {
+	cout << "Predicting..." << endl;
+	float num_correct = 0.0;
+	for(int i = 0; i != test_images.size(); i++) {
+	    if(i >= test_features.size()){
+		break;
+	    }
 	    int result = vocab_tree->predict(&test_features[i], results);
-	    cout << "The predicted building was: " << labels[result] 
+	    cout << "The predicted building was: " << labels[result] << endl 
 		 << "The actual building was: " << test_labels[i]; 
 	    if (labels[result] == test_labels[i]){
 		num_correct++;
@@ -129,9 +138,9 @@ int main (int argc, char *argv[])
 	cout << "The accuracy of this calculation is: " 
 	     << num_correct/(float)test_labels.size() << endl;
 	
-	restore_slice(&images, &test_images, test_round, test_size);
-	restore_slice(&labels, &test_labels, test_round, test_size);
-	restore_slice(&names, &test_names, test_round, test_size); 
+	restore_slice(&images, &test_images, test_round, total_size);
+	restore_slice(&labels, &test_labels, test_round, total_size);
+	restore_slice(&names, &test_names, test_round, total_size); 
     }
     return 0;
 }
