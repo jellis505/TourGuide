@@ -30,6 +30,19 @@ int rand_gen (int i){
     return (rand() % i);
 }
 
+template <class T>
+vector<T> get_slice(vector<T>* v, int round, int slice_size){
+    int offset = round * slice_size;
+    vector<T> slice(v->begin() + offset, v->begin() + offset + slice_size);
+    v->erase(v->begin() + offset, v->begin() + offset + slice_size);
+} 
+
+template<class T>
+vector<T> restore_slice(vector<T>* v, vector<T>* slice, int round, int slice_size){
+    int offset = round * slice_size;
+    v->insert(v->begin() + offset, slice->begin(), slice->end());
+}
+
 int main (int argc, char *argv[])
 {
     if (argc != 2 && argc != 4) {
@@ -67,13 +80,9 @@ int main (int argc, char *argv[])
     for(; test_round < TEST_FRACTION; test_round++){
         // extract test images 
 	int test_size = images.size() / TEST_FRACTION;
-	int test_offset = test_size * test_round;
-	vector<Mat> test_images(images.begin() + test_offset, images.begin() + test_offset + test_size);
-	images.erase(images.begin() + test_offset, images.begin() + test_offset + test_size);
-	vector<int> test_labels(labels.begin() + test_offset, labels.begin() + test_offset + test_size);
-	labels.erase(labels.begin() + test_offset, labels.begin() + test_offset + test_size);
-	vector<string> test_names(names.begin() + test_offset, names.begin() + test_offset + test_size);
-	names.erase(names.begin() + test_offset, names.begin() + test_offset + test_size);
+	vector<Mat> test_images = get_slice(&images, test_round, test_size);
+	vector<int> test_labels = get_slice(&labels, test_round, test_size);
+	vector<string> test_names = get_slice(&names, test_round, test_size);
 
 	// extract test features
 	vector<Mat> test_features;
@@ -117,6 +126,10 @@ int main (int argc, char *argv[])
 	}
 	cout << "The accuracy of this calculation is: " 
 	     << num_correct/(float)test_labels.size() << endl;
+	
+	restore_slice(&images, &test_images, round, test_size);
+	restore_slice(&labels, &test_labels, round, test_size);
+	restore_slice(&names, &test_names, round, test_size); 
     }
     return 0;
 }
