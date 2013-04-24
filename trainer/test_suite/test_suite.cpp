@@ -21,6 +21,7 @@
 
 #define FRAMES 2
 #define TEST_FRACTION 10
+#define SHUFFLE_SEED 6421 // is a strong, beautiful prime number, who don't need no factors
 
 using namespace std;
 using namespace boost::filesystem;
@@ -38,9 +39,15 @@ vector<T> get_slice(vector<T>* v, int round, int slice_size){
 } 
 
 template<class T>
-vector<T> restore_slice(vector<T>* v, vector<T>* slice, int round, int slice_size){
+void restore_slice(vector<T>* v, vector<T>* slice, int round, int slice_size){
     int offset = round * slice_size;
     v->insert(v->begin() + offset, slice->begin(), slice->end());
+}
+
+template<class T>
+void deterministic_shuffle(vector<T>* v){
+    srand(SHUFFLE_SEED);
+    random_shuffle(v->begin(), v->end(), rand_gen);
 }
 
 int main (int argc, char *argv[])
@@ -65,17 +72,12 @@ int main (int argc, char *argv[])
     int nr_class = FileUtils::read_images(argv[1], images, labels, names);
     cout << "Number of images: " << images.size() << endl;
     cout << "Number of buildings: " << nr_class << endl;
-    float current_accuracy = 1.0; //update on each round.
-    float round = 0.0;
       
-    // deterministically shuffling the vectors
-    srand(6421);
-    random_shuffle(images.begin(), images.end(), rand_gen);
-    srand(6421);
-    random_shuffle(labels.begin(), labels.end(), rand_gen);
-    srand(6421);
-    random_shuffle(names.begin(), names.end(), rand_gen);
-    
+    // shuffle the vectors
+    deterministic_shuffle(&images);
+    deterministic_shuffle(&labels);
+    deterministic_shuffle(&names);
+        
     int test_round = 0;
     for(; test_round < TEST_FRACTION; test_round++){
         // extract test images 
@@ -127,9 +129,9 @@ int main (int argc, char *argv[])
 	cout << "The accuracy of this calculation is: " 
 	     << num_correct/(float)test_labels.size() << endl;
 	
-	restore_slice(&images, &test_images, round, test_size);
-	restore_slice(&labels, &test_labels, round, test_size);
-	restore_slice(&names, &test_names, round, test_size); 
+	restore_slice(&images, &test_images, test_round, test_size);
+	restore_slice(&labels, &test_labels, test_round, test_size);
+	restore_slice(&names, &test_names, test_round, test_size); 
     }
     return 0;
 }
