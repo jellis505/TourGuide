@@ -47,7 +47,12 @@ void restore_slice(vector<T>* v, vector<T>* slice, int round, int total_size){
     int slice_size = total_size / TEST_FRACTION;
     int offset = round * slice_size;
     for(int i = 0; i < slice->size(); i++) {
-	v->insert(v->begin() + offset + i, (*slice)[i]);
+	if(offset + i > total_size){
+	    v->insert(v->end(), (*slice)[i]);
+	}
+	else{
+	    v->insert(v->begin() + offset + i, (*slice)[i]);
+	}
     }
 }
 
