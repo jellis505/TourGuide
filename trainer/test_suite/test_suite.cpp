@@ -108,14 +108,18 @@ int main (int argc, char *argv[])
 	float num_correct = 0;
     for(vector<int>::size_type i = 0; i != test_images.size(); i++) {
         int result = vocab_tree->predict(&test_features[i], results);
+		cout << "The predicted building was: " << labels[result] << "The actual building was: " << test_labels[i]; 
 		if (labels[result] == test_labels[i]){
 			num_correct++;
 		} 
     }
+	
+	
+	cout << "The accuracy of this calculation is: " << num_correct/(float)test_labels.size();
+	    // labels.insert(labels.begin() + k, test_label);
+	    // names.insert(names.begin() + k, test_name);
+	    // images.insert(images.begin() + k, test_image);
 }
-    // labels.insert(labels.begin() + k, test_label);
-    // names.insert(names.begin() + k, test_name);
-    // images.insert(images.begin() + k, test_image);
     
     return 0;
 }
