@@ -52,22 +52,10 @@ int main (int argc, char *argv[])
     int nr_class = FileUtils::read_images(argv[1], images, labels, names);
     cout << "Number of images: " << images.size() << endl;
     cout << "Number of buildings: " << nr_class << endl;
-	cout << "Number of Train Images: " << num_of_test_images;
     float current_accuracy = 1.0; //update on each round.
     float round = 0.0;
       
     while(1){ // this goes on forever for now; updating to a deterministic system soon
-      
-    round = round + 1.0;
-    int k = rand() % images.size(); // random image
-    int test_label = labels[k];
-    string test_name = names[k];
-    Mat test_image = images[k];
-    images.erase(images.begin() + k);
-    labels.erase(labels.begin() + k);
-    names.erase(names.begin() + k);
-    Mat test_features;
-    featureExtractor->extract_features(test_image, test_features);
 
     // deterministically shuffling the vectors
     srand(6421);
@@ -117,15 +105,21 @@ int main (int argc, char *argv[])
 
     cout << "Predicting ..." << endl;
     
+	float num_correct = 0;
     for(vector<int>::size_type i = 0; i != test_images.size(); i++) {
         int result = vocab_tree->predict(&test_features[i], results);
-	cout << "image " << test_images[i] << " is image..." << result << endl;
-	cout << "reported label " << labels[result] << ", was actually " << test_labels[i] << endl;
+		cout << "The predicted building was: " << labels[result] << "The actual building was: " << test_labels[i]; 
+		if (labels[result] == test_labels[i]){
+			num_correct++;
+		} 
     }
-
-    // labels.insert(labels.begin() + k, test_label);
-    // names.insert(names.begin() + k, test_name);
-    // images.insert(images.begin() + k, test_image);
+	
+	
+	cout << "The accuracy of this calculation is: " << num_correct/(float)test_labels.size();
+	    // labels.insert(labels.begin() + k, test_label);
+	    // names.insert(names.begin() + k, test_name);
+	    // images.insert(images.begin() + k, test_image);
+}
     
     return 0;
 }

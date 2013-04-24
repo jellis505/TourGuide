@@ -86,7 +86,7 @@ void _TF_IDF(const Mat &raw_counts, vector<float> &TF_IDF_weights)
 CvVocabTree::CvVocabTree()
 {
 	branch_factor = 3;
-	depth = 5; 
+	depth = 6; 
     // TODO: fill this in
 }
 
