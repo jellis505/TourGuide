@@ -56,7 +56,7 @@ int main (int argc, char *argv[])
     float round = 0.0;
       
     while(1){ // this goes on forever for now; updating to a deterministic system soon
-		
+
     // deterministically shuffling the vectors
     srand(6421);
     random_shuffle(images.begin(), images.end(), rand_gen);
