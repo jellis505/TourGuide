@@ -33,7 +33,7 @@ int rand_gen (int i){
 int main (int argc, char *argv[])
 {
     if (argc != 2 && argc != 4) {
-      cerr << "usage: trainer <image-root> [model-output vocab-output]" << endl;
+      cerr << "usage: test_suite <image-root> [model-output vocab-output]" << endl;
       return -1;
     }
     char *image_root = argv[1];
@@ -52,7 +52,11 @@ int main (int argc, char *argv[])
     int nr_class = FileUtils::read_images(argv[1], images, labels, names);
     cout << "Number of images: " << images.size() << endl;
     cout << "Number of buildings: " << nr_class << endl;
-
+    float current_accuracy = 1.0; //update on each round.
+    float round = 0.0;
+      
+    while(1){ // this goes on forever for now; updating to a deterministic system soon
+		
     // deterministically shuffling the vectors
     srand(6421);
     random_shuffle(images.begin(), images.end(), rand_gen);
@@ -101,12 +105,14 @@ int main (int argc, char *argv[])
 
     cout << "Predicting ..." << endl;
     
+	float num_correct = 0;
     for(vector<int>::size_type i = 0; i != test_images.size(); i++) {
         int result = vocab_tree->predict(&test_features[i], results);
-	cout << "image " << test_images[i] << " is image..." << result << endl;
-	cout << "reported label " << labels[result] << ", was actually " << test_labels[i] << endl;
+		if (labels[result] == test_labels[i]){
+			num_correct++;
+		} 
     }
-
+}
     // labels.insert(labels.begin() + k, test_label);
     // names.insert(names.begin() + k, test_name);
     // images.insert(images.begin() + k, test_image);
