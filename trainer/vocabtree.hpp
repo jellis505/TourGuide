@@ -26,6 +26,7 @@ public:
 
     virtual bool train(const cv::Mat* _train_data,
                        const std::vector<int>& labels,
+					   const std::vector<int>& classes,
                        const int _nr_unique_labels);
 
     virtual int predict(const cv::Mat* samples, cv::Mat* results=0) const;
@@ -42,7 +43,8 @@ protected:
     cv::Mat *tf_idf_weights;
     int branch_factor;
     int depth;
-	std::vector<int> labels;
+	std::vector<int> labels;	// The sample the ith feature-vector came from.
+	std::vector<int> classes;	// The ground truth value of a ith feature-vector.
 };
 
 #endif

@@ -73,7 +73,7 @@ int main (int argc, char *argv[])
     cout << "Training vocab tree..." << endl;
     //Set up the Vocab Tree Trainer
     CvVocabTree *vocab_tree = new CvVocabTree();
-    vocab_tree->train(&train_data, features_img_labels, images.size());
+    vocab_tree->train(&train_data, features_img_labels, labels, images.size());
     Mat* results;
 
     cout << "\"Predicting\" (on images I should know)..." << endl;

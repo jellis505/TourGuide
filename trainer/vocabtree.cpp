@@ -110,19 +110,18 @@ CvVocabTree::CvVocabTree(
     branch_factor = _branch_factor;
     depth = _depth;
 
-    train( _train_data, _labels, _nr_unique_labels);
 }
 
 
-bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels,
+bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels, const vector<int>& classes,
                         const int _nr_unique_labels)
 {
     nr_classes = _nr_unique_labels;
 
     // Generate words by running (k^l)-means.
     Mat means;
-    int max_iterations = 10;
-    TermCriteria criteria(TermCriteria::EPS, 1, 200);
+    int max_iterations = 1;
+    TermCriteria criteria(TermCriteria::EPS, max_iterations, 200);
     int attempts = 1;
     nr_words = pow((float)branch_factor, depth);
     Mat cluster_labels;
@@ -205,19 +204,45 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
     // Run flann, return the label based on the weights matrix.
     Mat nearest;
     Mat dists;
-    class_tree->knnSearch(counts, nearest, dists, 1, flann::SearchParams(1));
-
+    class_tree->knnSearch(counts, nearest, dists, 10, flann::SearchParams(1));
+	
+	// Now we want to find the best building based on these results
+	vector <float> class_results (nr_classes, 0);
+	int return_label;
+	for (int i = 0; i < nearest.rows; i++)
+	{
+		// Get the classes for our values
+		return_label = nearest.at<int>(i,0);
+		
+		// inverse distance
+		class_results[return_label] += 1.0/dists.at<float>(i,0);
+		
+		//linear  weighting
+		//class_results[return_label] += (10.0-i);
+		
+		//log weighting
+		//class_results[return_label] += log(10.0-i);
+	}
+	
+	int max_idx;
+	max_idx = *max_element(class_results.begin(),class_results.end());
+	
     return nearest.at<int>(0,0);
 }
 
 
 void CvVocabTree::write( CvFileStorage* fs, const char* name ) const
 {
+	// This section writes out our models to a folder
+	
 }
 
 
 void CvVocabTree::read( CvFileStorage* fs, CvFileNode* root_node )
 {
+	// This section reads in our models 
+	
+	
 }
 
 
