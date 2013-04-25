@@ -107,7 +107,7 @@ int main (int argc, char *argv[])
 	vector<Mat> features;
 	featureExtractor->extract_features_batch(images, features);
 
-	// concatenate the vector of Mats into a big Mat file
+        // concatenate the vector of Mats into a big Mat file
 	Mat train_data;
 	vector<int> features_img_labels;
 	int features_size;
@@ -129,20 +129,30 @@ int main (int argc, char *argv[])
 
 	cout << "Predicting..." << endl;
 	float num_correct = 0.0;
-	for(int i = 0; i != test_images.size(); i++) {
-	    if(i >= test_features.size()){
-		break;
-	    }
+	float per_building_correct[nr_class];
+	float per_building_count[nr_class];
+	string per_building_names[nr_class];
+	fill_n(per_building_correct, nr_class, 0.0);
+	fill_n(per_building_count, nr_class, 0.0);
+	for(int i = 0; i < test_images.size() && i < test_features.size(); i++) {
 	    int result = vocab_tree->predict(&test_features[i], results);
-	    cout << "The predicted building was: " << labels[result] << endl 
-		 << "The actual building was: " << test_labels[i]; 
+	    cout << "predicted " << names[result] 
+		 << ", actually " << test_names[i] << endl;
+	    per_building_count[test_labels[i]] += 1;
+	    per_building_names[test_labels[i]] = test_names[i];
 	    if (labels[result] == test_labels[i]){
 		num_correct++;
+		per_building_correct[test_labels[i]] += 1;
 	    } 
 	}
 	cout << "The accuracy of this calculation is: " 
 	     << num_correct/(float)test_labels.size() << endl;
-	
+	for(int i = 0; i < nr_class; i++){
+	    if(per_building_count[i] > 0){
+		cout << "The accuracy for " << per_building_names[i] << " is "
+		     << per_building_correct[i]/per_building_count[i] << endl;
+	    }
+	}
 	restore_slice(&images, &test_images, test_round, total_size);
 	restore_slice(&labels, &test_labels, test_round, total_size);
 	restore_slice(&names, &test_names, test_round, total_size); 
