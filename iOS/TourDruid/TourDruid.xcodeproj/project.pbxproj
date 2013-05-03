@@ -36,6 +36,8 @@
 		CEB61FB21727624F001C82BF /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB61FA71727624F001C82BF /* AFURLConnectionOperation.m */; };
 		CEB61FB31727624F001C82BF /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB61FA91727624F001C82BF /* AFXMLRequestOperation.m */; };
 		CEB61FB41727624F001C82BF /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB61FAB1727624F001C82BF /* UIImageView+AFNetworking.m */; };
+		CEB61FBA17276C40001C82BF /* thinker.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB61FB917276C40001C82BF /* thinker.png */; };
+		CEB61FBC1727711E001C82BF /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB61FBB1727711E001C82BF /* map.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		CEB61FA91727624F001C82BF /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		CEB61FAA1727624F001C82BF /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		CEB61FAB1727624F001C82BF /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		CEB61FB917276C40001C82BF /* thinker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thinker.png; sourceTree = "<group>"; };
+		CEB61FBB1727711E001C82BF /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +182,8 @@
 				CEB61F5F172752A6001C82BF /* main.m */,
 				CEB61F61172752A6001C82BF /* TourDruid-Prefix.pch */,
 				CEB61F65172752A6001C82BF /* Default.png */,
+				CEB61FB917276C40001C82BF /* thinker.png */,
+				CEB61FBB1727711E001C82BF /* map.png */,
 				CEB61F91172759CC001C82BF /* alma_mater2.jpg */,
 				CEB61F67172752A6001C82BF /* Default@2x.png */,
 				CEB61F69172752A6001C82BF /* Default-568h@2x.png */,
@@ -308,6 +314,8 @@
 				CEB61F6D172752A6001C82BF /* MainStoryboard_iPhone.storyboard in Resources */,
 				CEB61F70172752A6001C82BF /* MainStoryboard_iPad.storyboard in Resources */,
 				CEB61F92172759CC001C82BF /* alma_mater2.jpg in Resources */,
+				CEB61FBA17276C40001C82BF /* thinker.png in Resources */,
+				CEB61FBC1727711E001C82BF /* map.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,6 +553,7 @@
 				CEB61F8D172752A7001C82BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CEB61F8E172752A7001C82BF /* Build configuration list for PBXNativeTarget "TourDruidTests" */ = {
 			isa = XCConfigurationList;
@@ -553,6 +562,7 @@
 				CEB61F90172752A7001C82BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

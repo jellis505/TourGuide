@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ImagePickerViewController : UIImagePickerController
-
+- (BOOL) startCameraControllerFromViewController: (UIViewController*) controller
+                                   usingDelegate: (id <UIImagePickerControllerDelegate,
+                                                   UINavigationControllerDelegate>) delegate;
 @end

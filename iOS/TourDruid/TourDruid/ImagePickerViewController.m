@@ -17,6 +17,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    NSLog(@"here 3");
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -49,7 +50,7 @@
 
     UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
     cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
-
+    NSLog(@"here 1");
     // Displays a control that allows the user to choose picture or
     // movie capture, if both are available:
     cameraUI.mediaTypes =
@@ -63,7 +64,7 @@
     cameraUI.delegate = delegate;
     cameraUI.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
 
-    [controller presentModalViewController: cameraUI animated: YES];
+    [controller presentModalViewController:cameraUI animated: YES];
     return YES;
 }
 
@@ -77,7 +78,7 @@
 
     NSString *mediaType = [info objectForKey: UIImagePickerControllerMediaType];
     UIImage *originalImage, *editedImage, *imageToSave;
-
+    NSLog(@"here 2");
     // Handle a still image capture
     if (CFStringCompare ((CFStringRef) mediaType, kUTTypeImage, 0)
         == kCFCompareEqualTo) {
