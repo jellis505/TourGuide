@@ -32,8 +32,8 @@ public:
     virtual int predict(const cv::Mat* samples, cv::Mat* results=0) const;
     virtual void clear();
 
-    virtual void write(CvFileStorage* storage, const char* name) const;
-    virtual void read(CvFileStorage* storage, CvFileNode* node);
+    virtual void write() const;
+    virtual void read();
 
 protected:
     cv::flann::Index* word_tree;
@@ -45,6 +45,8 @@ protected:
     int depth;
 	std::vector<int> labels;	// The sample the ith feature-vector came from.
 	std::vector<int> classes;	// The ground truth value of a ith feature-vector.
+	cv::Mat means;
+	cv::Mat class_counts;
 };
 
 #endif
