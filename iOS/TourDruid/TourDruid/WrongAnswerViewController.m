@@ -8,8 +8,15 @@
 
 #import "WrongAnswerViewController.h"
 #import "TDConstants.h"
+#import "TDResponse.h"
+#import "TDBuildingRanking.h"
+#import "TDHTTPClient.h"
 
-@interface WrongAnswerViewController ()
+@interface WrongAnswerViewController () {
+    @private
+    TDResponse *_response;
+    TDHTTPClient *_client;
+}
 
 @end
 
@@ -20,6 +27,7 @@
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+        _client = [TDHTTPClient sharedInstance];
     }
     return self;
 }
@@ -27,12 +35,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    if (_client == nil) {
+        _client = [TDHTTPClient sharedInstance];
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+}
+
+-(void)setResponse:(TDResponse *)response {
+    _response = response;
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,7 +140,11 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     
+   
+    [_client confirmImage:[NSNumber numberWithInt:indexPath.row] classifyID:[_response classifyID]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 
+    NSLog(@"selected");
 }
 
 @end

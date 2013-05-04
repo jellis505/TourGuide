@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TDResponse;
 
 @interface WrongAnswerViewController : UITableViewController
-
+-(void)setResponse:(TDResponse *)response;
 @end

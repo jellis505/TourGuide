@@ -49,15 +49,23 @@
 }
 -(void)confirmImage:(NSNumber *)buildingID classifyID:(NSString *)classifyID
 {
+    /* set object and key arrays that we use to build our JSON payload */
     NSArray *objects = [[NSArray alloc] initWithObjects:buildingID, classifyID, nil];
     NSArray *keys = [[NSArray alloc] initWithObjects:@"buildingID",@"classifyID", nil];
+
+    /* dictionary is the data structure for our json payload */
     NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+
+    /* create a new HTTP request to the confirm endpoint */
     NSURLRequest *request = [_client multipartFormRequestWithMethod:@"POST" path:[self confirmPath] parameters:parameters constructingBodyWithBlock:nil];
+
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"Response from server: %@", JSON);
     } failure:^(NSURLRequest *request , NSHTTPURLResponse *response , NSError *error , id JSON ) {
         NSLog(@"Error! %@", error);
     }];
+    
+    /* fire off request */
     [operation start];
 
 }
@@ -86,6 +94,7 @@
         NSDictionary *jsonDictionary = JSON;
         NSArray *rankings = (NSArray *)[jsonDictionary objectForKey:@"ranking"];
         NSMutableArray *tmp = [[NSMutableArray alloc] init];
+        
         for(NSDictionary *item in rankings) {
             TDBuildingRanking *tdBuildingRanking = [[TDBuildingRanking alloc] init:(NSNumber *)[item objectForKey:@"building"] confidence:(NSNumber *)[item objectForKey:@"confidence"]];
             [tmp addObject:tdBuildingRanking];

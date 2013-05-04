@@ -107,7 +107,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="G7A-Qg-lzq" kind="modal" id="7PI-Eb-KHB"/>
+                                    <action selector="openBuildingList:" destination="sqw-8P-bPd" eventType="touchUpInside" id="hGO-w9-Mmb"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" text="It looks like you are at..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHH-b5-djc">
@@ -176,7 +176,7 @@
         <!--Wrong Answer View Controller-->
         <scene sceneID="cL7-8r-ik5">
             <objects>
-                <tableViewController id="G7A-Qg-lzq" customClass="WrongAnswerViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BuildingList" id="G7A-Qg-lzq" customClass="WrongAnswerViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4FN-nj-3Zx">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

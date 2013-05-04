@@ -44,7 +44,6 @@
 		CEEDD3281734555700ED444A /* TDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD3271734555700ED444A /* TDResponse.m */; };
 		CEEDD32B1734744B00ED444A /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD32A1734744B00ED444A /* AnswerViewController.m */; };
 		CEEDD3311734979800ED444A /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEEDD32F1734979800ED444A /* MainStoryboard_iPhone.storyboard */; };
-		CEEDD3341734A4B500ED444A /* ssViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD3331734A4B500ED444A /* ssViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,8 +117,6 @@
 		CEEDD3291734744B00ED444A /* AnswerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerViewController.h; sourceTree = "<group>"; };
 		CEEDD32A1734744B00ED444A /* AnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
 		CEEDD3301734979800ED444A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
-		CEEDD3321734A4B500ED444A /* ssViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ssViewController.h; sourceTree = "<group>"; };
-		CEEDD3331734A4B500ED444A /* ssViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ssViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,8 +193,6 @@
 				CEB61F63172752A6001C82BF /* AppDelegate.m */,
 				CEEDD32F1734979800ED444A /* MainStoryboard_iPhone.storyboard */,
 				CEB61F6E172752A6001C82BF /* MainStoryboard_iPad.storyboard */,
-				CEEDD3321734A4B500ED444A /* ssViewController.h */,
-				CEEDD3331734A4B500ED444A /* ssViewController.m */,
 				CEB61F71172752A6001C82BF /* ViewController.h */,
 				CEB61F72172752A6001C82BF /* ViewController.m */,
 				CEB61F9317275CC1001C82BF /* ImagePickerViewController.h */,
@@ -403,7 +398,6 @@
 				CEEDD32517344E8B00ED444A /* TDConstants.m in Sources */,
 				CEEDD3281734555700ED444A /* TDResponse.m in Sources */,
 				CEEDD32B1734744B00ED444A /* AnswerViewController.m in Sources */,
-				CEEDD3341734A4B500ED444A /* ssViewController.m in Sources */,
 				CE3A6C3F1735813000110D83 /* WrongAnswerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

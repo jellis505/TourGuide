@@ -10,12 +10,14 @@
 #import "TDBuildingRanking.h"
 #import "TDResponse.h"
 #import "TDHTTPClient.h"
+#import "WrongAnswerViewController.h"
 
 @interface AnswerViewController () {
     @private
     NSArray *_ranking;
     TDResponse *_response;
     TDHTTPClient *_client;
+    WrongAnswerViewController *_buildingList;
 }
 
 @end
@@ -61,6 +63,14 @@
     _ranking = ranking;
 }
 
+-(IBAction)openBuildingList:(id)sender
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    _buildingList = [sb instantiateViewControllerWithIdentifier:@"BuildingList"];
+    [_buildingList setResponse:_response];
+    [self presentViewController:_buildingList animated:YES completion:nil];
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellId = @"C1";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
@@ -85,6 +95,8 @@
     [controller presentViewController:self animated:YES completion:nil];
     return YES;
 }
+
+
 
 #pragma mark - Table view delegate
 
