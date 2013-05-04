@@ -9,10 +9,14 @@
 #import "ViewController.h"
 #import "ImagePickerViewController.h"
 #import "TDHTTPClient.h"
+#import "AnswerViewController.h"
+#import "TDResponse.h"
 
 @interface ViewController () {
     @private
     TDHTTPClient *_client;
+    ImagePickerViewController *_imagePickerController;
+    AnswerViewController *_answerViewController;
 }
 @end
 
@@ -23,6 +27,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     _client = [[TDHTTPClient alloc] init];
+    _imagePickerController = [[ImagePickerViewController alloc] init];
+    _answerViewController = [[AnswerViewController alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -34,24 +40,34 @@
 -(IBAction)takePhoto :(id)sender
 
 {
-    ImagePickerViewController *imagePickerController = [[ImagePickerViewController alloc] init];
-
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
     {
-        [imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+        [_imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+    } else {
+        [_imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     }
 
     // 
     // Place image picker on the screen
-    [imagePickerController startCameraControllerFromViewController:self usingDelegate:self];
+    [_imagePickerController startCameraControllerFromViewController:self usingDelegate:self];
 }
 
 //delegate methode will be called after picking photo either from camera or library
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"got the picture");
-    [self dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
-    
+    [self dismissViewControllerAnimated:YES completion:^(){
+        UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        [_client sendImage:image
+               success:^(TDResponse *response) {
+                   NSLog(@"success!");
+                   [_answerViewController loadResponseViewFromController:self
+                                                                 ranking:[response ranking]];
+               }
+               failure:^(NSError *error) {
+                   NSLog(@"error! %@", error);
+               }
+         ];
+    }];
 }
 @end

@@ -29,7 +29,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-// app.post('/image/classify', classifier.classify);
+app.post('/image/classify', classifier.classify);
 // app.post('/image/confirm', classifier.classify);
 
 http.createServer(app).listen(app.get('port'), function () {

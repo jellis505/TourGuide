@@ -7,7 +7,9 @@
 //
 
 @class AFHTTPClient;
+@class TDResponse;
 
 @interface TDHTTPClient : NSObject
-
+-(void)sendImage:(UIImage *)image success:(void(^)(TDResponse *))success
+         failure:(void (^)(NSError *))failure;
 @end

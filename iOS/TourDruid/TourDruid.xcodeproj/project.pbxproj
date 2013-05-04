@@ -16,7 +16,6 @@
 		CEB61F66172752A6001C82BF /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB61F65172752A6001C82BF /* Default.png */; };
 		CEB61F68172752A6001C82BF /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB61F67172752A6001C82BF /* Default@2x.png */; };
 		CEB61F6A172752A6001C82BF /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB61F69172752A6001C82BF /* Default-568h@2x.png */; };
-		CEB61F6D172752A6001C82BF /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB61F6B172752A6001C82BF /* MainStoryboard_iPhone.storyboard */; };
 		CEB61F70172752A6001C82BF /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEB61F6E172752A6001C82BF /* MainStoryboard_iPad.storyboard */; };
 		CEB61F73172752A6001C82BF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB61F72172752A6001C82BF /* ViewController.m */; };
 		CEB61F7B172752A6001C82BF /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F7A172752A6001C82BF /* SenTestingKit.framework */; };
@@ -38,6 +37,13 @@
 		CEB61FB41727624F001C82BF /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = CEB61FAB1727624F001C82BF /* UIImageView+AFNetworking.m */; };
 		CEB61FBA17276C40001C82BF /* thinker.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB61FB917276C40001C82BF /* thinker.png */; };
 		CEB61FBC1727711E001C82BF /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = CEB61FBB1727711E001C82BF /* map.png */; };
+		CEEDD31C1734491700ED444A /* TDHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD31B1734491700ED444A /* TDHTTPClient.m */; };
+		CEEDD31F17344C6100ED444A /* TDBuildingRanking.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD31E17344C6100ED444A /* TDBuildingRanking.m */; };
+		CEEDD32517344E8B00ED444A /* TDConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD32417344E8A00ED444A /* TDConstants.m */; };
+		CEEDD3281734555700ED444A /* TDResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD3271734555700ED444A /* TDResponse.m */; };
+		CEEDD32B1734744B00ED444A /* AnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD32A1734744B00ED444A /* AnswerViewController.m */; };
+		CEEDD3311734979800ED444A /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEEDD32F1734979800ED444A /* MainStoryboard_iPhone.storyboard */; };
+		CEEDD3341734A4B500ED444A /* ssViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEDD3331734A4B500ED444A /* ssViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +70,6 @@
 		CEB61F65172752A6001C82BF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		CEB61F67172752A6001C82BF /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		CEB61F69172752A6001C82BF /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		CEB61F6C172752A6001C82BF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		CEB61F6F172752A6001C82BF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		CEB61F71172752A6001C82BF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CEB61F72172752A6001C82BF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -99,6 +104,19 @@
 		CEB61FAB1727624F001C82BF /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		CEB61FB917276C40001C82BF /* thinker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = thinker.png; sourceTree = "<group>"; };
 		CEB61FBB1727711E001C82BF /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		CEEDD31A1734491700ED444A /* TDHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDHTTPClient.h; sourceTree = "<group>"; };
+		CEEDD31B1734491700ED444A /* TDHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDHTTPClient.m; sourceTree = "<group>"; };
+		CEEDD31D17344C6100ED444A /* TDBuildingRanking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBuildingRanking.h; sourceTree = "<group>"; };
+		CEEDD31E17344C6100ED444A /* TDBuildingRanking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBuildingRanking.m; sourceTree = "<group>"; };
+		CEEDD32317344E8A00ED444A /* TDConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDConstants.h; sourceTree = "<group>"; };
+		CEEDD32417344E8A00ED444A /* TDConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDConstants.m; sourceTree = "<group>"; };
+		CEEDD3261734555700ED444A /* TDResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDResponse.h; sourceTree = "<group>"; };
+		CEEDD3271734555700ED444A /* TDResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDResponse.m; sourceTree = "<group>"; };
+		CEEDD3291734744B00ED444A /* AnswerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnswerViewController.h; sourceTree = "<group>"; };
+		CEEDD32A1734744B00ED444A /* AnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnswerViewController.m; sourceTree = "<group>"; };
+		CEEDD3301734979800ED444A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
+		CEEDD3321734A4B500ED444A /* ssViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ssViewController.h; sourceTree = "<group>"; };
+		CEEDD3331734A4B500ED444A /* ssViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ssViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,10 +179,22 @@
 		CEB61F59172752A6001C82BF /* TourDruid */ = {
 			isa = PBXGroup;
 			children = (
+				CEEDD3261734555700ED444A /* TDResponse.h */,
+				CEEDD3271734555700ED444A /* TDResponse.m */,
+				CEEDD3291734744B00ED444A /* AnswerViewController.h */,
+				CEEDD32A1734744B00ED444A /* AnswerViewController.m */,
+				CEEDD31A1734491700ED444A /* TDHTTPClient.h */,
+				CEEDD31B1734491700ED444A /* TDHTTPClient.m */,
+				CEEDD32317344E8A00ED444A /* TDConstants.h */,
+				CEEDD32417344E8A00ED444A /* TDConstants.m */,
+				CEEDD31D17344C6100ED444A /* TDBuildingRanking.h */,
+				CEEDD31E17344C6100ED444A /* TDBuildingRanking.m */,
 				CEB61F62172752A6001C82BF /* AppDelegate.h */,
 				CEB61F63172752A6001C82BF /* AppDelegate.m */,
-				CEB61F6B172752A6001C82BF /* MainStoryboard_iPhone.storyboard */,
+				CEEDD32F1734979800ED444A /* MainStoryboard_iPhone.storyboard */,
 				CEB61F6E172752A6001C82BF /* MainStoryboard_iPad.storyboard */,
+				CEEDD3321734A4B500ED444A /* ssViewController.h */,
+				CEEDD3331734A4B500ED444A /* ssViewController.m */,
 				CEB61F71172752A6001C82BF /* ViewController.h */,
 				CEB61F72172752A6001C82BF /* ViewController.m */,
 				CEB61F9317275CC1001C82BF /* ImagePickerViewController.h */,
@@ -311,11 +341,11 @@
 				CEB61F66172752A6001C82BF /* Default.png in Resources */,
 				CEB61F68172752A6001C82BF /* Default@2x.png in Resources */,
 				CEB61F6A172752A6001C82BF /* Default-568h@2x.png in Resources */,
-				CEB61F6D172752A6001C82BF /* MainStoryboard_iPhone.storyboard in Resources */,
 				CEB61F70172752A6001C82BF /* MainStoryboard_iPad.storyboard in Resources */,
 				CEB61F92172759CC001C82BF /* alma_mater2.jpg in Resources */,
 				CEB61FBA17276C40001C82BF /* thinker.png in Resources */,
 				CEB61FBC1727711E001C82BF /* map.png in Resources */,
+				CEEDD3311734979800ED444A /* MainStoryboard_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +393,12 @@
 				CEB61FB21727624F001C82BF /* AFURLConnectionOperation.m in Sources */,
 				CEB61FB31727624F001C82BF /* AFXMLRequestOperation.m in Sources */,
 				CEB61FB41727624F001C82BF /* UIImageView+AFNetworking.m in Sources */,
+				CEEDD31C1734491700ED444A /* TDHTTPClient.m in Sources */,
+				CEEDD31F17344C6100ED444A /* TDBuildingRanking.m in Sources */,
+				CEEDD32517344E8B00ED444A /* TDConstants.m in Sources */,
+				CEEDD3281734555700ED444A /* TDResponse.m in Sources */,
+				CEEDD32B1734744B00ED444A /* AnswerViewController.m in Sources */,
+				CEEDD3341734A4B500ED444A /* ssViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,14 +429,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		CEB61F6B172752A6001C82BF /* MainStoryboard_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CEB61F6C172752A6001C82BF /* en */,
-			);
-			name = MainStoryboard_iPhone.storyboard;
-			sourceTree = "<group>";
-		};
 		CEB61F6E172752A6001C82BF /* MainStoryboard_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -415,6 +443,14 @@
 				CEB61F84172752A6001C82BF /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CEEDD32F1734979800ED444A /* MainStoryboard_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEEDD3301734979800ED444A /* en */,
+			);
+			name = MainStoryboard_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

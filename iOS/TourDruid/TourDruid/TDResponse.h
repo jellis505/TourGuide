@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface TDResponse : NSObject
-
+@property(nonatomic) NSArray *ranking;
+@property(nonatomic) NSString *requestID;
 @end

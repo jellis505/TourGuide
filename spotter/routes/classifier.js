@@ -7,11 +7,10 @@
  * POST image to be classified
  * request: image -> binary rep of image
  * response: ranking[] -> list of {building:index, confidence:percent} items
- * 			 classifyId -> id for this request 
+ * 			 classifyID -> id for this request 
  */
 exports.classify = function (req, res) {
-	
-  res.send("");
+  res.json(200,{ranking:[{building:1,confidence:.75}, {building:2,confidence:.64}],classifyID:23});
 };
 
 /* POST image the user thinks is correct

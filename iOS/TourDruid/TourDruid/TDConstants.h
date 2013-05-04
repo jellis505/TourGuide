@@ -10,4 +10,5 @@
 
 @interface TDConstants : NSObject
 
++ (NSString *)nameFromId:(NSNumber *)buildingID;
 @end

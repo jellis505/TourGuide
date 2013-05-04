@@ -17,7 +17,6 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    NSLog(@"here 3");
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -41,21 +40,21 @@
                                    usingDelegate: (id <UIImagePickerControllerDelegate,
                                                    UINavigationControllerDelegate>) delegate {
 
-    if (([UIImagePickerController isSourceTypeAvailable:
-          UIImagePickerControllerSourceTypeCamera] == NO)
-        || (delegate == nil)
-        || (controller == nil))
-        return NO;
+//    if (([UIImagePickerController isSourceTypeAvailable:
+//          UIImagePickerControllerSourceTypeCamera] == NO)
+//        || (delegate == nil)
+//        || (controller == nil))
+//        return NO;
 
 
     UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
-    cameraUI.sourceType = UIImagePickerControllerSourceTypeCamera;
+    cameraUI.sourceType = [self sourceType];
     NSLog(@"here 1");
     // Displays a control that allows the user to choose picture or
     // movie capture, if both are available:
     cameraUI.mediaTypes =
     [UIImagePickerController availableMediaTypesForSourceType:
-     UIImagePickerControllerSourceTypeCamera];
+     [self sourceType]];
 
     // Hides the controls for moving & scaling pictures, or for
     // trimming movies. To instead show the controls, use YES.
@@ -64,7 +63,7 @@
     cameraUI.delegate = delegate;
     cameraUI.mediaTypes = [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
 
-    [controller presentModalViewController:cameraUI animated: YES];
+    [controller presentViewController:cameraUI animated:YES completion:nil];
     return YES;
 }
 

@@ -9,5 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface TDBuildingRanking : NSObject
-
+@property (nonatomic) NSString *name;
+@property (nonatomic) NSNumber *confidence;
+@property (nonatomic) NSNumber *buildingId;
+- (id) init:(NSNumber *)buildingID confidence:(NSNumber *)confidence;
 @end
