@@ -49,6 +49,7 @@
 #include <opencv2/ml/ml.hpp>
 #include <opencv2/flann/flann.hpp>
 #include <cmath>
+#include <string>
 
 using namespace std;
 using namespace cv;
@@ -109,7 +110,6 @@ CvVocabTree::CvVocabTree(
 {
     branch_factor = _branch_factor;
     depth = _depth;
-
 }
 
 
@@ -119,7 +119,6 @@ bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels, const
     nr_classes = _nr_unique_labels;
 
     // Generate words by running (k^l)-means.
-    Mat means;
     int max_iterations = 1;
     TermCriteria criteria(TermCriteria::EPS, max_iterations, 200);
     int attempts = 1;
@@ -141,7 +140,7 @@ bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels, const
 
     // Generate word occurence histograms for each class.
     // Each row of class_counts is a histogram with nr_words columns.
-    Mat class_counts = Mat::zeros(_nr_unique_labels, nr_words, CV_32F);
+    class_counts = Mat::zeros(_nr_unique_labels, nr_words, CV_32F);
     for (int i = 0; i < _train_data->rows; i++) {
 		Mat nearest;
 		Mat dists;
@@ -231,17 +230,54 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
 }
 
 
-void CvVocabTree::write( CvFileStorage* fs, const char* name ) const
-{
-	// This section writes out our models to a folder
+void CvVocabTree::write() const
+{	
+	string word_mat_file = "models/word_mat.xml";
+	string word_index_file = "models/word_index.dat";
+	string class_mat_file = "models/class_mat.xml";
+	string class_index_file = "models/class_index.dat";
+	
+	// output the mats to a file
+	FileStorage f,g;
+	f.open(word_mat_file, FileStorage::WRITE);
+	g.open(class_mat_file, FileStorage::WRITE);
+	f << "means" << means;
+	g << "class_counts" << class_counts;
+	f.release();
+	g.release();
+	
+	// Save both of the index parameters
+	class_tree->save(class_index_file);
+	word_tree->save(word_index_file);
 	
 }
 
 
-void CvVocabTree::read( CvFileStorage* fs, CvFileNode* root_node )
+void CvVocabTree::read()
 {
-	// This section reads in our models 
+	// File paths
+	string word_mat_file = "models/word_mat.xml";
+	string word_index_file = "models/word_index.dat";
+	string class_mat_file = "models/class_mat.xml";
+	string class_index_file = "models/class_index.dat";
 	
+	// This section reads in our Mats 
+	FileStorage fs(word_mat_file, FileStorage::READ );
+	fs["means"] >>  means;
+	fs.release();
+	FileStorage gs(class_mat_file, FileStorage::READ );
+	gs["class_counts"] >> class_counts;
+	gs.release();
+	
+	// Read in and create the index structures
+	word_tree = new flann::Index(means, flann::SavedIndexParams(word_index_file));
+	class_tree = new flann::Index(class_counts, flann::SavedIndexParams(class_index_file));
+	
+	//ouput some info that shows what we just read in
+	cout << "The rows in means are: " << means.rows << endl;
+	cout << "The cols in means are: " << means.cols << endl;
+	cout << "The rows in class_counts are: " <<  class_counts.rows << endl;
+	cout << "the cols in class_counts are: " << class_counts.cols << endl;
 	
 }
 

@@ -127,11 +127,12 @@ int main (int argc, char *argv[])
 	vocab_tree->train(&train_data, features_img_labels, labels, images.size());
 	Mat* results;
 
+
 	cout << "Predicting..." << endl;
 	float num_correct = 0.0;
 	float per_building_correct[nr_class];
 	float per_building_count[nr_class];
-	string per_building_names[nr_class];
+	vector <string> per_building_names;
 	fill_n(per_building_correct, nr_class, 0.0);
 	fill_n(per_building_count, nr_class, 0.0);
 	for(int i = 0; i < test_images.size() && i < test_features.size(); i++) {
