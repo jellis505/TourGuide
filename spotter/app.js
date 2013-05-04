@@ -5,11 +5,12 @@
 
 var express = require('express')
   , routes = require('./routes')
-  , classifier = require('./routes/classifier')(process.env.IMAGE_PATH)
+  , Classifier = require('./routes/classifier')
   , http = require('http')
   , path = require('path');
 
-var app = express();
+var app = express()
+  , classifier = new Classifier(process.env.IMAGE_PATH);
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -30,7 +31,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.post('/image/classify', classifier.classify);
-app.post('/image/confirm', classifier.classify);
+app.post('/image/confirm', classifier.confirm);
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));

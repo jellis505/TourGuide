@@ -2,6 +2,7 @@ var fs = require('fs');
 
 var Classifier = function (imagePath) {
   this.imagePath = imagePath;
+  return this;
 };
 
 /*	
@@ -11,6 +12,7 @@ var Classifier = function (imagePath) {
  *           classifyID -> ID for this request 
  */
 Classifier.prototype.classify = function (req, res) {
+  console.log(req.files.image.type);
   if (!req.files.image || req.files.image.type != 'image/jpg')
     return res.send(400);
 
