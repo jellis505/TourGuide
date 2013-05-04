@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface TDConstants : NSObject
-
++ (void) buildNames;
 + (NSString *)nameFromId:(NSNumber *)buildingID;
++ (NSInteger)numberOfBuildings;
 @end

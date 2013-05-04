@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class TDResponse;
 
 @interface AnswerViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
 - (BOOL)loadResponseViewFromController:(UIViewController*) controller
-                              ranking:(NSArray *)ranking;
+                              response:(TDResponse *)response;
 -(void) setRanking:(NSArray *)ranking;
 @end

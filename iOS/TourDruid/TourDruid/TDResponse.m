@@ -10,12 +10,12 @@
 
 @implementation TDResponse
 
--(id)init:(NSArray *)ranking requestID:(NSString *)requestID
+-(id)init:(NSArray *)ranking requestID:(NSString *)classifyID
 {
     self = [super init];
     if (self) {
         _ranking = ranking;
-        _requestID = requestID;
+        _classifyID = classifyID;
     }
     return self;
 }

@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    _client = [[TDHTTPClient alloc] init];
+    _client = [TDHTTPClient sharedInstance];
     _imagePickerController = [[ImagePickerViewController alloc] init];
     _answerViewController = [[AnswerViewController alloc] init];
 }
@@ -57,12 +57,14 @@
 {
     NSLog(@"got the picture");
     [self dismissViewControllerAnimated:YES completion:^(){
+        NSLog(@"in here");
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+
         [_client sendImage:image
                success:^(TDResponse *response) {
                    NSLog(@"success!");
                    [_answerViewController loadResponseViewFromController:self
-                                                                 ranking:[response ranking]];
+                                                                 response:response];
                }
                failure:^(NSError *error) {
                    NSLog(@"error! %@", error);

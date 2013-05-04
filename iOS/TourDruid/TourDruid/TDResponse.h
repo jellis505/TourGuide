@@ -10,5 +10,5 @@
 
 @interface TDResponse : NSObject
 @property(nonatomic) NSArray *ranking;
-@property(nonatomic) NSString *requestID;
+@property(nonatomic) NSString *classifyID;
 @end

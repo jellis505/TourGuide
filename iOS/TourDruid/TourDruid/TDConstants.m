@@ -11,10 +11,15 @@
 @implementation TDConstants
 NSArray *_names;
 
++ (void) buildNames
+{
+    _names = [[NSArray alloc ] initWithObjects:@"Alma Mater" ,@"Butler", @"CEPSR", @"CURL", @"Hamilton",   @"Havemayer", @"Journalism", @"Law", @"Lerner", @"Lion", @"Low", @"Mathematics", @"Mudd", @"Noco", @"Pan", @"Pupin", @"Thinker", nil];
+}
+
 + (NSString *)nameFromId:(NSNumber *)buildingID
 {
     if(_names == nil) {
-        _names = [[NSArray alloc ] initWithObjects:@"Alma Mater" ,@"Butler", @"CEPSR", @"CURL", @"Hamilton",   @"Havemayer", @"Journalism", @"Law", @"Lerner", @"Lion", @"Low", @"Mathematics", @"Mudd", @"Noco", @"Pan", @"Pupin", @"Thinker", nil];
+        [self buildNames];
     }
 
     if ([buildingID integerValue] > [_names count]) {
@@ -23,4 +28,11 @@ NSArray *_names;
         return (NSString *)[_names objectAtIndex:[buildingID integerValue]];
 }
 
++ (NSInteger)numberOfBuildings
+{
+    if(_names == nil) {
+        [self buildNames];
+    }
+    return [_names count];
+}
 @end

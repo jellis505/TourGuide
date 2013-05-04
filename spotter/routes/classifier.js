@@ -37,9 +37,11 @@ Classifier.prototype.classify = function (req, res) {
  * response: 200 or 500 if id doesn't exist
  */
 Classifier.prototype.confirm = function (req, res) {
-  console.log(req.buildingID + ' classified as ' + req.classifyID);
-  var path = '/tmp/' + req.buildingID + '/' + req.classifyID;
-  var newPath = imagePath + req.classifyID;
+  console.log(req);
+  console.log(req.body.buildingID + ' classified as ' + req.body.classifyID);
+  var path = req.body.classifyID;
+  var newPath = this.imagePath + req.classifyID;
+  console.log('renaming ' + path + ' to ' + newPath);
   fs.rename(path, newPath, function (err) {
     if (err) throw err;
     res.send('Thank you, human.');

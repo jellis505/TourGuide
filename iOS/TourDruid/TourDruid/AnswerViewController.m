@@ -8,10 +8,14 @@
 
 #import "AnswerViewController.h"
 #import "TDBuildingRanking.h"
+#import "TDResponse.h"
+#import "TDHTTPClient.h"
 
 @interface AnswerViewController () {
     @private
     NSArray *_ranking;
+    TDResponse *_response;
+    TDHTTPClient *_client;
 }
 
 @end
@@ -25,13 +29,17 @@
     if (self) {
         // Custom initialization
     }
+
+    _client = [TDHTTPClient sharedInstance];
     return self;
 }
 
 - (void)viewDidLoad
 {
+    if (_client == nil) {
+        _client = [TDHTTPClient sharedInstance];
+    }
     [super viewDidLoad];
-    NSLog(@"herheheh");
 	// Do any additional setup after loading the view.
 }
 
@@ -54,12 +62,13 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellId = @"identifier";
+    static NSString *cellId = @"C1";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId];
 
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellId];
     }
+
     TDBuildingRanking *rank = [_ranking objectAtIndex:indexPath.row];
     cell.textLabel.text = [rank name];
     double percentage = 100 * [[rank confidence] doubleValue];
@@ -69,9 +78,10 @@
 }
 
 - (BOOL)loadResponseViewFromController:(UIViewController*) controller
-                              ranking:(NSArray *)ranking
+                              response:(TDResponse *)response
 {
-    _ranking = ranking;
+    _ranking = response.ranking;
+    _response = response;
     [controller presentViewController:self animated:YES completion:nil];
     return YES;
 }
@@ -80,13 +90,25 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+//    TDBuildingRanking *rank = (TDBuildingRanking *)[_ranking objectAtIndex:indexPath.row];
+//    NSString *alertMessage = [NSString stringWithFormat:@"You sure it's %@?", rank.name];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm selection"
+//                                                    message:alertMessage
+//                                                   delegate:self
+//                                          cancelButtonTitle:@"Nope :("
+//                                          otherButtonTitles:@"Yup!", nil];
+//    [alert show];
+    TDBuildingRanking *rank = [_ranking objectAtIndex:indexPath.row];
+    NSLog(@"%@", [rank buildingId]);
+    [_client confirmImage:[rank buildingId] classifyID:[_response classifyID]];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     NSLog(@"selected");
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex) {
+        
+    }
 }
 @end

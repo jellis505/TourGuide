@@ -14,7 +14,9 @@
 
 @interface TDHTTPClient() {
     AFHTTPClient *_client;
-    NSString *_url;
+    NSString *_baseURL;
+    NSString *_classifyPath;
+    NSString *_confirmPath;
 }
 @end
 
@@ -25,21 +27,57 @@
     self = [super init];
     if (self) {
         _client = [[AFHTTPClient alloc] init];
-        _url = @"http://198.199.67.100:3000/image/classify";
-        //_url = @"http://localhost:3000/image/classify";
+        //_baseURL = @"http://198.199.67.100:3000";
+        _baseURL = @"http://localhost:3000";
+        _classifyPath = @"/image/classify";
+        _confirmPath = @"/image/confirm";
     }
 
     return self;
 }
 
++ (TDHTTPClient *)sharedInstance
+{
+    static dispatch_once_t _singletonPredicate;
+    static TDHTTPClient *_singleton = nil;
+
+    dispatch_once(&_singletonPredicate, ^{
+        _singleton = [[super allocWithZone:nil] init];
+    });
+
+    return _singleton;
+}
+-(void)confirmImage:(NSNumber *)buildingID classifyID:(NSString *)classifyID
+{
+    NSArray *objects = [[NSArray alloc] initWithObjects:buildingID, classifyID, nil];
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"buildingID",@"classifyID", nil];
+    NSDictionary *parameters = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+    NSURLRequest *request = [_client multipartFormRequestWithMethod:@"POST" path:[self confirmPath] parameters:parameters constructingBodyWithBlock:nil];
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"Response from server: %@", JSON);
+    } failure:^(NSURLRequest *request , NSHTTPURLResponse *response , NSError *error , id JSON ) {
+        NSLog(@"Error! %@", error);
+    }];
+    [operation start];
+
+}
+
+-(NSString *)classifyPath
+{
+    return [NSString stringWithFormat:@"%@%@", _baseURL, _classifyPath];
+}
+
+-(NSString *)confirmPath
+{
+    return [NSString stringWithFormat:@"%@%@", _baseURL, _confirmPath];
+}
+
 -(void)sendImage:(UIImage *)image success:(void(^)(TDResponse *))success
                                   failure:(void (^)(NSError *))failure
 {
-    NSURL *url = [NSURL URLWithString:_url];
-    NSLog(@"url %@", url);
     NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-    NSURLRequest *request = [_client multipartFormRequestWithMethod:@"POST" path:_url parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"image" fileName:@"avatar.png" mimeType:@"image/png"];
+    NSURLRequest *request = [_client multipartFormRequestWithMethod:@"POST" path:[self classifyPath] parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"image" fileName:@"avatar.png" mimeType:@"image/jpg"];
     }];
 
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -53,7 +91,7 @@
             [tmp addObject:tdBuildingRanking];
         }
         [tdresponse setRanking:tmp];
-        [tdresponse setRequestID:[jsonDictionary objectForKey:@"classifyID"]];
+        [tdresponse setClassifyID:[jsonDictionary objectForKey:@"classifyID"]];
         success(tdresponse);
     } failure:^(NSURLRequest *request , NSHTTPURLResponse *response , NSError *error , id JSON ) {
         failure(error);

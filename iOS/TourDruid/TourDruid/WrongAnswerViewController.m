@@ -7,6 +7,7 @@
 //
 
 #import "WrongAnswerViewController.h"
+#import "TDConstants.h"
 
 @interface WrongAnswerViewController ()
 
@@ -44,25 +45,27 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    return [TDConstants numberOfBuildings];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier = @"C2";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
+    }
+
     // Configure the cell...
-    
+    cell.textLabel.text = [TDConstants nameFromId:[NSNumber numberWithInt:indexPath.row]];
     return cell;
 }
 
@@ -105,6 +108,12 @@
 }
 */
 
+-(IBAction)goBack :(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -116,6 +125,8 @@
      // Pass the selected object to the new view controller.
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
+    
+
 }
 
 @end

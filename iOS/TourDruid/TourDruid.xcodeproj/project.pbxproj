@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE3A6C3F1735813000110D83 /* WrongAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6C3E1735813000110D83 /* WrongAnswerViewController.m */; };
 		CEB61F54172752A6001C82BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F53172752A6001C82BF /* UIKit.framework */; };
 		CEB61F56172752A6001C82BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F55172752A6001C82BF /* Foundation.framework */; };
 		CEB61F58172752A6001C82BF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F57172752A6001C82BF /* CoreGraphics.framework */; };
@@ -57,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE3A6C3D1735813000110D83 /* WrongAnswerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrongAnswerViewController.h; sourceTree = "<group>"; };
+		CE3A6C3E1735813000110D83 /* WrongAnswerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WrongAnswerViewController.m; sourceTree = "<group>"; };
 		CEB61F50172752A6001C82BF /* TourDruid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TourDruid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB61F53172752A6001C82BF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CEB61F55172752A6001C82BF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -199,6 +202,8 @@
 				CEB61F72172752A6001C82BF /* ViewController.m */,
 				CEB61F9317275CC1001C82BF /* ImagePickerViewController.h */,
 				CEB61F9417275CC2001C82BF /* ImagePickerViewController.m */,
+				CE3A6C3D1735813000110D83 /* WrongAnswerViewController.h */,
+				CE3A6C3E1735813000110D83 /* WrongAnswerViewController.m */,
 				CEB61F5A172752A6001C82BF /* Supporting Files */,
 			);
 			path = TourDruid;
@@ -399,6 +404,7 @@
 				CEEDD3281734555700ED444A /* TDResponse.m in Sources */,
 				CEEDD32B1734744B00ED444A /* AnswerViewController.m in Sources */,
 				CEEDD3341734A4B500ED444A /* ssViewController.m in Sources */,
+				CE3A6C3F1735813000110D83 /* WrongAnswerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
