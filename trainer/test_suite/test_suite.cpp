@@ -127,6 +127,7 @@ int main (int argc, char *argv[])
 	vocab_tree->train(&train_data, features_img_labels, labels, images.size());
 	Mat* results;
 
+
 	cout << "Predicting..." << endl;
 	float num_correct = 0.0;
 	float per_building_correct[nr_class];

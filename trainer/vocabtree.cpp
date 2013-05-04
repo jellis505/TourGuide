@@ -233,9 +233,9 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
 void CvVocabTree::write() const
 {	
 	string word_mat_file = "models/word_mat.xml";
-	string word_index_file = "models/word_index.xml";
+	string word_index_file = "models/word_index.dat";
 	string class_mat_file = "models/class_mat.xml";
-	string class_index_file = "models/class_index.xml";
+	string class_index_file = "models/class_index.dat";
 	
 	// output the mats to a file
 	FileStorage f,g;
@@ -247,7 +247,7 @@ void CvVocabTree::write() const
 	g.release();
 	
 	// Save both of the index parameters
-	class_tree->save(word_index_file);
+	class_tree->save(class_index_file);
 	word_tree->save(word_index_file);
 	
 }
@@ -257,23 +257,27 @@ void CvVocabTree::read()
 {
 	// File paths
 	string word_mat_file = "models/word_mat.xml";
-	string word_index_file = "models/word_index.xml";
+	string word_index_file = "models/word_index.dat";
 	string class_mat_file = "models/class_mat.xml";
-	string class_index_file = "models/class_index.xml";
+	string class_index_file = "models/class_index.dat";
 	
 	// This section reads in our Mats 
 	FileStorage fs(word_mat_file, FileStorage::READ );
 	fs["means"] >>  means;
 	fs.release();
-	FileStorage gs(class_mat_file, FileStorage::READ);
-	gs["clas_counts"] >> class_counts;
+	FileStorage gs(class_mat_file, FileStorage::READ );
+	gs["class_counts"] >> class_counts;
 	gs.release();
 	
 	// Read in and create the index structures
 	word_tree = new flann::Index(means, flann::SavedIndexParams(word_index_file));
 	class_tree = new flann::Index(class_counts, flann::SavedIndexParams(class_index_file));
 	
-	 
+	//ouput some info that shows what we just read in
+	cout << "The rows in means are: " << means.rows << endl;
+	cout << "The cols in means are: " << means.cols << endl;
+	cout << "The rows in class_counts are: " <<  class_counts.rows << endl;
+	cout << "the cols in class_counts are: " << class_counts.cols << endl;
 	
 }
 
