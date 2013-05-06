@@ -1,1 +1,15 @@
-TourDruid is a computer vision application that allows users to find out more about their environment simply by taking a picture. The application matches image features against a database of categorized images in order to recognize the image and report relevant information back to the user.
+Computer Vision has historically been a very difficult research field to translate research improvements into useful commerical systems.  
+This is partly because of the immense amount of data that CV solutions often need for training, and the relatively low level of accuracy that computer vision solutions often achieve.
+However, in our opinion the results of certain classification tasks such as accuracy on CalTech101\cite{fei-fei:caltech101} is now reaching a level that CV can be incorporated into useful consumer products.
+
+We propose in this work to use visual recognition on a novel dataset to develop a system that can help a tourist find their way around Columbia Campus.
+We believe that this task is a feasible scenario in which a tourist would like to use our application to give a free tour to themselves based on simply snapping picture of their surroundings.
+The idea and execution of this project is portable to other domains and locations not just Columbia University.
+It is highly feasible that this type of application could be useful in museums, zoos, historical sites, and other areas where there exists a contstrained environment of the pictures that could possibly be taken.
+We also propose to our knowledge some novel extensions to simple visual search such as user interaction to actively grow our database of Columbia University building images, and a within category image clustering to constrainthe memory usage of our application on the server side.
+
+The layout of the paper is as follows.
+In section 2, we discuss the collection of our novel dataset of Columbia University building images, and describe the dataset in detail.
+In section 3, we detail our procedure which is greatly inpsired by the work of Nister and Stewenius\cite{nister:vocabtree}.
+In Section 4, we discuss the accuracy of the recognition framework and also discuss the speed with which we are able to accomplish the tasks.
+Finally, In Section 5 we discuss our application architecture and the operation of our system.
