@@ -133,6 +133,10 @@ int main (int argc, char *argv[])
 	float per_building_correct[nr_class];
 	float per_building_count[nr_class];
 	vector <string> per_building_names;
+	// populating the vector; I'm sure there's a better way
+	for (int i = 0; i < nr_class; i++) {
+	  per_building_names.push_back("NOT INITIALIZED");
+	}
 	fill_n(per_building_correct, nr_class, 0.0);
 	fill_n(per_building_count, nr_class, 0.0);
 	for(int i = 0; i < test_images.size() && i < test_features.size(); i++) {
@@ -142,9 +146,9 @@ int main (int argc, char *argv[])
 	    per_building_count[test_labels[i]] += 1;
 	    per_building_names[test_labels[i]] = test_names[i];
 	    if (labels[result] == test_labels[i]){
-		num_correct++;
+	        num_correct++;
 		per_building_correct[test_labels[i]] += 1;
-	    } 
+	    }
 	}
 	cout << "The accuracy of this calculation is: " 
 	     << num_correct/(float)test_labels.size() << endl;

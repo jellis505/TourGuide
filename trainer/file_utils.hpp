@@ -86,7 +86,7 @@ int FileUtils::read_images(char *root, vector<Mat> &images, vector<int> &labels,
 		num++;
 
         // TODO: Remove this to use more than 3 classes.
-        if (num > 1)
+        if (num > 100)
             break;
 	}
 	return num;

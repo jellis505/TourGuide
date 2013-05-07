@@ -223,6 +223,32 @@
         <image name="alma_mater2.jpg" width="601" height="586"/>
         <image name="thinker.png" width="681" height="690"/>
     </resources>
+    <classes>
+        <class className="AnswerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AnswerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="openBuildingList:"/>
+            </relationships>
+        </class>
+        <class className="ImagePickerViewController" superclassName="UIImagePickerController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImagePickerViewController.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="takePhoto:"/>
+            </relationships>
+        </class>
+        <class className="WrongAnswerViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WrongAnswerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBack:"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
