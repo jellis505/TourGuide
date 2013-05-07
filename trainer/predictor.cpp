@@ -59,22 +59,14 @@ int main (int argc, char *argv[])
 	FileUtils::input_names(namefile, names);
 	
 	// Read in the name files
-	cout << "Got passed the file reading" << endl;
-	
     Mat results;
-	Mat* dists;
-	int result = vocab_tree->predict(&features, &results);
+	Mat dists;
+	int result = vocab_tree->predict(&features, &results, &dists);
 	
-	cout << "Success!" << endl;
-	cout << "The first found name is: " << endl;
-	cout << names[result] << endl;
-	
-	cout << "These are the top 10 results" << endl;
-	cout << "results rows: " << results.rows << endl;
-	cout << "columns cols: " << results.cols << endl;
+	cout << "These are the top 10 results with distance:" << endl;
 	// This section outputs the top ten returned results
 	for (int j = 0; j < results.cols; j++){
-		cout << names[results.at<int>(0,j)] << endl;
+		cout << names[results.at<int>(0,j)] << "\t" << dists.at<float>(0,j) << endl;
 	}
 	
 	// Return from the function

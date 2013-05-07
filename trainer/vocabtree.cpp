@@ -178,14 +178,10 @@ bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels, const
     return true;
 }
 
-int CvVocabTree::predict(const Mat* samples, Mat* results) const
+int CvVocabTree::predict(const Mat* samples, Mat* results, Mat* distances) const
 {
-	cout << "These are the rows in tf_idf: " << tf_idf_weights->rows << endl;
-	cout << "These are the cols in tf_idf: " << tf_idf_weights->cols << endl;
-	cout << "Jumped into predict: " << endl;
     // Construct a histogram of word occurences.
 	int nr_words = 729;
-	cout << "These are the number of words: " << nr_words << endl;
     Mat counts = Mat::zeros(1, nr_words, CV_32F);
     for (int i = 0; i < samples->rows; i++) {
 		Mat nearest;
@@ -193,7 +189,6 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
         word_tree->knnSearch(samples->row(i), nearest, dists, 1, 0);
         counts.at<float>(0, nearest.at<int>(0,0))++;
     }
-    cout << "Got out of Bow" << endl;
 	
 	// Normalize the histogram.
 	float norm_factor;
@@ -204,19 +199,12 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
     counts = counts * norm_factor;
 
     // Multiply by the tf_idf weights.
-	cout << "These are the rows in tf_idf: " << tf_idf_weights->rows << endl;
-	cout << "These are the cols in tf_idf: " << tf_idf_weights->cols << endl;
-	cout << "These are the rows in counts: " << counts.rows << endl;
-	cout << "These are the cols in counts: " << counts.cols << endl;
     counts = counts.mul(tf_idf_weights->row(0));
 
     // Run flann, return the label based on the weights matrix.
     Mat nearest;
     Mat dists;
-	cout << "Now searching for the nearest images: " << endl;
     class_tree->knnSearch(counts, nearest, dists, 10, flann::SearchParams(1));
-	
-	cout << "returning the nearest images: " << endl;
 	/*
 	// Now we want to find the best building based on these results
 	vector <float> class_results (nr_classes, 0);
@@ -242,8 +230,7 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
 	
 	// Set the resutls variable passed in to the nearest values;
 	*results = nearest;
-	cout << "results rows: " << results->rows << endl;
-	cout << "results cols: " << results->cols << endl;
+	*distances = dists;
 	
     return nearest.at<int>(0,0);
 }
@@ -305,14 +292,6 @@ void CvVocabTree::read()
 	// Read in and create the index structures
 	word_tree = new flann::Index(means, flann::SavedIndexParams(word_index_file));
 	class_tree = new flann::Index(class_counts, flann::SavedIndexParams(class_index_file));
-	
-	//ouput some info that shows what we just read in
-	cout << "The rows in means are: " << means.rows << endl;
-	cout << "The cols in means are: " << means.cols << endl;
-	cout << "The rows in class_counts are: " <<  class_counts.rows << endl;
-	cout << "the cols in class_counts are: " <<  class_counts.cols << endl;
-	cout << "The rows in the tf_idf_weights: " << tf_idf_weights->rows << endl;
-	cout << "The cols in the tf_idf_weights: " << tf_idf_weights->cols << endl; 
 }
 
 

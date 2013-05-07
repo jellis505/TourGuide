@@ -125,7 +125,8 @@ int main (int argc, char *argv[])
 	//Set up the Vocab Tree Trainer
 	CvVocabTree *vocab_tree = new CvVocabTree();
 	vocab_tree->train(&train_data, features_img_labels, labels, images.size());
-	Mat* results;
+	Mat results;
+	Mat distances;
 
 
 	cout << "Predicting..." << endl;
@@ -133,22 +134,18 @@ int main (int argc, char *argv[])
 	float per_building_correct[nr_class];
 	float per_building_count[nr_class];
 	vector <string> per_building_names;
-	// populating the vector; I'm sure there's a better way
-	for (int i = 0; i < nr_class; i++) {
-	  per_building_names.push_back("NOT INITIALIZED");
-	}
 	fill_n(per_building_correct, nr_class, 0.0);
 	fill_n(per_building_count, nr_class, 0.0);
 	for(int i = 0; i < test_images.size() && i < test_features.size(); i++) {
-	    int result = vocab_tree->predict(&test_features[i], results);
+	    int result = vocab_tree->predict(&test_features[i], &results, &distances);
 	    cout << "predicted " << names[result] 
 		 << ", actually " << test_names[i] << endl;
 	    per_building_count[test_labels[i]] += 1;
 	    per_building_names[test_labels[i]] = test_names[i];
 	    if (labels[result] == test_labels[i]){
-	        num_correct++;
+		num_correct++;
 		per_building_correct[test_labels[i]] += 1;
-	    }
+	    } 
 	}
 	cout << "The accuracy of this calculation is: " 
 	     << num_correct/(float)test_labels.size() << endl;
