@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include <boost/filesystem.hpp>
 
@@ -14,6 +15,9 @@ class FileUtils {
 	public:
 	static bool is_hidden(const path &);
 	static int read_images(char *, vector<Mat> &, vector<int> &, vector<string> &);
+	static void output_names(string outputfilename, vector<string> &names);
+	static void input_names(string inputfilename, vector <string> &names);
+	static void ReadOneImage(string name, Mat &image);
 };
 
 bool FileUtils::is_hidden(const path &p)
@@ -87,4 +91,55 @@ int FileUtils::read_images(char *root, vector<Mat> &images, vector<int> &labels,
 	}
 	return num;
 }
+
+void FileUtils::ReadOneImage(string name, Mat &image)
+{
+	// Read in the file in grayscale format
+	image = imread(name, CV_LOAD_IMAGE_GRAYSCALE);
+	
+	
+}
+
+void FileUtils::output_names(string outputfilename, vector<string> &names)
+{
+	// Output the names to a file
+	ofstream outputfile;
+	outputfile.open (outputfilename.c_str());
+	
+	for (int j = 0; j < names.size(); j++)
+	{
+		// Output the name of the returned files 
+		outputfile << names[j];
+		outputfile << "\n";
+	}
+	outputfile.close();
+	
+	
+	return;
+	
+}
+
+void FileUtils::input_names(string inputfilename, vector<string> &names)
+{
+	  string line;
+	  ifstream myfile (inputfilename.c_str());
+	  if (myfile.is_open())
+	  {
+	    while ( myfile.good() )
+	    {
+	      getline(myfile,line);
+		  names.push_back(line);
+	    }
+	    myfile.close();
+		return;
+	  }
+
+	  else cout << "Unable to open file"; 
+	  
+	  // Return the server
+	  return;
+}
+
+
+
 #endif

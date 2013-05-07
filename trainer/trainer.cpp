@@ -9,15 +9,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <boost/filesystem.hpp>
+#include <algorithm>
 
 #include <opencv2/core/core.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/nonfree/features2d.hpp>
 #include <opencv2/ml/ml.hpp>
 
-#include <boost/filesystem.hpp>
-
-#include <algorithm>
 
 
 #define FRAMES 2
@@ -37,10 +36,12 @@ int main (int argc, char *argv[])
     char *model_output = NULL;
     char *vocab_output = NULL;
 
+	/*
     if (argc == 4) {
         model_output = argv[2];
         vocab_output = argv[3];
     }
+	*/
 
     vector<Mat> images;
     vector<int> labels;
@@ -76,13 +77,19 @@ int main (int argc, char *argv[])
     vocab_tree->train(&train_data, features_img_labels, labels, images.size());
     Mat* results;
 
-    cout << "\"Predicting\" (on images I should know)..." << endl;
-    cout << "image 0 is image..." << vocab_tree->predict(&features[0], results) << endl;
-    cout << "image 1 is image..." << vocab_tree->predict(&features[1], results) << endl;
-    cout << "image 2 is image..." << vocab_tree->predict(&features[2], results) << endl;
-    cout << "image 3 is image..." << vocab_tree->predict(&features[3], results) << endl;
-    cout << "image 4 is image..." << vocab_tree->predict(&features[4], results) << endl;
-    cout << "image 5 is image..." << vocab_tree->predict(&features[5], results) << endl;
+
+    // Now we want to output the index structure that we have learned
+	cout << "Saving the Tree Structure: " << endl;
+	vocab_tree->write();
+	
+	// File Utils 
+	cout << "Saving the Picture Indices: " << endl;
+	string outputNameFile = "models/names.txt";
+	FileUtils::output_names(outputNameFile,names);
+	
+	cout << "Successfully Output Names" << endl;
+	cout << "Training Complete: " << endl;
+	
     
     return 0;
 }
