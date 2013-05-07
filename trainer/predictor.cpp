@@ -61,13 +61,22 @@ int main (int argc, char *argv[])
 	// Read in the name files
 	cout << "Got passed the file reading" << endl;
 	
-    Mat* results;
-	int result = vocab_tree->predict(&features, results);
+    Mat results;
+	Mat* dists;
+	int result = vocab_tree->predict(&features, &results);
 	
 	cout << "Success!" << endl;
 	cout << "The first found name is: " << endl;
 	cout << names[result] << endl;
 	
+	cout << "These are the top 10 results" << endl;
+	cout << "results rows: " << results.rows << endl;
+	cout << "columns cols: " << results.cols << endl;
+	// This section outputs the top ten returned results
+	for (int j = 0; j < results.cols; j++){
+		cout << names[results.at<int>(0,j)] << endl;
+	}
 	
+	// Return from the function
     return 0;
 }

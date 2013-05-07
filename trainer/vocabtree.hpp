@@ -29,7 +29,7 @@ public:
 					   const std::vector<int>& classes,
                        const int _nr_unique_labels);
 
-    virtual int predict(const cv::Mat* samples, cv::Mat* results=0) const;
+    virtual int predict(const cv::Mat* samples, cv::Mat* results) const;
     virtual void clear();
 
     virtual void write() const;
