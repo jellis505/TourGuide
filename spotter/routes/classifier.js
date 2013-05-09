@@ -31,6 +31,7 @@ Classifier.prototype.classify = function (req, res) {
       var building = line.split('\t')[0];
       ranking.push(building);
     });
+    ranking.pop(); // Remove the final newline.
     var uniqueRanking = ranking.filter(function (elem, pos) {
       return ranking.indexOf(elem) == pos;
     });
