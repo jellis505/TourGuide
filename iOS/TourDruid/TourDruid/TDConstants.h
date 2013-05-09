@@ -13,5 +13,6 @@
 + (NSString *)nameFromId:(NSNumber *)buildingID;
 + (NSInteger)numberOfBuildings;
 + (UIImage *) imageFromId:(NSNumber *)imageId;
++ (UIImage *) imageFromName:(NSString *)building;
 + (void) buildImages;
 @end

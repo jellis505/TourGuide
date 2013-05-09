@@ -11,15 +11,19 @@
 
 @implementation TDConstants
 NSArray *_names;
-NSArray *_images;
+NSDictionary *_images;
 
 + (void) buildNames
 {
-    _names = [[NSArray alloc ] initWithObjects:@"Alma Mater" ,@"Butler", @"CEPSR", @"CURL", @"Hamilton",   @"Havemayer", @"Journalism", @"Law", @"Lerner", @"Lion", @"Low", @"Mathematics", @"Mudd", @"Noco", @"Pan", @"Pupin", @"Thinker", nil];
+    _names = [[NSArray alloc ] initWithObjects:@"Alma Mater" ,@"Butler Library", @"CEPSR", @"Curl", @"Hamilton",   @"Havemayer", @"Journalism", @"Law", @"Lerner", @"Lion", @"Low", @"Mathematics", @"Mudd", @"Noco", @"Pan", @"Pupin", @"Thinker", nil];
 }
 
 + (void) buildImages
 {
+    if (_names == nil) {
+        [self buildNames];
+    }
+    
     NSArray *imageNames = [[NSArray alloc ] initWithObjects:@"almamater1.jpg" ,@"butler1.jpg", @"CEPSR1.jpg", @"curl1.jpg", @"hamilton1.jpg",   @"havemayer.png", @"journalism1.jpg", @"law1.png", @"lerner1.JPG", @"lion1.jpg", @"low1.jpg", @"mathematics1.jpg", @"mudd1.jpg", @"noco1.jpg", @"pan1.JPG", @"pupin1.png", @"thinker1.jpg", nil];
 
     NSMutableArray *tmp_images = [[NSMutableArray alloc] init];
@@ -27,7 +31,7 @@ NSArray *_images;
         NSLog(@"yes");
         [tmp_images addObject:[UIImage imageNamed:name]];
     }
-    _images = [[NSArray alloc] initWithArray:tmp_images];
+    _images = [[NSDictionary alloc] initWithObjects:tmp_images forKeys:_names];
 }
 
 + (NSString *)nameFromId:(NSNumber *)buildingID
@@ -42,16 +46,24 @@ NSArray *_images;
         return (NSString *)[_names objectAtIndex:[buildingID integerValue]];
 }
 
-+ (UIImage *) imageFromId:(NSNumber *)imageId
++ (UIImage *) imageFromName:(NSString *)building
 {
     if (_images == nil) {
         [self buildImages];
     }
 
-    if ([imageId integerValue] > [_images count]) {
-        return nil;
-    } else
-        return (UIImage *)[_images objectAtIndex:[imageId integerValue]];
+
+    return (UIImage *)[_images objectForKey:building];
+}
+
++ (UIImage *) imageFromId:(NSNumber *)buildingId
+{
+    if (_images == nil) {
+        [self buildImages];
+    }
+
+
+    return (UIImage *)[_images objectForKey:(NSNumber *)[_names objectAtIndex:[buildingId integerValue]]];
 }
 
 + (NSInteger)numberOfBuildings

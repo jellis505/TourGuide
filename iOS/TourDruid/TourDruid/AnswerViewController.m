@@ -83,7 +83,7 @@
 
     TDBuildingRanking *rank = [_ranking objectAtIndex:indexPath.row];
     cell.textLabel.text = [rank name];
-    cell.imageView.image = [TDConstants imageFromId:[rank buildingId]];
+    cell.imageView.image = [TDConstants imageFromName:[rank name]];
 
      return cell;
 }
@@ -112,8 +112,7 @@
 //                                          otherButtonTitles:@"Yup!", nil];
 //    [alert show];
     TDBuildingRanking *rank = [_ranking objectAtIndex:indexPath.row];
-    NSLog(@"%@", [rank buildingId]);
-    [_client confirmImage:[rank buildingId] classifyID:[_response classifyID]];
+    [_client confirmImage:[rank name] classifyID:[_response classifyID]];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSLog(@"selected");

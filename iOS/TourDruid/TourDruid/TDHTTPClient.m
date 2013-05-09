@@ -47,7 +47,7 @@
 
     return _singleton;
 }
--(void)confirmImage:(NSNumber *)buildingID classifyID:(NSString *)classifyID
+-(void)confirmImage:(NSString *)buildingID classifyID:(NSString *)classifyID
 {
     /* set object and key arrays that we use to build our JSON payload */
     NSArray *objects = [[NSArray alloc] initWithObjects:buildingID, classifyID, nil];
@@ -95,8 +95,8 @@
         NSArray *rankings = (NSArray *)[jsonDictionary objectForKey:@"ranking"];
         NSMutableArray *tmp = [[NSMutableArray alloc] init];
         
-        for(NSDictionary *item in rankings) {
-            TDBuildingRanking *tdBuildingRanking = [[TDBuildingRanking alloc] init:(NSNumber *)[item objectForKey:@"ranking"]];
+        for(NSString *item in rankings) {
+            TDBuildingRanking *tdBuildingRanking = [[TDBuildingRanking alloc] init:item];
             [tmp addObject:tdBuildingRanking];
         }
 
