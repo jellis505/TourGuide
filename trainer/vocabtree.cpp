@@ -178,9 +178,10 @@ bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels, const
     return true;
 }
 
-int CvVocabTree::predict(const Mat* samples, Mat* results) const
+int CvVocabTree::predict(const Mat* samples, Mat* results, Mat* distances) const
 {
     // Construct a histogram of word occurences.
+	int nr_words = 729;
     Mat counts = Mat::zeros(1, nr_words, CV_32F);
     for (int i = 0; i < samples->rows; i++) {
 		Mat nearest;
@@ -188,7 +189,7 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
         word_tree->knnSearch(samples->row(i), nearest, dists, 1, 0);
         counts.at<float>(0, nearest.at<int>(0,0))++;
     }
-    
+	
 	// Normalize the histogram.
 	float norm_factor;
 	Scalar sum_val;
@@ -204,7 +205,7 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
     Mat nearest;
     Mat dists;
     class_tree->knnSearch(counts, nearest, dists, 10, flann::SearchParams(1));
-	
+	/*
 	// Now we want to find the best building based on these results
 	vector <float> class_results (nr_classes, 0);
 	int return_label;
@@ -225,6 +226,11 @@ int CvVocabTree::predict(const Mat* samples, Mat* results) const
 	
 	int max_idx;
 	max_idx = *max_element(class_results.begin(),class_results.end());
+	*/
+	
+	// Set the resutls variable passed in to the nearest values;
+	*results = nearest;
+	*distances = dists;
 	
     return nearest.at<int>(0,0);
 }
@@ -236,15 +242,19 @@ void CvVocabTree::write() const
 	string word_index_file = "models/word_index.dat";
 	string class_mat_file = "models/class_mat.xml";
 	string class_index_file = "models/class_index.dat";
+	string tf_idf_file = "models/tf_idf_mat.xml";
 	
 	// output the mats to a file
-	FileStorage f,g;
+	FileStorage f,g,h;
 	f.open(word_mat_file, FileStorage::WRITE);
 	g.open(class_mat_file, FileStorage::WRITE);
+	h.open(tf_idf_file, FileStorage::WRITE);
 	f << "means" << means;
 	g << "class_counts" << class_counts;
+	h << "tf_idf_weights" << *tf_idf_weights;
 	f.release();
 	g.release();
+	h.release();
 	
 	// Save both of the index parameters
 	class_tree->save(class_index_file);
@@ -260,6 +270,10 @@ void CvVocabTree::read()
 	string word_index_file = "models/word_index.dat";
 	string class_mat_file = "models/class_mat.xml";
 	string class_index_file = "models/class_index.dat";
+	string tf_idf_file = "models/tf_idf_mat.xml";
+	
+	// dummy matrix for tf_idf_weights
+	Mat *dummy = new Mat();
 	
 	// This section reads in our Mats 
 	FileStorage fs(word_mat_file, FileStorage::READ );
@@ -268,17 +282,16 @@ void CvVocabTree::read()
 	FileStorage gs(class_mat_file, FileStorage::READ );
 	gs["class_counts"] >> class_counts;
 	gs.release();
+	FileStorage hs(tf_idf_file, FileStorage::READ);
+	hs["tf_idf_weights"] >> *dummy;
+	hs.release();
+	
+	// Get address to tf_idf_weights
+	tf_idf_weights = dummy;
 	
 	// Read in and create the index structures
 	word_tree = new flann::Index(means, flann::SavedIndexParams(word_index_file));
 	class_tree = new flann::Index(class_counts, flann::SavedIndexParams(class_index_file));
-	
-	//ouput some info that shows what we just read in
-	cout << "The rows in means are: " << means.rows << endl;
-	cout << "The cols in means are: " << means.cols << endl;
-	cout << "The rows in class_counts are: " <<  class_counts.rows << endl;
-	cout << "the cols in class_counts are: " << class_counts.cols << endl;
-	
 }
 
 

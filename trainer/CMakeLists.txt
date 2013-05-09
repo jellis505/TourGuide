@@ -24,3 +24,12 @@ add_executable(
 )
 
 target_link_libraries(test_suite ${OpenCV_LIBS} ${Boost_LIBRARIES})
+
+add_executable(
+  predictor
+  predictor.cpp
+  feature_extractor.cpp
+  vocabtree.cpp
+)
+
+target_link_libraries(predictor ${OpenCV_LIBS} ${Boost_LIBRARIES}) 

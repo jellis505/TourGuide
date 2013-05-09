@@ -125,7 +125,8 @@ int main (int argc, char *argv[])
 	//Set up the Vocab Tree Trainer
 	CvVocabTree *vocab_tree = new CvVocabTree();
 	vocab_tree->train(&train_data, features_img_labels, labels, images.size());
-	Mat* results;
+	Mat results;
+	Mat distances;
 
 
 	cout << "Predicting..." << endl;
@@ -136,7 +137,7 @@ int main (int argc, char *argv[])
 	fill_n(per_building_correct, nr_class, 0.0);
 	fill_n(per_building_count, nr_class, 0.0);
 	for(int i = 0; i < test_images.size() && i < test_features.size(); i++) {
-	    int result = vocab_tree->predict(&test_features[i], results);
+	    int result = vocab_tree->predict(&test_features[i], &results, &distances);
 	    cout << "predicted " << names[result] 
 		 << ", actually " << test_names[i] << endl;
 	    per_building_count[test_labels[i]] += 1;
