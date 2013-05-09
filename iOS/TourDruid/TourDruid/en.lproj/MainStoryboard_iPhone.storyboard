@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -9,56 +9,72 @@
             <objects>
                 <viewController id="2" customClass="ViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="alma_mater2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="hLl-ll-W3z"/>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" text="Tour Druid" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="321" translatesAutoresizingMaskIntoConstraints="NO" id="g4v-5D-tSM">
-                                <color key="backgroundColor" red="0.92113380700000003" green="0.96213609239999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="alma_mater2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="hLl-ll-W3z">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="176" id="hJg-04-Sm3"/>
+                                    <constraint firstAttribute="width" constant="508" id="Hjz-Qn-GRw"/>
+                                    <constraint firstAttribute="height" constant="484" id="VwY-a7-cWq"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="GujaratiSangamMN" family="Gujarati Sangam MN" pointSize="56"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ktK-qq-PqS">
+                            </imageView>
+                            <view alpha="0.80000000000000004" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSv-72-4d1">
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="left" text="Tour Druid" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="320" translatesAutoresizingMaskIntoConstraints="NO" id="g4v-5D-tSM">
+                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="65" id="1nm-Kq-b6q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="24"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Take a picture to find out where you are on Columbia's campus!" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="154" translatesAutoresizingMaskIntoConstraints="NO" id="jCD-0K-EMt">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="154" id="2UU-hh-gdt"/>
+                                            <constraint firstAttribute="height" constant="213" id="PZ7-K7-bHs"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                                        <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ktK-qq-PqS">
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="122" id="ad4-bd-ZY7"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                        <state key="normal" title="Let's go!">
+                                            <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="takePhoto:" destination="2" eventType="touchUpInside" id="yav-qL-fgh"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.44313728809356689" green="0.65882354974746704" blue="0.87450987100601196" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="233" id="Vh6-zh-2LV"/>
+                                    <constraint firstItem="g4v-5D-tSM" firstAttribute="trailing" secondItem="iSv-72-4d1" secondAttribute="trailing" type="default" id="5nS-6M-Pe8"/>
+                                    <constraint firstAttribute="bottom" secondItem="ktK-qq-PqS" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="Nbn-OP-R4i"/>
+                                    <constraint firstItem="g4v-5D-tSM" firstAttribute="centerX" secondItem="ktK-qq-PqS" secondAttribute="centerX" type="default" id="cZp-Fj-xph"/>
+                                    <constraint firstItem="g4v-5D-tSM" firstAttribute="top" secondItem="iSv-72-4d1" secondAttribute="top" constant="-1" id="g4X-rd-DAY"/>
+                                    <constraint firstItem="g4v-5D-tSM" firstAttribute="leading" secondItem="iSv-72-4d1" secondAttribute="leading" type="default" id="i6J-ap-mH7"/>
+                                    <constraint firstItem="jCD-0K-EMt" firstAttribute="leading" secondItem="iSv-72-4d1" secondAttribute="leading" constant="25" id="kaZ-ud-D6j"/>
+                                    <constraint firstItem="jCD-0K-EMt" firstAttribute="top" secondItem="iSv-72-4d1" secondAttribute="top" constant="33" id="ogP-HZ-7ha"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Where Am I????">
-                                    <color key="titleColor" red="0.074181899124985046" green="0.1180950320555143" blue="0.20051419005102045" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="takePhoto:" destination="2" eventType="touchUpInside" id="yav-qL-fgh"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Find out where you are on Columbia's campus!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="257" translatesAutoresizingMaskIntoConstraints="NO" id="jCD-0K-EMt">
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="257" id="8T7-FO-CbZ"/>
-                                    <constraint firstAttribute="height" constant="61" id="G8d-bq-8Eu"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="ktK-qq-PqS" firstAttribute="leading" secondItem="jCD-0K-EMt" secondAttribute="leading" type="default" id="2G5-6a-uEv"/>
-                            <constraint firstItem="ktK-qq-PqS" firstAttribute="centerX" secondItem="g4v-5D-tSM" secondAttribute="centerX" type="default" id="38d-Fj-xtX"/>
-                            <constraint firstItem="g4v-5D-tSM" firstAttribute="top" secondItem="3" secondAttribute="top" constant="26" id="82r-Rq-f0G"/>
-                            <constraint firstItem="hLl-ll-W3z" firstAttribute="centerX" secondItem="jCD-0K-EMt" secondAttribute="centerX" type="default" id="XpX-dV-gna"/>
-                            <constraint firstItem="ktK-qq-PqS" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="beK-HS-cLM"/>
-                            <constraint firstAttribute="bottom" secondItem="ktK-qq-PqS" secondAttribute="bottom" constant="92" id="bfs-j4-Ev3"/>
-                            <constraint firstItem="jCD-0K-EMt" firstAttribute="bottom" secondItem="g4v-5D-tSM" secondAttribute="bottom" type="default" id="efK-Je-BDD"/>
-                            <constraint firstItem="g4v-5D-tSM" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="quz-hq-Da0"/>
-                            <constraint firstItem="hLl-ll-W3z" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="vjT-P9-5L1"/>
+                            <constraint firstItem="iSv-72-4d1" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="39K-ak-SPo"/>
+                            <constraint firstItem="hLl-ll-W3z" firstAttribute="top" secondItem="3" secondAttribute="top" constant="65" id="Bz7-Ec-Ufx"/>
+                            <constraint firstItem="iSv-72-4d1" firstAttribute="centerX" secondItem="hLl-ll-W3z" secondAttribute="centerX" type="default" id="EJF-0o-aPR"/>
+                            <constraint firstItem="iSv-72-4d1" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="Pff-Cy-L0p"/>
+                            <constraint firstItem="iSv-72-4d1" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="mmG-3u-R5G"/>
+                            <constraint firstItem="iSv-72-4d1" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="tdu-26-Dmh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="2Ps-Jj-Qdk"/>
@@ -68,14 +84,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-492" y="64"/>
+            <point key="canvasLocation" x="-496" y="328"/>
         </scene>
         <!--Image Picker View Controller - Camera View-->
         <scene sceneID="JFr-ox-mBC">
             <objects>
                 <viewController title="Camera View" id="ese-ZZ-VtU" customClass="ImagePickerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KbL-fM-ckc">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -90,7 +106,7 @@
             <objects>
                 <viewController storyboardIdentifier="ResultView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="sqw-8P-bPd" customClass="AnswerViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rzc-38-egZ">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="thinker.png" translatesAutoresizingMaskIntoConstraints="NO" id="7Ud-D3-DvP"/>
@@ -98,7 +114,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="293" id="Db5-yZ-bqA"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="15"/>
                                 <state key="normal" title="Not quite...">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,7 +131,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="54" id="aOZ-EW-2Go"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="23"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -134,12 +150,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAl-1Y-61g">
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jxd-qb-LQa">
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
                                                     <color key="textColor" red="0.2196078431372549" green="0.32941176470588235" blue="0.52941176470588236" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
@@ -178,7 +194,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="BuildingList" id="G7A-Qg-lzq" customClass="WrongAnswerViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4FN-nj-3Zx">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="m3B-9W-6rL">
@@ -226,9 +242,6 @@
     <classes>
         <class className="AnswerViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AnswerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="openBuildingList:"/>
-            </relationships>
         </class>
         <class className="ImagePickerViewController" superclassName="UIImagePickerController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImagePickerViewController.h"/>
@@ -244,14 +257,11 @@
         </class>
         <class className="WrongAnswerViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WrongAnswerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goBack:"/>
-            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
+        <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
 </document>

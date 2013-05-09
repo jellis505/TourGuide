@@ -9,6 +9,9 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+if (!process.env.IMAGE_PATH)
+	throw new Error('env variable IMAGE_PATH must be defined');
+
 var app = express()
   , classifier = new Classifier(process.env.IMAGE_PATH);
 
@@ -30,8 +33,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.post('/image/classify', classifier.classify);
-app.post('/image/confirm', classifier.confirm);
+app.post('/image/classify', classifier.classify.bind(classifier));
+app.post('/image/confirm', classifier.confirm.bind(classifier));
 
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
