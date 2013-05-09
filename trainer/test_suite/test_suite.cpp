@@ -136,8 +136,9 @@ int main (int argc, char *argv[])
 	vector <string> per_building_names;
 	fill_n(per_building_correct, nr_class, 0.0);
 	fill_n(per_building_count, nr_class, 0.0);
+	int return_num = 10;
 	for(int i = 0; i < test_images.size() && i < test_features.size(); i++) {
-	    int result = vocab_tree->predict(&test_features[i], &results, &distances);
+	    int result = vocab_tree->predict(&test_features[i], &results, &distances, return_num);
 	    cout << "predicted " << names[result] 
 		 << ", actually " << test_names[i] << endl;
 	    per_building_count[test_labels[i]] += 1;
