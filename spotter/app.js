@@ -35,6 +35,10 @@ app.get('/', routes.index);
 app.post('/image/classify', classifier.classify.bind(classifier));
 app.post('/image/confirm', classifier.confirm.bind(classifier));
 
+process.on('uncaughtException', function(err) {
+    console.log(err);
+});
+
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });
