@@ -49,7 +49,7 @@
 
     UIImagePickerController *cameraUI = [[UIImagePickerController alloc] init];
     cameraUI.sourceType = [self sourceType];
-    NSLog(@"here 1");
+
     // Displays a control that allows the user to choose picture or
     // movie capture, if both are available:
     cameraUI.mediaTypes =

@@ -80,6 +80,7 @@
 
     // Configure the cell...
     cell.textLabel.text = [TDConstants nameFromId:[NSNumber numberWithInt:indexPath.row]];
+    cell.imageView.image = [TDConstants imageFromId:[NSNumber numberWithInt:indexPath.row]];
     return cell;
 }
 

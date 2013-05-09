@@ -41,6 +41,7 @@
     if (_client == nil) {
         _client = [TDHTTPClient sharedInstance];
     }
+
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -81,9 +82,7 @@
 
     TDBuildingRanking *rank = [_ranking objectAtIndex:indexPath.row];
     cell.textLabel.text = [rank name];
-    double percentage = 100 * [[rank confidence] doubleValue];
 
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%%",[[NSNumber numberWithDouble:percentage] stringValue]];
      return cell;
 }
 

@@ -96,9 +96,10 @@
         NSMutableArray *tmp = [[NSMutableArray alloc] init];
         
         for(NSDictionary *item in rankings) {
-            TDBuildingRanking *tdBuildingRanking = [[TDBuildingRanking alloc] init:(NSNumber *)[item objectForKey:@"building"] confidence:(NSNumber *)[item objectForKey:@"confidence"]];
+            TDBuildingRanking *tdBuildingRanking = [[TDBuildingRanking alloc] init:(NSNumber *)[item objectForKey:@"building"]];
             [tmp addObject:tdBuildingRanking];
         }
+
         [tdresponse setRanking:tmp];
         [tdresponse setClassifyID:[jsonDictionary objectForKey:@"classifyID"]];
         success(tdresponse);
