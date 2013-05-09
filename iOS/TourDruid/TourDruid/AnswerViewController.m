@@ -11,6 +11,7 @@
 #import "TDResponse.h"
 #import "TDHTTPClient.h"
 #import "WrongAnswerViewController.h"
+#import "TDConstants.h"
 
 @interface AnswerViewController () {
     @private
@@ -82,6 +83,7 @@
 
     TDBuildingRanking *rank = [_ranking objectAtIndex:indexPath.row];
     cell.textLabel.text = [rank name];
+    cell.imageView.image = [TDConstants imageFromId:[rank buildingId]];
 
      return cell;
 }
