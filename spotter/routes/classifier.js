@@ -23,7 +23,8 @@ Classifier.prototype.classify = function (req, res) {
   // TODO:
   // Run the classifier.
   var ranking = [];
-  var cmd = '../trainer/build/predictor ' + image.path;
+  var cmd = 'cd ../trainer/build/ && ./predictor ' + image.path;
+  console.log ('running ' + cmd);
   exec(cmd, function (err, stdout, stderr) {
     if (err) throw err;
     stdout.split('\n').map(function (line) {
@@ -31,12 +32,12 @@ Classifier.prototype.classify = function (req, res) {
       ranking.push(building);
     });
     var uniqueRanking = ranking.filter(function (elem, pos) {
-      return ranking.indexOf(elem) == position;
+      return ranking.indexOf(elem) == pos;
     });
-	res.send({
-      ranking: uniqueRanking,
-      classifyID: image.path
-	});
+  	res.send({
+        ranking: uniqueRanking,
+        classifyID: image.path
+  	});
   });
 };
 
