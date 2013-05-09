@@ -64,7 +64,6 @@ int main (int argc, char *argv[])
 	int return_num = 30;
 	int result = vocab_tree->predict(&features, &results, &dists, return_num);
 	
-	cout << "These are the top 10 results with distance:" << endl;
 	// This section outputs the top ten returned results
 	for (int j = 0; j < results.cols; j++){
 		cout << names[results.at<int>(0,j)] << "\t" << dists.at<float>(0,j) << endl;

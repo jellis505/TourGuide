@@ -9,7 +9,7 @@ var Classifier = function (imagePath) {
 /*	
  * POST jpg to be classified
  * request: image -> binary rep of image
- * response: ranking[] -> list of building IDs
+ * response: ranking[] -> list of building IDs (the building's name)
  *           classifyID -> ID for this request
  */
 Classifier.prototype.classify = function (req, res) {
