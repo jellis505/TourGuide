@@ -1,8 +1,8 @@
-var fs = require('fs');
+var fs = require('fs')
+  , path = require('path');
 
 var Classifier = function (imagePath) {
   this.imagePath = imagePath;
-  return this;
 };
 
 /*	
@@ -37,12 +37,13 @@ Classifier.prototype.classify = function (req, res) {
  * response: 200 or 500 if id doesn't exist
  */
 Classifier.prototype.confirm = function (req, res) {
-  console.log(req);
-  console.log(req.body.buildingID + ' classified as ' + req.body.classifyID);
-  var path = req.body.classifyID;
-  var newPath = this.imagePath + req.classifyID;
-  console.log('renaming ' + path + ' to ' + newPath);
-  fs.rename(path, newPath, function (err) {
+  console.log(req.body.classifyID + ' classified as ' + req.body.buildingID);
+  var oldPath = req.body.classifyID;
+  var splitted = req.body.classifyID.split('/');
+  var fileName = splitted[splitted.length - 1];
+  var newPath = path.join(this.imagePath, fileName);
+  console.log('renaming ' + oldPath + ' to ' + newPath);
+  fs.rename(oldPath, newPath, function (err) {
     if (err) throw err;
     res.send('Thank you, human.');
   });
