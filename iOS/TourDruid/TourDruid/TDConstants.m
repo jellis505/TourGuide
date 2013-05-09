@@ -20,10 +20,11 @@ NSArray *_images;
 
 + (void) buildImages
 {
-    NSArray *imageNames = [[NSArray alloc ] initWithObjects:@"almamater1.jpg" ,@"butler1.jpg", @"CEPSR1.jpg", @"curl1.jpg", @"hamilton.jpg",   @"havemayer.jpg", @"journalism1.jpg", @"law1.png", @"lerner1.JPG", @"lion1.jpg", @"low1.jpg", @"mathematics1.jpg", @"mudd1.jpg", @"noco1.jpg", @"pan1.JPG", @"Pupin", @"Thinker", nil];
+    NSArray *imageNames = [[NSArray alloc ] initWithObjects:@"almamater1.jpg" ,@"butler1.jpg", @"CEPSR1.jpg", @"curl1.jpg", @"hamilton1.jpg",   @"havemayer.png", @"journalism1.jpg", @"law1.png", @"lerner1.JPG", @"lion1.jpg", @"low1.jpg", @"mathematics1.jpg", @"mudd1.jpg", @"noco1.jpg", @"pan1.JPG", @"pupin1.png", @"thinker1.jpg", nil];
 
     NSMutableArray *tmp_images = [[NSMutableArray alloc] init];
     for (NSString *name in imageNames) {
+        NSLog(@"yes");
         [tmp_images addObject:[UIImage imageNamed:name]];
     }
     _images = [[NSArray alloc] initWithArray:tmp_images];

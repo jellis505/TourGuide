@@ -96,7 +96,7 @@
         NSMutableArray *tmp = [[NSMutableArray alloc] init];
         
         for(NSDictionary *item in rankings) {
-            TDBuildingRanking *tdBuildingRanking = [[TDBuildingRanking alloc] init:(NSNumber *)[item objectForKey:@"building"]];
+            TDBuildingRanking *tdBuildingRanking = [[TDBuildingRanking alloc] init:(NSNumber *)[item objectForKey:@"ranking"]];
             [tmp addObject:tdBuildingRanking];
         }
 
