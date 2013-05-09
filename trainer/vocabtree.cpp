@@ -178,7 +178,7 @@ bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels, const
     return true;
 }
 
-int CvVocabTree::predict(const Mat* samples, Mat* results, Mat* distances) const
+int CvVocabTree::predict(const Mat* samples, Mat* results, Mat* distances, int return_num) const
 {
     // Construct a histogram of word occurences.
 	int nr_words = 729;
@@ -204,7 +204,7 @@ int CvVocabTree::predict(const Mat* samples, Mat* results, Mat* distances) const
     // Run flann, return the label based on the weights matrix.
     Mat nearest;
     Mat dists;
-    class_tree->knnSearch(counts, nearest, dists, 10, flann::SearchParams(1));
+    class_tree->knnSearch(counts, nearest, dists, return_num, flann::SearchParams(1));
 	/*
 	// Now we want to find the best building based on these results
 	vector <float> class_results (nr_classes, 0);

@@ -61,7 +61,8 @@ int main (int argc, char *argv[])
 	// Read in the name files
     Mat results;
 	Mat dists;
-	int result = vocab_tree->predict(&features, &results, &dists);
+	int return_num = 30;
+	int result = vocab_tree->predict(&features, &results, &dists, return_num);
 	
 	cout << "These are the top 10 results with distance:" << endl;
 	// This section outputs the top ten returned results
