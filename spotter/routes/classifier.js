@@ -1,5 +1,6 @@
 var fs = require('fs')
-  , path = require('path');
+  , path = require('path')
+  , exec = require('child_process').exec;
 
 var Classifier = function (imagePath) {
   this.imagePath = imagePath;
@@ -8,8 +9,8 @@ var Classifier = function (imagePath) {
 /*	
  * POST jpg to be classified
  * request: image -> binary rep of image
- * response: ranking[] -> list of {building:index, confidence:percent} items
- *           classifyID -> ID for this request 
+ * response: ranking[] -> list of building IDs
+ *           classifyID -> ID for this request
  */
 Classifier.prototype.classify = function (req, res) {
   console.log(req.files.image.type);
@@ -21,14 +22,22 @@ Classifier.prototype.classify = function (req, res) {
 
   // TODO:
   // Run the classifier.
-  var building = { building: 1, confidence: .4 };
-  var ranking = {
-    ranking: [building],
-    classifyID: image.path
-  };
-
-  // Send back the result.
-  res.send(ranking);
+  var ranking = [];
+  var cmd = '../trainer/build/predictor ' + image.path;
+  exec(cmd, function (err, stdout, stderr) {
+    if (err) throw err;
+    stdout.split('\n').map(function (line) {
+      var building = line.split('\t')[0];
+      ranking.push(building);
+    });
+    var uniqueRanking = ranking.filter(function (elem, pos) {
+      return ranking.indexOf(elem) == position;
+    });
+	res.send({
+      ranking: uniqueRanking,
+      classifyID: image.path
+	});
+  });
 };
 
 /* POST the building the user thinks is correct for an image
