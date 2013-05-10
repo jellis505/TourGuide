@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <stdlib.h>
 
 #include <boost/filesystem.hpp>
 
@@ -95,9 +96,13 @@ int FileUtils::read_images(char *root, vector<Mat> &images, vector<int> &labels,
 void FileUtils::ReadOneImage(string name, Mat &image)
 {
 	// Read in the file in grayscale format
+	string PIXEL_LIMIT = "300000";
+	string resize = string("convert ") + name + " -resize @" + PIXEL_LIMIT + " " + name;
+	system(resize.c_str());
+	string grayscale = string("convert ") + name + " -colorspace Gray " + name;
+	system(grayscale.c_str());
+
 	image = imread(name, CV_LOAD_IMAGE_GRAYSCALE);
-	
-	
 }
 
 void FileUtils::output_names(string outputfilename, vector<string> &names)
