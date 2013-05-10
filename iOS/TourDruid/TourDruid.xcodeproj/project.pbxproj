@@ -27,7 +27,6 @@
 		CE3A6C3F1735813000110D83 /* WrongAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6C3E1735813000110D83 /* WrongAnswerViewController.m */; };
 		CE5DDBFB173D5E89008231BD /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5DDBFA173D5E89008231BD /* InfoViewController.m */; };
 		CE5DDBFD173D6A61008231BD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5DDBFC173D6A61008231BD /* MapKit.framework */; };
-		CE5DDBFF173D79BA008231BD /* lion_background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE5DDBFE173D79BA008231BD /* lion_background.jpg */; };
 		CE5DDC01173D7AC5008231BD /* butler library.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE5DDC00173D7AC5008231BD /* butler library.jpg */; };
 		CEB61F54172752A6001C82BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F53172752A6001C82BF /* UIKit.framework */; };
 		CEB61F56172752A6001C82BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F55172752A6001C82BF /* Foundation.framework */; };
@@ -100,7 +99,6 @@
 		CE5DDBF9173D5E89008231BD /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		CE5DDBFA173D5E89008231BD /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		CE5DDBFC173D6A61008231BD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		CE5DDBFE173D79BA008231BD /* lion_background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = lion_background.jpg; path = ../../../../../Desktop/butler/lion_background.jpg; sourceTree = "<group>"; };
 		CE5DDC00173D7AC5008231BD /* butler library.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "butler library.jpg"; path = "../../../../../Desktop/butler/butler library.jpg"; sourceTree = "<group>"; };
 		CEB61F50172752A6001C82BF /* TourDruid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TourDruid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB61F53172752A6001C82BF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -272,7 +270,6 @@
 				CE38C1D5173C02D200482CAB /* journalism1.jpg */,
 				CE38C1D6173C02D200482CAB /* law1.png */,
 				CE38C1D7173C02D200482CAB /* lerner1.JPG */,
-				CE5DDBFE173D79BA008231BD /* lion_background.jpg */,
 				CE38C1D8173C02D200482CAB /* lion1.jpg */,
 				CE38C1D9173C02D200482CAB /* low1.jpg */,
 				CE38C1DA173C02D200482CAB /* mathematics1.jpg */,
@@ -437,7 +434,6 @@
 				CE38C1EF173C031E00482CAB /* almamater1.jpg in Resources */,
 				CE38C1F2173C0C4500482CAB /* pupin1.png in Resources */,
 				CE38C1F3173C0C4500482CAB /* thinker1.jpg in Resources */,
-				CE5DDBFF173D79BA008231BD /* lion_background.jpg in Resources */,
 				CE5DDC01173D7AC5008231BD /* butler library.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
