@@ -10,6 +10,5 @@
 
 @interface TDBuildingRanking : NSObject
 @property (nonatomic) NSString *name;
-@property (nonatomic) NSNumber *buildingId;
-- (id) init:(NSNumber *)buildingID;
+- (id) init:(NSString *)buildingName;
 @end

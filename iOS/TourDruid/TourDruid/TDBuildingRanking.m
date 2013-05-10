@@ -11,13 +11,11 @@
 
 @implementation TDBuildingRanking
 
-- (id) init:(NSNumber *)buildingID {
+- (id) init:(NSString *)buildingName {
     self = [super init];
     if (self) {
-        
+        _name = buildingName;
     }
-    _buildingId = buildingID;
-    _name = [TDConstants nameFromId:buildingID];
     return self;
 }
 

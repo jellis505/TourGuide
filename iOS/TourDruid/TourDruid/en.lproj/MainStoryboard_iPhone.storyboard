@@ -101,24 +101,39 @@
             </objects>
             <point key="canvasLocation" x="-164" y="-302"/>
         </scene>
-        <!--View Controller-->
+        <!--Info View Controller - Info View-->
         <scene sceneID="T3d-gB-t6w">
             <objects>
-                <viewController id="xud-Sh-xTp" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InfoViewController" title="Info View" id="xud-Sh-xTp" customClass="InfoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="t4M-7K-Glp">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="butler library.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="SUC-xr-Heu">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="460" id="4qw-CE-nEv"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="left" text="Learn!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Th-9j-wks">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="53" id="Q5x-b5-thM"/>
+                                    <constraint firstAttribute="width" constant="614" id="ooN-LD-qdD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BlT-5E-BHP">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="0B7-YB-mTp"/>
                                     <constraint firstAttribute="width" constant="300" id="far-tw-kay"/>
-                                    <constraint firstAttribute="height" constant="199" id="hsG-cy-10f"/>
                                 </constraints>
                             </webView>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AqQ-H3-gYV">
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="9p2-Qf-ebR"/>
+                                    <constraint firstAttribute="height" constant="81" id="l0o-2g-Xwd"/>
                                 </constraints>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3V-fN-bVM">
@@ -130,24 +145,36 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <segue destination="2" kind="modal" id="pGh-jn-3I0"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="BlT-5E-BHP" firstAttribute="centerX" secondItem="t4M-7K-Glp" secondAttribute="centerX" type="default" id="8ZN-yT-IUG"/>
+                            <constraint firstItem="SUC-xr-Heu" firstAttribute="trailing" secondItem="5Th-9j-wks" secondAttribute="trailing" type="default" id="2p0-d5-bDz"/>
+                            <constraint firstItem="R3V-fN-bVM" firstAttribute="leading" secondItem="t4M-7K-Glp" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="3Ya-EC-cMw"/>
                             <constraint firstItem="BlT-5E-BHP" firstAttribute="trailing" secondItem="AqQ-H3-gYV" secondAttribute="trailing" type="default" id="A7X-lU-BtK"/>
-                            <constraint firstItem="R3V-fN-bVM" firstAttribute="top" secondItem="AqQ-H3-gYV" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Bex-xy-YUK"/>
-                            <constraint firstItem="R3V-fN-bVM" firstAttribute="centerX" secondItem="AqQ-H3-gYV" secondAttribute="centerX" type="default" id="Soc-ag-YCF"/>
                             <constraint firstItem="BlT-5E-BHP" firstAttribute="leading" secondItem="AqQ-H3-gYV" secondAttribute="leading" type="default" id="UrF-Ll-hB9"/>
+                            <constraint firstItem="5Th-9j-wks" firstAttribute="top" secondItem="t4M-7K-Glp" secondAttribute="top" type="default" id="Ut4-qR-hM7"/>
+                            <constraint firstItem="5Th-9j-wks" firstAttribute="centerX" secondItem="BlT-5E-BHP" secondAttribute="centerX" type="default" id="VH3-Jm-o4X"/>
                             <constraint firstAttribute="trailing" secondItem="R3V-fN-bVM" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="c01-h1-VDd"/>
-                            <constraint firstItem="BlT-5E-BHP" firstAttribute="top" secondItem="t4M-7K-Glp" secondAttribute="top" constant="8" id="h2w-8Y-PHj"/>
-                            <constraint firstItem="AqQ-H3-gYV" firstAttribute="top" secondItem="t4M-7K-Glp" secondAttribute="top" constant="221" id="nK0-7G-d9D"/>
+                            <constraint firstItem="SUC-xr-Heu" firstAttribute="top" secondItem="t4M-7K-Glp" secondAttribute="top" constant="46" id="dzZ-Wf-o1d"/>
+                            <constraint firstItem="SUC-xr-Heu" firstAttribute="leading" secondItem="5Th-9j-wks" secondAttribute="leading" type="default" id="goy-GF-cv2"/>
+                            <constraint firstAttribute="bottom" secondItem="AqQ-H3-gYV" secondAttribute="bottom" constant="60" id="l63-YJ-SVn"/>
+                            <constraint firstAttribute="bottom" secondItem="R3V-fN-bVM" secondAttribute="bottom" constant="6" id="phz-sj-uRx"/>
+                            <constraint firstItem="BlT-5E-BHP" firstAttribute="top" secondItem="t4M-7K-Glp" secondAttribute="top" constant="62" id="qgm-EJ-eZv"/>
+                            <constraint firstItem="AqQ-H3-gYV" firstAttribute="centerX" secondItem="R3V-fN-bVM" secondAttribute="centerX" type="default" id="rvp-Fz-JcR"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="AqQ-H3-gYV" id="xbu-N7-1yw"/>
+                        <outlet property="webView" destination="BlT-5E-BHP" id="STW-Uo-AeG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="70h-ca-VCg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="369" y="-279"/>
+            <point key="canvasLocation" x="255" y="-239"/>
         </scene>
         <!--Answer View Controller-->
         <scene sceneID="t92-w5-UVm">
@@ -176,7 +203,7 @@
                                     <action selector="openBuildingList:" destination="sqw-8P-bPd" eventType="touchUpInside" id="hGO-w9-Mmb"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="It looks like you are at..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHH-b5-djc">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.75" contentMode="left" text="It looks like you are at..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BHH-b5-djc">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="65" id="abM-hn-y4y"/>
@@ -185,18 +212,18 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" canCancelContentTouches="NO" dataMode="prototypes" style="plain" rowHeight="122" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Dj1-LT-6dj">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" canCancelContentTouches="NO" dataMode="prototypes" style="plain" rowHeight="116" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Dj1-LT-6dj">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="274" id="2hO-eP-FAe"/>
                                     <constraint firstAttribute="width" constant="276" id="3Zf-75-1z6"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="C1" textLabel="uAl-1Y-61g" rowHeight="122" style="IBUITableViewCellStyleDefault" id="AvX-QY-CuU">
-                                        <rect key="frame" x="0.0" y="22" width="276" height="122"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="C1" textLabel="uAl-1Y-61g" rowHeight="116" style="IBUITableViewCellStyleDefault" id="AvX-QY-CuU">
+                                        <rect key="frame" x="0.0" y="22" width="276" height="116"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="276" height="121"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="276" height="115"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAl-1Y-61g">
@@ -282,8 +309,42 @@
     </scenes>
     <resources>
         <image name="alma_mater2.jpg" width="601" height="586"/>
+        <image name="butler library.jpg" width="720" height="354"/>
         <image name="thinker.png" width="681" height="690"/>
     </resources>
+    <classes>
+        <class className="AnswerViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AnswerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="openBuildingList:"/>
+            </relationships>
+        </class>
+        <class className="ImagePickerViewController" superclassName="UIImagePickerController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImagePickerViewController.h"/>
+        </class>
+        <class className="InfoViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfoViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+        <class className="ViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="takePhoto:"/>
+            </relationships>
+        </class>
+        <class className="WrongAnswerViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/WrongAnswerViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="goBack:"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

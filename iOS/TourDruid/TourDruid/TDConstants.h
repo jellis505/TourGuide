@@ -7,11 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @interface TDConstants : NSObject
 + (void) buildNames;
++ (void) buildURLs;
 + (NSString *)nameFromId:(NSNumber *)buildingID;
 + (NSInteger)numberOfBuildings;
 + (UIImage *) imageFromId:(NSNumber *)imageId;
++ (UIImage *) imageFromName:(NSString *)building;
++ (NSString *) urlFromName:(NSString *)buildingId;
++ (MKCoordinateRegion) regionFromName:(NSString *)building;
 + (void) buildImages;
 @end

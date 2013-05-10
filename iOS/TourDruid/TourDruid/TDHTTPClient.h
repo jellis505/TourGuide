@@ -12,7 +12,7 @@
 @interface TDHTTPClient : NSObject
 -(void)sendImage:(UIImage *)image success:(void(^)(TDResponse *))success
          failure:(void (^)(NSError *))failure;
--(void)confirmImage:(NSNumber *)buildingID classifyID:(NSString *)classifyID;
+-(void)confirmImage:(NSString *)buildingID classifyID:(NSString *)classifyID;
 
 + (TDHTTPClient *)sharedInstance;
 @end
