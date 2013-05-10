@@ -11,6 +11,7 @@
 #import "TDResponse.h"
 #import "TDHTTPClient.h"
 #import "WrongAnswerViewController.h"
+#import "InfoViewController.h"
 #import "TDConstants.h"
 
 @interface AnswerViewController () {
@@ -19,6 +20,7 @@
     TDResponse *_response;
     TDHTTPClient *_client;
     WrongAnswerViewController *_buildingList;
+    InfoViewController *_infoView;
 }
 
 @end
@@ -114,13 +116,11 @@
     TDBuildingRanking *rank = [_ranking objectAtIndex:indexPath.row];
     [_client confirmImage:[rank name] classifyID:[_response classifyID]];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    _infoView = [sb instantiateViewControllerWithIdentifier:@"InfoViewController"];
+    [_infoView setBuildingName:[rank name]];
+    [self presentViewController:_infoView animated:YES completion:nil];
     NSLog(@"selected");
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex) {
-        
-    }
-}
 @end

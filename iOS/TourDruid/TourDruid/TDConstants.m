@@ -8,10 +8,12 @@
 
 #import "TDConstants.h"
 #import <UIKit/UIKit.h>
-
+#import <MapKit/MapKit.h>
+#define METERS_PER_MILE 1609.344
 @implementation TDConstants
 NSArray *_names;
 NSDictionary *_images;
+NSDictionary *_urls;
 
 + (void) buildNames
 {
@@ -72,5 +74,40 @@ NSDictionary *_images;
         [self buildNames];
     }
     return [_names count];
+}
+
++ (void) buildURLs
+{
+    if (_names == nil) {
+        [self buildNames];
+    }
+
+    NSArray *urlStrings = [[NSArray alloc ] initWithObjects:@"http://www.wikicu.com/Alma_Mater" ,@"http://www.wikicu.com/Butler_Library", @"http://www.wikicu.com/CEPSR", @"http://www.wikicu.com/Curl", @"http://www.wikicu.com/Hamilton_Hall",   @"http://www.wikicu.com/Havemeyer_Hall", @"http://www.wikicu.com/Journalism", @"http://www.wikicu.com/Law", @"http://www.wikicu.com/Lerner", @"http://www.wikicu.com/Scholar%27s_Lion", @"http://www.wikicu.com/Low_Library", @"http://www.wikicu.com/Mathematics_Hall", @"http://www.wikicu.com/Mudd", @"http://www.wikicu.com/Northwest_Science_Building", @"http://www.wikicu.com/The_Great_God_Pan", @"http://www.wikicu.com/Pupin_Physics_Laboratories", @"http://www.wikicu.com/The_Thinker", nil];
+
+    _urls = [[NSDictionary alloc] initWithObjects:urlStrings forKeys:_names];
+}
+
++ (NSString *) urlFromName:(NSString *)buildingId
+{
+    if (_urls == nil) {
+        [self buildURLs];
+    }
+    
+    return (NSString *)[_urls objectForKey:buildingId];
+}
+
++ (MKCoordinateRegion) regionFromName:(NSString *)building
+{
+    if (_names == nil) {
+        [self buildNames];
+    }
+
+    CLLocationCoordinate2D zoomLocation;
+    zoomLocation.latitude = 39.281516;
+    zoomLocation.longitude= -76.580806;
+
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
+
+    return viewRegion;
 }
 @end
