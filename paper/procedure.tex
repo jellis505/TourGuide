@@ -1,1 +1,47 @@
-Our procedure for building the data structures used for object classification can be broken down into 4 stages: image preprocessing, feature extraction, codebook generation, and k-d tree construction.
+Our object classification procedure can be broken down into 3 stages: feature
+extraction, codebook generation, and k-d tree construction.
+
+First, points of interest were detected in the image using OpenCV's StarDetector,
+a variation of the CenSurE keypoint detector. To extract features at these
+keypoints we use the well-known SIFT algorithm. SIFT was chosen for its strong
+invariance under lighting conditions and scale which is important in the task of
+analyzing unpredictable user input. Additionally, these algorithms were chosen
+because they performed best in our initial experiments.
+
+To quantize the SIFT feature space, a codebook with k words was constructed.
+Once we had a set of SIFT feature vectors for each image in our training set,
+k-means was applied to determine k cluster centers in the vector space. This set
+of cluster centers in the SIFT feature space was used as the codebook. A kd-tree
+was then constructed using OpenCV's FLANN package to index the codebook so that
+it could be queried quickly. At this point, we had a data structure to
+efficiently map a SIFT feature vector to a code word.
+
+Using this codebook, a histogram of word occurences was constructed for each
+training image. FLANN was used again to construct an
+index of these histograms. We now had a data structure to efficiently map an
+unknown histogram to a known histogram.
+
+In both vector spaces, euclidean distance is used as the distance metric. This
+decision was made based on experimentation.
+
+Given a test image, the classification process consists of the following steps:
+
+1. Extract the set of SIFT features (vectors of length 128).
+
+2. Map SIFT features to codewords to generate a word occurence histogram.
+
+3. Find the closest matching histogram in the training set.
+
+4. Return the class of the matching histogram.
+
+In the future, there are several improvements we would like to make to this
+algorithm. In particular, the classifier would be more scalable if the word
+frequency histogram space were quantized using a codebook like the SIFT feature
+space. An intuitive way to think about this is that one only needs a few images
+of an object from different angles to recognize its most striking features.
+Our guess is that if we found 8 histogram cluster centers for each building,
+they would be from pictures taken from different perspectives, capturing
+necessary features while .
+
+
+
