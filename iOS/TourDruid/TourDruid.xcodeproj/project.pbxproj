@@ -27,7 +27,7 @@
 		CE3A6C3F1735813000110D83 /* WrongAnswerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6C3E1735813000110D83 /* WrongAnswerViewController.m */; };
 		CE5DDBFB173D5E89008231BD /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5DDBFA173D5E89008231BD /* InfoViewController.m */; };
 		CE5DDBFD173D6A61008231BD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5DDBFC173D6A61008231BD /* MapKit.framework */; };
-		CE5DDC01173D7AC5008231BD /* butler library.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE5DDC00173D7AC5008231BD /* butler library.jpg */; };
+		CE5DDC03173D989C008231BD /* butler library.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE5DDC02173D989C008231BD /* butler library.jpg */; };
 		CEB61F54172752A6001C82BF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F53172752A6001C82BF /* UIKit.framework */; };
 		CEB61F56172752A6001C82BF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F55172752A6001C82BF /* Foundation.framework */; };
 		CEB61F58172752A6001C82BF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB61F57172752A6001C82BF /* CoreGraphics.framework */; };
@@ -99,7 +99,7 @@
 		CE5DDBF9173D5E89008231BD /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		CE5DDBFA173D5E89008231BD /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		CE5DDBFC173D6A61008231BD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		CE5DDC00173D7AC5008231BD /* butler library.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "butler library.jpg"; path = "../../../../../Desktop/butler/butler library.jpg"; sourceTree = "<group>"; };
+		CE5DDC02173D989C008231BD /* butler library.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "butler library.jpg"; sourceTree = "<group>"; };
 		CEB61F50172752A6001C82BF /* TourDruid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TourDruid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEB61F53172752A6001C82BF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CEB61F55172752A6001C82BF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -281,7 +281,7 @@
 				CEB61F5F172752A6001C82BF /* main.m */,
 				CEB61F61172752A6001C82BF /* TourDruid-Prefix.pch */,
 				CEB61F65172752A6001C82BF /* Default.png */,
-				CE5DDC00173D7AC5008231BD /* butler library.jpg */,
+				CE5DDC02173D989C008231BD /* butler library.jpg */,
 				CEB61FB917276C40001C82BF /* thinker.png */,
 				CEB61FBB1727711E001C82BF /* map.png */,
 				CE38C1CD173BFB8600482CAB /* imgs */,
@@ -434,7 +434,7 @@
 				CE38C1EF173C031E00482CAB /* almamater1.jpg in Resources */,
 				CE38C1F2173C0C4500482CAB /* pupin1.png in Resources */,
 				CE38C1F3173C0C4500482CAB /* thinker1.jpg in Resources */,
-				CE5DDC01173D7AC5008231BD /* butler library.jpg in Resources */,
+				CE5DDC03173D989C008231BD /* butler library.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

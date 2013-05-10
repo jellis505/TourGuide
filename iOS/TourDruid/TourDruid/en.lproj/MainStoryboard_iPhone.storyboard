@@ -315,9 +315,6 @@
     <classes>
         <class className="AnswerViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AnswerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="openBuildingList:"/>
-            </relationships>
         </class>
         <class className="ImagePickerViewController" superclassName="UIImagePickerController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImagePickerViewController.h"/>
@@ -340,9 +337,6 @@
         </class>
         <class className="WrongAnswerViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/WrongAnswerViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="goBack:"/>
-            </relationships>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
