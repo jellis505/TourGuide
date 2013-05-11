@@ -12,10 +12,9 @@ Presented in Table \ref{tab:results} we show the retrieval accuracy of our syste
 We tested standard SIFT Feature Descriptors with varying codebook size and differnet feature detection algorithms.
 The results provided below contain the average accuracy of each componenet.
 
-\begin{table}[h]
-\begin{center}
-\caption{Retrieval Accuracy}
+\begin{figure*}[ht!]
 \label{tab:results}
+\centering
 \begin{tabular}{| c | c | c | c | c | c |}
 \hline
 Descriptor & Detector & Code Word Size & 1-NN & 3-NN & 10-NN\\ \hline
@@ -24,5 +23,6 @@ SIFT & STAR & 729 & Num & Num & Num \\ \hline
 SIFT & SIFT & 2187 & Num & Num & Num \\ \hline
 SIFT & STAR & 2187 & Num & Num & Num\\ \hline
 \end{tabular}
-\end{center}
-\end{table}
+\vspace*{10pt}
+\caption{Retrieval Accuracy}
+\end{figure*}
