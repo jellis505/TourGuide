@@ -1,0 +1,25 @@
+/Users/joeellis/Dropbox/Tour Druid/alma mater
+/Users/joeellis/Dropbox/Tour Druid/Butler Library
+/Users/joeellis/Dropbox/Tour Druid/CEPSR
+/Users/joeellis/Dropbox/Tour Druid/Curl
+/Users/joeellis/Dropbox/Tour Druid/hamilton
+/Users/joeellis/Dropbox/Tour Druid/Havemayer
+/Users/joeellis/Dropbox/Tour Druid/Journalism
+/Users/joeellis/Dropbox/Tour Druid/law
+/Users/joeellis/Dropbox/Tour Druid/Lerner
+/Users/joeellis/Dropbox/Tour Druid/Lion
+/Users/joeellis/Dropbox/Tour Druid/Low
+/Users/joeellis/Dropbox/Tour Druid/Mathematics
+/Users/joeellis/Dropbox/Tour Druid/Mudd
+/Users/joeellis/Dropbox/Tour Druid/Noco
+/Users/joeellis/Dropbox/Tour Druid/Pan
+/Users/joeellis/Dropbox/Tour Druid/Pupin
+/Users/joeellis/Dropbox/Tour Druid/Thinker
+Number of images: 1111
+Number of buildings: 17
+Extracting features...
+Extracted 666795 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
