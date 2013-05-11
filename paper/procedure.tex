@@ -19,8 +19,6 @@ A kd-tree was then constructed using OpenCV's FLANN \cite{muja2009fast} package 
 At this point, we had a data structure to efficiently map a SIFT feature vector to a code word.
 
 We experimented using different sizes of codebooks within our experiments, and the results can be seen in Table \ref{tab:results}.
-{\color{red} Maybe we could throw the kmeans optimization equation here... It's in the wikipedia article}.
-
 
 \subsection{K-d Tree Construction and BoW Implementation}
 Using this codebook, a histogram of word occurences was constructed for each training image. 
@@ -33,11 +31,12 @@ Finally, we implement a TF-IDF weighting scheme to maximize the information that
 TF-IDF is a commonly used technique in text processing to weight the important words within a document retrieval scheme.  
 Words that appear in many documents, such as ``and'' and ``the'' receive very low weights, and words that are more subject and document specific receive higher weights in the classification scheme.
 We use this idea for our image retreival system utilizing our learned codebook.
-We weight each dimension of our BoW histogram representation using the equation \ref{eq:TF-IDF}.
-%\begin{equation}
-%w_{i} = \ln \frac{N}{N_{i}
-%\end{equation}
-
+We weight each dimension of our BoW histogram representation using the equation \ref{eq:TF-IDF},
+\begin{equation}
+\label{eq:TF-IDF}
+w_{i} = ln\frac{N}{N_{i}},
+\end{equation}
+where $w_i$ are the weight vector for the words,$N$  are the number of images in the datset, and $N_i$ are the number of images in the dataset that contain codeword $i$.
 FLANN was used again to construct an index of these histograms. 
 We now have a data structure to efficiently map an unknown histogram to a known histogram.
 In both vector spaces, euclidean distance is used as the distance metric. 
@@ -56,10 +55,6 @@ Given a test image, the classification process consists of the following steps:
 \item Return the class of the matching histograms.
 \end{enumerate}
 
-In the future, there are several improvements we would like to make to this algorithm. 
-In particular, the classifier would be more scalable if the word frequency histogram space were quantized using a codebook like the SIFT feature space. 
-An intuitive way to think about this is that one only needs a few images of an object from different angles to recognize its most striking features.
-Our guess is that if we found 8 histogram cluster centers for each building, they would be from pictures taken from different perspectives, capturing necessary features while .
 
 
 

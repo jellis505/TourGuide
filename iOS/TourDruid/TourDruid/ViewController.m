@@ -12,6 +12,7 @@
 #import "AnswerViewController.h"
 #import "TDResponse.h"
 
+
 @interface ViewController () {
     @private
     TDHTTPClient *_client;
@@ -59,14 +60,28 @@
     [self dismissViewControllerAnimated:YES completion:^(){
         NSLog(@"in here");
         UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        _activityIndicator = [[UIActivityIndicatorView alloc]     initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        _activityIndicator.center=self.view.center;
+        [self.view addSubview:_activityIndicator];
 
+        [_activityIndicator startAnimating];
         [_client sendImage:image
                success:^(TDResponse *response) {
                    NSLog(@"success!");
-                   [_answerViewController loadResponseViewFromController:self
-                                                                 response:response];
+                   [_activityIndicator stopAnimating];
+                   [_answerViewController
+                        loadResponseViewFromController:self
+                                              response:response];
                }
                failure:^(NSError *error) {
+                   [_activityIndicator stopAnimating];
+                   UIAlertView *alert = [[UIAlertView alloc]
+                                         initWithTitle: @"Uh oh!"
+                                         message: @"Couldn't connect to our server, try again"
+                                         delegate: nil
+                                         cancelButtonTitle:@"OK"
+                                         otherButtonTitles:nil];
+                   [alert show];
                    NSLog(@"error! %@", error);
                }
          ];

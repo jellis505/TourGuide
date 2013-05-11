@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 @class TDResponse;
-
+@class InfoViewController;
 @interface WrongAnswerViewController : UITableViewController
+@property (nonatomic) InfoViewController *infoView;
 -(void)setResponse:(TDResponse *)response;
 @end

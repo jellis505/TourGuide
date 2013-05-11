@@ -5,6 +5,7 @@ Our pipeline starts in the mobile application. A user opens our application and 
 
 \subsection{Server}
 The server is built using Node.js and runs on linux machines. The server currently has two POST endpoints named \textit{/classify} and \textit{/confirm} that are reached by our mobile application. All communication between the client-side application and the server is in JSON. For every request sent to the \textit{/classify} endpoint, the server generates a unique ID that it returns to the client (along with the classifier's results). This ID is used to identify confirmation requests sent to the \textit{/confirm} endpoint, allowing our server to handle multiple classifications at once. When the server builds the classifier, it writes the codebook and TF-IDF matrix into files so the classifier avoids rebuilding those data structures for every request.
+
 \subsection{Image Storage}
 We use Amazon S3 to store our training and user images. We chose Amazon S3 for its scalable pricing and reliability, as our image set will continue to grow as more users use the application. We keep a directory for every landmark we support, adding new images to the corresponding directory as the app is used. 
 

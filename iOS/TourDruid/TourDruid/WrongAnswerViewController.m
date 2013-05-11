@@ -11,6 +11,7 @@
 #import "TDResponse.h"
 #import "TDBuildingRanking.h"
 #import "TDHTTPClient.h"
+#import "InfoViewController.h"
 
 @interface WrongAnswerViewController () {
     @private
@@ -141,10 +142,13 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
     
-   
-    [_client confirmImage:[NSNumber numberWithInt:indexPath.row] classifyID:[_response classifyID]];
+    NSString *buildingName = [TDConstants nameFromId:[NSNumber numberWithInt:indexPath.row]];
+    [_client confirmImage:buildingName classifyID:[_response classifyID]];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    _infoView = [sb instantiateViewControllerWithIdentifier:@"InfoViewController"];
+    [_infoView setBuildingName:buildingName];
+    [self presentViewController:_infoView animated:YES completion:nil];
     NSLog(@"selected");
 }
 

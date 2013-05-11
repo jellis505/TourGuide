@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-
+@class MapViewController;
 @interface InfoViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) MapViewController *mapView;
 - (void)setBuildingName:(NSString *)buildingName;
 @end

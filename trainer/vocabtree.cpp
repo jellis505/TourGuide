@@ -87,7 +87,7 @@ void _TF_IDF(const Mat &raw_counts, vector<float> &TF_IDF_weights)
 CvVocabTree::CvVocabTree()
 {
 	branch_factor = 3;
-	depth = 6; 
+	depth = 5; 
     // TODO: fill this in
 }
 
@@ -181,7 +181,7 @@ bool CvVocabTree::train(const Mat* _train_data, const vector<int>& labels, const
 int CvVocabTree::predict(const Mat* samples, Mat* results, Mat* distances, int return_num) const
 {
     // Construct a histogram of word occurences.
-	int nr_words = 729;
+	int nr_words = 243;
     Mat counts = Mat::zeros(1, nr_words, CV_32F);
     for (int i = 0; i < samples->rows; i++) {
 		Mat nearest;

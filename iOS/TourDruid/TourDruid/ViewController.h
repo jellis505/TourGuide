@@ -10,5 +10,6 @@
 
 @interface ViewController : UIViewController<UIImagePickerControllerDelegate,
 UINavigationControllerDelegate>
+@property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 -(IBAction)takePhoto :(id)sender;
 @end

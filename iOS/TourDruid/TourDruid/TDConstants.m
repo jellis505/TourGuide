@@ -14,10 +14,11 @@
 NSArray *_names;
 NSDictionary *_images;
 NSDictionary *_urls;
+NSDictionary *_maps;
 
 + (void) buildNames
 {
-    _names = [[NSArray alloc ] initWithObjects:@"Alma Mater" ,@"Butler Library", @"CEPSR", @"Curl", @"Hamilton",   @"Havemayer", @"Journalism", @"Law", @"Lerner", @"Lion", @"Low", @"Mathematics", @"Mudd", @"Noco", @"Pan", @"Pupin", @"Thinker", nil];
+    _names = [[NSArray alloc ] initWithObjects:@"Alma Mater" ,@"Butler Library", @"CEPSR", @"Curl", @"Hamilton",   @"Havemayer", @"Journalism", @"Law", @"Lerner", @"Lion", @"Low", @"Mathematics", @"Mudd", @"NoCo", @"Pan", @"Pupin", @"Thinker", nil];
 }
 
 + (void) buildImages
@@ -36,6 +37,21 @@ NSDictionary *_urls;
     _images = [[NSDictionary alloc] initWithObjects:tmp_images forKeys:_names];
 }
 
++ (void) buildMaps
+{
+    if (_names == nil) {
+        [self buildNames];
+    }
+
+    NSArray *mapNames = [[NSArray alloc ] initWithObjects:@"alma_map.jpg" ,@"butler_map.jpg", @"cepsr_map.jpg", @"curl_map.jpg", @"hamilton_map.jpg",   @"havemayer_map.jpg", @"journalism_map.jpg", @"law_map.jpg", @"lerner_map.jpg", @"lion_map.jpg", @"low_map.jpg", @"math_map.jpg", @"mudd_map.jpg", @"noco_map.jpg", @"pan_map.jpg", @"pupin_map.jpg", @"thinker_map.jpg", nil];
+
+        NSMutableArray *tmp_images = [[NSMutableArray alloc] init];
+        for (NSString *name in mapNames) {
+            [tmp_images addObject:[UIImage imageNamed:name]];
+        }
+    _maps = [[NSDictionary alloc] initWithObjects:tmp_images forKeys:_names];
+}
+
 + (NSString *)nameFromId:(NSNumber *)buildingID
 {
     if (_names == nil) {
@@ -48,6 +64,15 @@ NSDictionary *_urls;
         return (NSString *)[_names objectAtIndex:[buildingID integerValue]];
 }
 
++ (UIImage *) mapFromName:(NSString *)building
+{
+    if (_maps == nil) {
+        [self buildMaps];
+    }
+
+
+    return (UIImage *)[_maps objectForKey:building];
+}
 + (UIImage *) imageFromName:(NSString *)building
 {
     if (_images == nil) {
