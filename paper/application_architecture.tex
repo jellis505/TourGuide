@@ -1,4 +1,4 @@
-The application has three main components: a server for training and prediction, an Amazon S3 image storage server, and the client-side mobile application on iOS. 
+The application has three main components: a server for training and prediction, an Amazon S3 image storage server, and the client-side iOS application. 
 
 \subsection{Pipeline}
 Our pipeline starts in the mobile application. A user opens our application and takes a picture of a building they want to identify. The application sends the image to our server which processes the image, extracts features, and runs it against our classifier. The classifier will respond to the application with the a list of buildings it believes the image contains in order of highest confidence. The user is then presented the results alongside images of the building to help the user confirm their answer. When the user clicks the result, they are shown information about that landmark along with a position of where they are on a map. At the same time, a message is sent from the application to the server letting the server know what the real answer was. The motivation behind having users confirm the results of our classifier is that it lets our dataset grow as more users take pictures and read about the landmarks on Columbia's campus.
@@ -13,7 +13,14 @@ Our pipeline starts in the mobile application. A user opens our application and 
 
 \subsection{Server}
 The server is built using Node.js and runs on linux machines. The server currently has two POST endpoints named \textit{/classify} and \textit{/confirm} that are reached by our mobile application. All communication between the client-side application and the server is in JSON. For every request sent to the \textit{/classify} endpoint, the server generates a unique ID that it returns to the client (along with the classifier's results). This ID is used to identify confirmation requests sent to the \textit{/confirm} endpoint, allowing our server to handle multiple classifications at once. When the server builds the classifier, it writes the codebook and TF-IDF matrix into files so the classifier avoids rebuilding those data structures for every request.
-
+\begin{figure*}
+\includegraphics[width=60mm]{app1.png}
+\includegraphics[width=60mm]{app2.png}
+\includegraphics[width=60mm]{app3.png}
+\caption{Screenshots of the application: Initial Screen, Results screen, and Information screen}
+\end{figure*}
 \subsection{Image Storage}
+We use Amazon S3 to store our training and user images. We chose Amazon S3 for its scalable pricing and reliability, as our image set will continue to grow as more users use the application. We keep a directory for every landmark we support, adding new images to the corresponding directory as the app is used. 
 
-\subsection{Mobile Application}
+\subsection{iOS Application}
+The iOS application was designed to be friendly yet functional. The application begins by presenting a screen inviting the user to take a picture of a landmark. Once taken, the image is sent to our server to get classified, and in return the application receives a list of building names in order of confidence. If the user doesn't think any of the results are right, they can choose from a master list of all landmarks (which have accompanying images) to get the right information. Once they select a result, they are taken to a page which displays information of the landmark from the www.wikicu.com and displays an iOS map with the position of that landmark. We initially chose the iOS platform because we can write C++ code and extract features on the device, yet we released the codebook was too large to store on the device.
