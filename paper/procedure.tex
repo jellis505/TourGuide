@@ -3,10 +3,10 @@ extraction, codebook generation, and k-d tree construction.
 
 \subsection{Feature Extraction}
 First, points of interest were detected in the image using OpenCV's StarDetector,
-a variation of the CenSurE keypoint detector {\color{red} This needs a reference}. 
+a variation of the CenSurE keypoint detector \cite{agrawal2008censure}. 
 The CenSurE keypoint detector is a robust keypoint detector that is both fast and returned suitable points for image retrieval and matching.
 Its detection speed over the SIFT detector was important in this application due to the need for quick response from our system to the user.
-To extract features at these keypoints we use the well-known SIFT algorithm {\color{red} This needs a reference}. 
+To extract features at these keypoints we use the well-known SIFT algorithm \cite{lowe1999object}. 
 SIFT was chosen for its strong invariance under lighting conditions and scale which is important in the task of analyzing unpredictable user input. 
 Additionally, these algorithms were chosen because they performed best in our initial experiments.
 The results of some detected features within the images can be seen in 
@@ -15,7 +15,7 @@ The results of some detected features within the images can be seen in
 To quantize the SIFT feature space, a codebook with k words was constructed.
 Once we had a set of SIFT feature vectors for each image in our training set, k-means was applied to determine k cluster centers in the vector space. 
 This set of cluster centers in the SIFT feature space was used as the codebook. 
-A kd-tree was then constructed using OpenCV's FLANN {\color{red} This needs a reference.  FLANN is like a paper} package to index the codebook so that it could be queried quickly. 
+A kd-tree was then constructed using OpenCV's FLANN \cite{muja2009fast} package to index the codebook so that it could be queried quickly. 
 At this point, we had a data structure to efficiently map a SIFT feature vector to a code word.
 
 We experimented using different sizes of codebooks within our experiments, and the results can be seen in Table \ref{tab:results}.
