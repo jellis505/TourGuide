@@ -1,0 +1,102 @@
+
+f images: 1111
+Number of buildings: 17
+Extracting features...
+Extracted 666795 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.747748
+3-NN Classification Accuracy: 0.873874
+10-NN Classification Accuracy: 0.945946
+
+Extracting features...
+Extracted 667401 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.792793
+3-NN Classification Accuracy: 0.873874
+10-NN Classification Accuracy: 0.936937
+
+Extracting features...
+Extracted 666640 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.765766
+3-NN Classification Accuracy: 0.864865
+10-NN Classification Accuracy: 0.945946
+
+Extracting features...
+Extracted 665423 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.846847
+3-NN Classification Accuracy: 0.882883
+10-NN Classification Accuracy: 0.918919
+
+Extracting features...
+Extracted 662520 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.846847
+3-NN Classification Accuracy: 0.900901
+10-NN Classification Accuracy: 0.963964
+
+Extracting features...
+Extracted 664253 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.81982
+3-NN Classification Accuracy: 0.882883
+10-NN Classification Accuracy: 0.936937
+
+Extracting features...
+Extracted 665808 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.738739
+3-NN Classification Accuracy: 0.801802
+10-NN Classification Accuracy: 0.882883
+
+Extracting features...
+Extracted 667142 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.882883
+3-NN Classification Accuracy: 0.918919
+10-NN Classification Accuracy: 0.963964
+
+Extracting features...
+Extracted 669663 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.747748
+3-NN Classification Accuracy: 0.828829
+10-NN Classification Accuracy: 0.927928
+
+Extracting features...
+Extracted 667073 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.792793
+3-NN Classification Accuracy: 0.873874
+10-NN Classification Accuracy: 0.900901

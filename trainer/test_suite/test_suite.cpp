@@ -130,32 +130,63 @@ int main (int argc, char *argv[])
 
 
 	cout << "Predicting..." << endl;
-	float num_correct = 0.0;
+	float num_correct_1 = 0.0;
+	float num_correct_3 = 0.0;
+	float num_correct_10 = 0.0;
 	float per_building_correct[nr_class];
 	float per_building_count[nr_class];
 	vector <string> per_building_names;
-	fill_n(per_building_correct, nr_class, 0.0);
-	fill_n(per_building_count, nr_class, 0.0);
-	int return_num = 10;
+	//fill_n(per_building_correct, nr_class, 0.0);
+	//fill_n(per_building_count, nr_class, 0.0);
+	int return_num = 30;
 	for(int i = 0; i < test_images.size() && i < test_features.size(); i++) {
-	    int result = vocab_tree->predict(&test_features[i], &results, &distances, return_num);
-	    cout << "predicted " << names[result] 
-		 << ", actually " << test_names[i] << endl;
-	    per_building_count[test_labels[i]] += 1;
-	    per_building_names[test_labels[i]] = test_names[i];
-	    if (labels[result] == test_labels[i]){
-		num_correct++;
-		per_building_correct[test_labels[i]] += 1;
-	    } 
+		int result = vocab_tree->predict(&test_features[i], &results, &distances, return_num);
+	    //cout << "predicted " << names[result] 
+		// << ", actually " << test_names[i] << endl;
+	    //per_building_count[test_labels[i]] += 1;
+	    //per_building_names[test_labels[i]] = test_names[i];
+		// This line solves for the one nearest neighbor
+		if (labels[result] == test_labels[i]){
+		num_correct_1++;
+		//per_building_correct[test_labels[i]] += 1;
+	    }  
+		
+		for (int k = 0; k < 3; k++){
+			if (labels[results.at<int>(0,k)] == test_labels[i]){
+				num_correct_3++;
+				break;
+				}
+			}
+		// This line solves for the 10 nearest neighbors
+		for (int k = 0; k < 10; k++){
+			if (labels[results.at<int>(0,k)] == test_labels[i]){
+				num_correct_10++;
+				break;
+				}
+			}
+	
+			// Reset the values for results and distances
+			//Mat results;
+			//Mat distances;		
 	}
-	cout << "The accuracy of this calculation is: " 
-	     << num_correct/(float)test_labels.size() << endl;
+	
+	// Output the accuracies
+	cout << "1-NN Classification Accuracy: " 
+	     << num_correct_1/(float)test_labels.size() << endl;
+	cout << "3-NN Classification Accuracy: " 
+	     << num_correct_3/(float)test_labels.size() << endl;
+	cout << "10-NN Classification Accuracy: " 
+	     << num_correct_10/(float)test_labels.size() << endl << endl;
+	
+	
+	/*
 	for(int i = 0; i < nr_class; i++){
 	    if(per_building_count[i] > 0){
 		cout << "The accuracy for " << per_building_names[i] << " is "
 		     << per_building_correct[i]/per_building_count[i] << endl;
 	    }
 	}
+	*/
 	restore_slice(&images, &test_images, test_round, total_size);
 	restore_slice(&labels, &test_labels, test_round, total_size);
 	restore_slice(&names, &test_names, test_round, total_size); 

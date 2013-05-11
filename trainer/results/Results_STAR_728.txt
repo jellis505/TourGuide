@@ -1,0 +1,119 @@
+/Users/joeellis/Dropbox/Tour Druid/alma mater
+/Users/joeellis/Dropbox/Tour Druid/Butler Library
+/Users/joeellis/Dropbox/Tour Druid/CEPSR
+/Users/joeellis/Dropbox/Tour Druid/Curl
+/Users/joeellis/Dropbox/Tour Druid/hamilton
+/Users/joeellis/Dropbox/Tour Druid/Havemayer
+/Users/joeellis/Dropbox/Tour Druid/Journalism
+/Users/joeellis/Dropbox/Tour Druid/law
+/Users/joeellis/Dropbox/Tour Druid/Lerner
+/Users/joeellis/Dropbox/Tour Druid/Lion
+/Users/joeellis/Dropbox/Tour Druid/Low
+/Users/joeellis/Dropbox/Tour Druid/Mathematics
+/Users/joeellis/Dropbox/Tour Druid/Mudd
+/Users/joeellis/Dropbox/Tour Druid/Noco
+/Users/joeellis/Dropbox/Tour Druid/Pan
+/Users/joeellis/Dropbox/Tour Druid/Pupin
+/Users/joeellis/Dropbox/Tour Druid/Thinker
+Number of images: 1111
+Number of buildings: 17
+Extracting features...
+Extracted 445162 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.747748
+3-NN Classification Accuracy: 0.846847
+10-NN Classification Accuracy: 0.90991
+
+Extracting features...
+Extracted 448271 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.810811
+3-NN Classification Accuracy: 0.900901
+10-NN Classification Accuracy: 0.936937
+
+Extracting features...
+Extracted 445478 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.864865
+3-NN Classification Accuracy: 0.918919
+10-NN Classification Accuracy: 0.981982
+
+Extracting features...
+Extracted 443904 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.882883
+3-NN Classification Accuracy: 0.891892
+10-NN Classification Accuracy: 0.945946
+
+Extracting features...
+Extracted 440697 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.846847
+3-NN Classification Accuracy: 0.900901
+10-NN Classification Accuracy: 0.936937
+
+Extracting features...
+Extracted 441903 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.873874
+3-NN Classification Accuracy: 0.900901
+10-NN Classification Accuracy: 0.918919
+
+Extracting features...
+Extracted 444229 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.765766
+3-NN Classification Accuracy: 0.855856
+10-NN Classification Accuracy: 0.882883
+
+Extracting features...
+Extracted 444963 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.801802
+3-NN Classification Accuracy: 0.873874
+10-NN Classification Accuracy: 0.900901
+
+Extracting features...
+Extracted 447099 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.783784
+3-NN Classification Accuracy: 0.846847
+10-NN Classification Accuracy: 0.918919
+
+Extracting features...
+Extracted 444671 features.
+Training vocab tree...
+Constructed kd-tree of words.
+normalized
+Predicting...
+1-NN Classification Accuracy: 0.846847
+3-NN Classification Accuracy: 0.891892
+10-NN Classification Accuracy: 0.954955
+
