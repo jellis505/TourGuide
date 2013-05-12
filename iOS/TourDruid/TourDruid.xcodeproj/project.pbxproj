@@ -28,8 +28,6 @@
 		CE5DDBFB173D5E89008231BD /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE5DDBFA173D5E89008231BD /* InfoViewController.m */; };
 		CE5DDBFD173D6A61008231BD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE5DDBFC173D6A61008231BD /* MapKit.framework */; };
 		CE5DDC03173D989C008231BD /* butler library.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CE5DDC02173D989C008231BD /* butler library.jpg */; };
-		CEAEE897173F29F000CEC222 /* map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEAEE896173F29F000CEC222 /* map.jpg */; };
-		CEAEE899173F2C0600CEC222 /* map2.png in Resources */ = {isa = PBXBuildFile; fileRef = CEAEE898173F2C0600CEC222 /* map2.png */; };
 		CEAEE89C173F351400CEC222 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAEE89B173F351400CEC222 /* MapViewController.m */; };
 		CEAEE8AE173F46B000CEC222 /* thinker_map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEAEE89D173F46B000CEC222 /* thinker_map.jpg */; };
 		CEAEE8AF173F46B000CEC222 /* pupin_map.jpg in Resources */ = {isa = PBXBuildFile; fileRef = CEAEE89E173F46B000CEC222 /* pupin_map.jpg */; };
@@ -120,8 +118,6 @@
 		CE5DDBFA173D5E89008231BD /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		CE5DDBFC173D6A61008231BD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		CE5DDC02173D989C008231BD /* butler library.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "butler library.jpg"; sourceTree = "<group>"; };
-		CEAEE896173F29F000CEC222 /* map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = map.jpg; sourceTree = "<group>"; };
-		CEAEE898173F2C0600CEC222 /* map2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map2.png; sourceTree = "<group>"; };
 		CEAEE89A173F351400CEC222 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		CEAEE89B173F351400CEC222 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		CEAEE89D173F46B000CEC222 /* thinker_map.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = thinker_map.jpg; sourceTree = "<group>"; };
@@ -319,8 +315,6 @@
 				CEAEE8AB173F46B000CEC222 /* cepsr_map.jpg */,
 				CEAEE8AC173F46B000CEC222 /* alma_map.jpg */,
 				CEAEE8AD173F46B000CEC222 /* butler_map.jpg */,
-				CEAEE898173F2C0600CEC222 /* map2.png */,
-				CEAEE896173F29F000CEC222 /* map.jpg */,
 				CE38C1F0173C0C4500482CAB /* pupin1.png */,
 				CE38C1F1173C0C4500482CAB /* thinker1.jpg */,
 				CE38C1EE173C031E00482CAB /* almamater1.jpg */,
@@ -497,8 +491,6 @@
 				CE38C1F2173C0C4500482CAB /* pupin1.png in Resources */,
 				CE38C1F3173C0C4500482CAB /* thinker1.jpg in Resources */,
 				CE5DDC03173D989C008231BD /* butler library.jpg in Resources */,
-				CEAEE897173F29F000CEC222 /* map.jpg in Resources */,
-				CEAEE899173F2C0600CEC222 /* map2.png in Resources */,
 				CEAEE8AE173F46B000CEC222 /* thinker_map.jpg in Resources */,
 				CEAEE8AF173F46B000CEC222 /* pupin_map.jpg in Resources */,
 				CEAEE8B0173F46B000CEC222 /* pan_map.jpg in Resources */,

@@ -28,7 +28,8 @@
     if (self) {
         _client = [[AFHTTPClient alloc] init];
         //_baseURL = @"http://198.199.67.100:3000";
-        _baseURL = @"http://localhost:3000";
+        //_baseURL = @"http://localhost:3000";
+        _baseURL = @"http://cody.pagekite.me:3000";
         _classifyPath = @"/image/classify";
         _confirmPath = @"/image/confirm";
     }
