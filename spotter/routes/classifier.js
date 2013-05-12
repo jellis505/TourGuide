@@ -13,20 +13,22 @@ var Classifier = function (imagePath) {
  *           classifyID -> ID for this request
  */
 Classifier.prototype.classify = function (req, res) {
-  console.log(req.files.image.type);
   if (!req.files.image || req.files.image.type != 'image/jpg')
     return res.send(400);
 
   var image = req.files.image;
-  console.log('image saved at ' + image.path);
 
   // TODO:
   // Run the classifier.
   var ranking = [];
   var cmd = 'cd ../trainer/build/ && ./predictor ' + image.path;
-  console.log ('running ' + cmd);
+
+  var beforeExec = new Date().getTime();
   exec(cmd, function (err, stdout, stderr) {
     if (err) throw err;
+    var afterExec = new Date().getTime();
+    var total = afterExec - beforeExec;
+    console.log('Feature extraction and classification time: ' + total + 'ms');
     stdout.split('\n').map(function (line) {
       var building = line.split('\t')[0];
       ranking.push(building);
