@@ -36,24 +36,32 @@ In the application, the top 30 image neighbors are returned and then then their 
 
 Accuracies were also recorded for each of the seventeen landmarks.
 
-table goes here:
-
-0.53: alma_mater
-0.61: thinker
-0.69: lerner
-0.66: CEPSR
-0.70: lion
-0.72: curl
-0.75: mudd
-0.77: pan
-0.84: havemayer
-0.84: butler
-0.85: journalism
-0.91: mathematics
-0.95: noco
-0.97: hamilton
-0.98: low
-0.98: law
-0.99: pupin
+\begin{table*}[ht!]
+\label{tab:results}
+\centering
+\begin{tabular}{| c | c |}
+\hline
+Landmark & Accuracy \\ \hline
+Alma Mater	   &	0.53 \\ \hline
+Thinker      &    0.61 \\ \hline
+Lerner        &    0.69 \\ \hline
+CEPSR          &    0.66 \\ \hline
+Lion         &    0.70 \\ \hline
+Curl           &    0.72 \\ \hline
+Mudd           &    0.75 \\ \hline
+Pan           &    0.77 \\ \hline
+Havemayer      &    0.84 \\ \hline
+Butler         &    0.84 \\ \hline
+Journalism     &    0.85 \\ \hline
+Mathematics    &    0.91 \\ \hline
+Noco           &    0.95 \\ \hline
+Hamilton       &    0.97 \\ \hline
+Low            &    0.98 \\ \hline
+Law            &    0.98 \\ \hline
+Pupin          &    0.99 \\ \hline
+\end{tabular}
+\vspace*{10pt}
+\caption{Per-landmark accuracy}
+\end{table*}
 
 Recording these accuracies serves two purposes. First, it diagnoses which buildings may require more training data. Second, when the application is scaled to more landmarks, these accuracies will dictate when a landmark is ready for production. For example, a landmark can be added to the client program only when its accuracy exceeds 80\%. For the results reported here, we neither selectively gathered data nor culled poorly-performing landmarks. However, these strategies will be some of the first steps taken when improving the application for future versions.  
