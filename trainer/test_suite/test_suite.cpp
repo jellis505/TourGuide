@@ -136,6 +136,9 @@ int main (int argc, char *argv[])
 	float per_building_correct[nr_class];
 	float per_building_count[nr_class];
 	vector <string> per_building_names;
+	for(int i = 0; i < nr_class; i++){
+	    per_building_names.push_back(0);
+	}
 	//fill_n(per_building_correct, nr_class, 0.0);
 	//fill_n(per_building_count, nr_class, 0.0);
 	int return_num = 30;
@@ -143,8 +146,8 @@ int main (int argc, char *argv[])
 		int result = vocab_tree->predict(&test_features[i], &results, &distances, return_num);
 	    //cout << "predicted " << names[result] 
 		// << ", actually " << test_names[i] << endl;
-	    //per_building_count[test_labels[i]] += 1;
-	    //per_building_names[test_labels[i]] = test_names[i];
+	    per_building_count[test_labels[i]] += 1;
+	    per_building_names[test_labels[i]] = test_names[i];
 		// This line solves for the one nearest neighbor
 		if (labels[result] == test_labels[i]){
 		num_correct_1++;
@@ -178,15 +181,13 @@ int main (int argc, char *argv[])
 	cout << "10-NN Classification Accuracy: " 
 	     << num_correct_10/(float)test_labels.size() << endl << endl;
 	
-	
-	/*
 	for(int i = 0; i < nr_class; i++){
 	    if(per_building_count[i] > 0){
 		cout << "The accuracy for " << per_building_names[i] << " is "
 		     << per_building_correct[i]/per_building_count[i] << endl;
 	    }
 	}
-	*/
+
 	restore_slice(&images, &test_images, test_round, total_size);
 	restore_slice(&labels, &test_labels, test_round, total_size);
 	restore_slice(&names, &test_names, test_round, total_size); 
