@@ -1,3 +1,5 @@
+\subsection{Testing Methodology}
+
 The classifier was tested by performing 10-fold cross validation on our building dataset. 
 The images were loaded and their order was shuffled with a psuedorandom shuffle on a fixed seed. 
 Since the images were gathered by walking around landmarks and taking images systematically, shuffling was necessary so that test partitions would not eliminate certain angles from the training set. 
@@ -29,3 +31,29 @@ SIFT & STAR & 2187 & .7198 & .8072 & .8837\\ \hline
 \end{table*}
 
 In the application, the top 30 image neighbors are returned and then then their corresponding landmarks are returned as possible candidates. In practice, a user typically sees two to four candidate landmarks.
+
+\subsection{Per-landmark Accuracy}
+
+Accuracies were also recorded for each of the seventeen landmarks.
+
+table goes here:
+
+0.53: alma_mater
+0.61: thinker
+0.69: lerner
+0.66: CEPSR
+0.70: lion
+0.72: curl
+0.75: mudd
+0.77: pan
+0.84: havemayer
+0.84: butler
+0.85: journalism
+0.91: mathematics
+0.95: noco
+0.97: hamilton
+0.98: low
+0.98: law
+0.99: pupin
+
+Recording these accuracies serves two purposes. First, it diagnoses which buildings may require more training data. Second, when the application is scaled to more landmarks, these accuracies will dictate when a landmark is ready for production. For example, a landmark can be added to the client program only when its accuracy exceeds 80%. For the results reported here, we neither selectively gathered data nor culled poorly-performing landmarks. However, these strategies will be some of the first steps taken when improving the application for future versions.  
