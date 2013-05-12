@@ -17,13 +17,13 @@ The results provided below contain the average accuracy of each component.
 \begin{table*}[ht!]
 \label{tab:results}
 \centering
-\begin{tabular}{| c | c | c | c | c | c |}
+\begin{tabular}{| l | l | l | c | c | c |}
 \hline
 Descriptor & Detector & Code Word Size & 1-NN & 3-NN & 10-NN\\ \hline
-SIFT & SIFT & 243 & .8126 & .9081  & \textbf{.9648}  \\ \hline
-SIFT & STAR & 243 & \textbf{.8711} & \textbf{.9144} & .9558 \\ \hline
-SIFT & SIFT & 729 & .7981 & .8707 & .9324 \\ \hline
-SIFT & STAR & 729 & .8225 & .8828 & .9288 \\ \hline
+SIFT & SIFT & 243 & .8126 & .9081  & \textbf{.9648}  \\ 
+SIFT & STAR & 243 & \textbf{.8711} & \textbf{.9144} & .9558 \\ 
+SIFT & SIFT & 729 & .7981 & .8707 & .9324 \\ 
+SIFT & STAR & 729 & .8225 & .8828 & .9288 \\ 
 SIFT & STAR & 2187 & .7198 & .8072 & .8837\\ \hline
 \end{tabular}
 \vspace*{10pt}
@@ -36,32 +36,32 @@ In the application, the top 30 image neighbors are returned and then then their 
 
 Accuracies were also recorded for each of the seventeen landmarks.
 
-\begin{table*}[ht!]
+\begin{table}[ht!]
 \label{tab:results}
 \centering
-\begin{tabular}{| c | c |}
+\begin{tabular}{| l | l |}
 \hline
 Landmark & Accuracy \\ \hline
-Alma Mater	   &	0.53 \\ \hline
-Thinker      &    0.61 \\ \hline
-Lerner        &    0.69 \\ \hline
-CEPSR          &    0.66 \\ \hline
-Lion         &    0.70 \\ \hline
-Curl           &    0.72 \\ \hline
-Mudd           &    0.75 \\ \hline
-Pan           &    0.77 \\ \hline
-Havemayer      &    0.84 \\ \hline
-Butler         &    0.84 \\ \hline
-Journalism     &    0.85 \\ \hline
-Mathematics    &    0.91 \\ \hline
-Noco           &    0.95 \\ \hline
-Hamilton       &    0.97 \\ \hline
-Low            &    0.98 \\ \hline
-Law            &    0.98 \\ \hline
+Alma Mater	   &	0.53 \\ 
+Thinker      &    0.61 \\ 
+Lerner        &    0.69 \\ 
+CEPSR          &    0.66 \\ 
+Lion         &    0.70 \\ 
+Curl           &    0.72 \\ 
+Mudd           &    0.75 \\ 
+Pan           &    0.77 \\ 
+Havemayer      &    0.84 \\ 
+Butler         &    0.84 \\ 
+Journalism     &    0.85 \\ 
+Mathematics    &    0.91 \\ 
+Noco           &    0.95 \\ 
+Hamilton       &    0.97 \\ 
+Low            &    0.98 \\ 
+Law            &    0.98 \\ 
 Pupin          &    0.99 \\ \hline
 \end{tabular}
 \vspace*{10pt}
 \caption{Per-landmark accuracy}
-\end{table*}
+\end{table}
 
 Recording these accuracies serves two purposes. First, it diagnoses which buildings may require more training data. Second, when the application is scaled to more landmarks, these accuracies will dictate when a landmark is ready for production. For example, a landmark can be added to the client program only when its accuracy exceeds 80\%. For the results reported here, we neither selectively gathered data nor culled poorly-performing landmarks. However, these strategies will be some of the first steps taken when improving the application for future versions.  
