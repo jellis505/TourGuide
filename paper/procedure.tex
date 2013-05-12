@@ -33,11 +33,12 @@ Finally, we implement a TF-IDF weighting scheme to maximize the information that
 TF-IDF is a commonly used technique in text processing to weight the important words within a document retrieval scheme.  
 Words that appear in many documents, such as ``and'' and ``the'' receive very low weights, and words that are more subject and document specific receive higher weights in the classification scheme.
 We use this idea for our image retreival system utilizing our learned codebook.
-We weight each dimension of our BoW histogram representation using the equation \ref{eq:TF-IDF}.
-%\begin{equation}
-%w_{i} = \ln \frac{N}{N_{i}
-%\end{equation}
-
+We weight each dimension of our BoW histogram representation using the equation \ref{eq:TF-IDF},
+\begin{equation}
+\label{eq:TF-IDF}
+w_{i} = ln\frac{N}{N_{i}},
+\end{equation}
+where $w_i$ are the weight vector for the words,$N$  are the number of images in the datset, and $N_i$ are the number of images in the dataset that contain codeword $i$.
 FLANN was used again to construct an index of these histograms. 
 We now have a data structure to efficiently map an unknown histogram to a known histogram.
 In both vector spaces, euclidean distance is used as the distance metric. 
