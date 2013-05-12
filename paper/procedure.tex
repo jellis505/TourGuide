@@ -9,7 +9,6 @@ Its detection speed over the SIFT detector was important in this application due
 To extract features at these keypoints we use the well-known SIFT algorithm \cite{lowe1999object}. 
 SIFT was chosen for its strong invariance under lighting conditions and scale which is important in the task of analyzing unpredictable user input. 
 Additionally, these algorithms were chosen because they performed best in our initial experiments.
-The results of some detected features within the images can be seen in 
 
 \subsection{Codebook Generation}
 To quantize the SIFT feature space, a codebook with k words was constructed.
@@ -36,7 +35,7 @@ We weight each dimension of our BoW histogram representation using the equation 
 \label{eq:TF-IDF}
 w_{i} = ln\frac{N}{N_{i}},
 \end{equation}
-where $w_i$ are the weight vector for the words,$N$  are the number of images in the dataset, and $N_i$ are the number of images in the dataset that contain codeword $i$.
+where $w_i$ are the weight vector for the words, $N$ is the number of images in the dataset, and $N_i$ is the number of images in the dataset that contain codeword $i$.
 FLANN was used again to construct an index of these histograms. 
 We now have a data structure to efficiently map an unknown histogram to a known histogram.
 In both vector spaces, euclidean distance is used as the distance metric. 
