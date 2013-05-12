@@ -19,8 +19,6 @@ A kd-tree was then constructed using OpenCV's FLANN \cite{muja2009fast} package 
 At this point, we had a data structure to efficiently map a SIFT feature vector to a code word.
 
 We experimented using different sizes of codebooks within our experiments, and the results can be seen in Table \ref{tab:results}.
-{\color{red} Maybe we could throw the kmeans optimization equation here... It's in the wikipedia article}.
-
 
 \subsection{K-d Tree Construction and BoW Implementation}
 Using this codebook, a histogram of word occurrences was constructed for each training image. 
