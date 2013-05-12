@@ -20,4 +20,12 @@ DerivedData
 # Node
 node_modules/
 
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.log
+*.synctex.gz
+
 
