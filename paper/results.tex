@@ -2,8 +2,8 @@ The classifier was tested by performing 10-fold cross validation on our building
 The images were loaded and their order was shuffled with a psuedorandom shuffle on a fixed seed. 
 Since the images were gathered by walking around landmarks and taking images systematically, shuffling was necessary so that test partitions would not eliminate certain angles from the training set. 
 The seed was fixed so that the effects of modifying the algorithm would not be masked by random variation. This allowed for fast iterative improvements. After the images were shuffled, the set was partitioned into ten equal subsets. 
-For each subset, the other 9 subsets were used to train the classifer, and then  each image in the chosen subset was classified as one of the 17 buildings. 
-The test suite returned accuracies measuring when the correct building was in the top 1, 3, and 10 guesses. (results below)
+For each subset, the other 9 subsets were used to train the classifer, and then each image in the chosen subset was classified as one of the 17 buildings. 
+The test suite returned accuracies for the top 1, 3, and 10 nearest image neighbors.
 
 %The first guess correctly predicted the building in the image with an average accuracy of 81.17\% (and a standard deviation of 3.08\%). 
 %These results are comparable to the original retreival accuracy on the Oxford Buildings Dataset (add actual numbers and citation), which used a 5000-image dataset of 17 buildings.
@@ -27,3 +27,5 @@ SIFT & STAR & 2187 & .7198 & .8072 & .8837\\ \hline
 \vspace*{10pt}
 \caption{Retrieval Accuracy}
 \end{table*}
+
+In the application, the top 30 image neighbors are returned and then then their corresponding landmarks are returned as possible candidates. In practice, a user typically sees two to four candidate landmarks.
