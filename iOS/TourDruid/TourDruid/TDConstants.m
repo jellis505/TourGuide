@@ -18,7 +18,7 @@ NSDictionary *_maps;
 
 + (void) buildNames
 {
-    _names = [[NSArray alloc ] initWithObjects:@"Alma Mater" ,@"Butler Library", @"CEPSR", @"Curl", @"Hamilton",   @"Havemayer", @"Journalism", @"Law", @"Lerner", @"Lion", @"Low", @"Mathematics", @"Mudd", @"Noco", @"Pan", @"Pupin", @"Thinker", nil];
+    _names = [[NSArray alloc ] initWithObjects:@"Alma Mater" ,@"Butler Library", @"CEPSR", @"Curl", @"Hamilton",   @"Havemayer", @"Journalism", @"Law", @"Lerner", @"Lion", @"Low", @"Mathematics", @"Mudd", @"NoCo", @"Pan", @"Pupin", @"Thinker", nil];
 }
 
 + (void) buildImages
