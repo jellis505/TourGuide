@@ -23,22 +23,22 @@ We experimented using different sizes of codebooks within our experiments, and t
 
 
 \subsection{K-d Tree Construction and BoW Implementation}
-Using this codebook, a histogram of word occurences was constructed for each training image. 
+Using this codebook, a histogram of word occurrences was constructed for each training image. 
 We use a FLANN k-d tree to index the features for each image into a histogram.
-This is known as a Bag of Words image representation and is a popular and state of the art method for image retrieval and classifcation.
+This is known as a Bag of Words image representation and is a popular and state of the art method for image retrieval and classification.
 For each feature within the image we send the features down our k-d tree, and then sum the number of times a feature maps to a respective leaf node or code word for a respective image.
 We are then left with an unnormalized histogram representation of features within each image.
 We then normalize the images so that the sum of the histograms of each image is the same.
 Finally, we implement a TF-IDF weighting scheme to maximize the information that is available within each image histogram.
 TF-IDF is a commonly used technique in text processing to weight the important words within a document retrieval scheme.  
 Words that appear in many documents, such as ``and'' and ``the'' receive very low weights, and words that are more subject and document specific receive higher weights in the classification scheme.
-We use this idea for our image retreival system utilizing our learned codebook.
+We use this idea for our image retrieval system utilizing our learned codebook.
 We weight each dimension of our BoW histogram representation using the equation \ref{eq:TF-IDF},
 \begin{equation}
 \label{eq:TF-IDF}
 w_{i} = ln\frac{N}{N_{i}},
 \end{equation}
-where $w_i$ are the weight vector for the words,$N$  are the number of images in the datset, and $N_i$ are the number of images in the dataset that contain codeword $i$.
+where $w_i$ are the weight vector for the words,$N$  are the number of images in the dataset, and $N_i$ are the number of images in the dataset that contain codeword $i$.
 FLANN was used again to construct an index of these histograms. 
 We now have a data structure to efficiently map an unknown histogram to a known histogram.
 In both vector spaces, euclidean distance is used as the distance metric. 

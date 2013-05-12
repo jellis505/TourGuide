@@ -10,10 +10,11 @@ The server is built using Node.js and runs on linux machines. The server current
 We use Amazon S3 to store our training and user images. We chose Amazon S3 for its scalable pricing and reliability, as our image set will continue to grow as more users use the application. We keep a directory for every landmark we support, adding new images to the corresponding directory as the app is used. 
 
 \begin{figure*}
-\includegraphics[width=60mm]{app1.png}
-\includegraphics[width=60mm]{app2.png}
-\includegraphics[width=60mm]{app3.png}
-\caption{Screenshots of the application: Initial Screen, Results screen, and Information screen}
+\includegraphics[width=43mm]{app1.png}
+\includegraphics[width=43mm]{app2.png}
+\includegraphics[width=43mm]{app4.png}
+\includegraphics[width=43mm]{app5.png}
+\caption{Screenshots of the application: initial screen, results screen, information screen, and map screen}
 \end{figure*}
 \subsection{iOS Application}
 The iOS application was designed to be friendly yet functional. The application begins by presenting a screen inviting the user to take a picture of a landmark. Once taken, the image is sent to our server to get classified, and in return the application receives a list of building names in order of confidence. If the user doesn't think any of the results are right, they can choose from a master list of all landmarks (which have accompanying images) to get the right information. Once they select a result, they are taken to a page which displays information of the landmark from the www.wikicu.com and displays an iOS map with the position of that landmark. We initially chose the iOS platform because we can write C++ code and extract features on the device, yet we released the codebook was too large to store on the device.
