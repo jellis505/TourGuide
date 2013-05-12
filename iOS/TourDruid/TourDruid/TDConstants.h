@@ -18,5 +18,7 @@
 + (UIImage *) imageFromName:(NSString *)building;
 + (NSString *) urlFromName:(NSString *)buildingId;
 + (MKCoordinateRegion) regionFromName:(NSString *)building;
++ (UIImage *) mapFromName:(NSString *)building;
++ (void) buildMaps;
 + (void) buildImages;
 @end

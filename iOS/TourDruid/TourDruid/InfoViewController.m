@@ -8,6 +8,7 @@
 
 #import "InfoViewController.h"
 #import "TDConstants.h"
+#import "MapViewController.h"
 
 @interface InfoViewController () {
     @private
@@ -38,7 +39,7 @@
     NSURL *url = [NSURL URLWithString:readabilityURL];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [_webView loadRequest:requestObj];
-    mapView.region = [TDConstants regionFromName:_buildingName];
+
 	// Do any additional setup after loading the view.
 }
 
@@ -48,6 +49,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)goToMap:(id)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
+    mapView = [sb instantiateViewControllerWithIdentifier:@"MapView"];
+    [mapView setInfoView:self];
+    [mapView setImage:[TDConstants mapFromName:_buildingName]];
+    [self presentViewController:mapView animated:YES completion:nil];
+}
 - (void)setBuildingName:(NSString *)buildingName
 {
     _buildingName = buildingName;

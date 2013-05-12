@@ -72,6 +72,7 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"MainStoryboard_iPhone" bundle:nil];
     _buildingList = [sb instantiateViewControllerWithIdentifier:@"BuildingList"];
     [_buildingList setResponse:_response];
+    
     [self presentViewController:_buildingList animated:YES completion:nil];
 }
 
