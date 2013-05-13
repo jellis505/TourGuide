@@ -28,7 +28,7 @@ You click, and it presents you with a camera.
 
 8
 00:00:23,000 --> 00:00:26,000
-I don't really know what this building is. I'm going to go ahead and take a screenshot.
+I don't really know what this building is. I'm going to go ahead and take a snapshot.
 
 9
 00:00:30,500 --> 00:00:32,000
@@ -51,7 +51,7 @@ It will present us with a list of rankings that it thinks the building is, not j
 Hm. It seems like it thinks this is CEPSR, and seeing that little image there, I think it's right!
 
 14
-00:00:55,00 --> 00:00:60,000
+00:00:56,00 --> 00:00:59,000
 So, I'm going to go ahead and confirm that, and read a little more about this building.
 
 15
@@ -71,85 +71,77 @@ It has an auditorium with an 198-seat capacity, and was originally occupied by t
 I didn't know that. Wow!
 
 19
-00:01:11,00 --> 00:01:14,000
-I didn't know that. Wow!
-
-20
 00:01:14,00 --> 00:01:15,000
 Where is it, though?
 
-21
+20
 00:01:15,00 --> 00:01:19,000
 Oh, it's up there, indicated by a little red dot! That's amazing.
 
-22
+21
 00:01:19,00 --> 00:01:21,000
 Let's go back, and try it again.
 
-23
+22
 00:01:19,00 --> 00:01:25,000
 It seems like there's this building over there that I've never seen before.
 
-24
+23
 00:01:19,00 --> 00:01:28,000
 I'm gonna go ahead and take a picture of that one, too.
 
-25
+24
 00:01:35,00 --> 00:01:37,000
 That looks pretty good.
 
-26
+25
 00:01:37,00 --> 00:01:39,000
 Let's go ahead and send it.
 
-27
+26
 00:01:41,00 --> 00:01:44,000
-Ahead, the indicator's back up, and it's going to tell me what it thinks it is.
+Again, the indicator's back up, and it's going to tell me what it thinks it is.
 
-28
+27
 00:01:44,00 --> 00:01:49,000
 Hm, it looks like it's NoCo, and seeing that picture, that looks right!
 
-29
-00:01:44,00 --> 00:01:48,500
-Hm, it looks like it's NoCo, and seeing that picture, that looks right
-
-30
+28
 00:01:48,500 --> 00:01:52,500
 I'm gonna click it, and here's some more information.
 
-31
+29
 00:01:52,500 --> 00:01:54,000
 That guy looks happy!
 
-32
+30
 00:01:54,500 --> 00:01:56,000
 Wow, this is brand new!
 
-33
+31
 00:01:57,000 --> 00:01:58,500
 Amazing!
 
-34
+32
 00:01:59,000 --> 00:02:00,000
 Whoa, I didn't know that about that!
 
-35
+33
 00:02:00,500 --> 00:02:06,000
 So you see, all of this information would be very helpful to a tourist. No need to wait in those silly tour groups.
 
-36
+34
 00:02:07,000 --> 00:02:10,000
 And where is it? Oh, there's another red dot.
 
-37
+35
 00:02:10,000 --> 00:02:15,000
 This is the basic functionality of TourDruid, and we think it'll help a lot of tourists on campus enjoy themselves.
 
-38
+36
 00:02:15,000 --> 00:02:18,000
 And it'll be a fun and interactive way to get along with the campus.
 
-39
+37
 00:02:18,000 --> 00:02:20,000
 Thanks!
