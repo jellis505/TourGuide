@@ -12,4 +12,4 @@ else
 endif
 
 clean:
-	-rm -f *.aux *.log *.pdf *.synctex.gz *~
+	-rm -f *.aux *.log *.pdf *.synctex.gz *~ *.out
