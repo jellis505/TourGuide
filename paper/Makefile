@@ -3,7 +3,10 @@
 UNAME := $(shell uname)
 
 paper: *.tex *.jpg
-	pdflatex TourDruid.tex
+	pdflatex TourDruid
+	bibtex TourDruid
+	pdflatex TourDruid
+	pdflatex TourDruid
 
 ifeq ($(UNAME), Linux)
 	gnome-open TourDruid.pdf
