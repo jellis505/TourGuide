@@ -34,8 +34,6 @@ In the application, the top 30 image neighbors are returned and then then their 
 
 \subsection{Per-landmark Accuracy}
 
-Accuracies were also recorded for each of the seventeen landmarks.
-
 \begin{table}[ht!]
 \label{tab:results}
 \centering
@@ -64,4 +62,4 @@ Pupin          &    0.99 \\ \hline
 \caption{Per-landmark accuracy}
 \end{table}
 
-Recording these accuracies serves two purposes. First, it diagnoses which buildings may require more training data. Second, when the application is scaled to more landmarks, these accuracies will dictate when a landmark is ready for production. For example, a landmark can be added to the client program only when its accuracy exceeds 80\%. For the results reported here, we neither selectively gathered data nor culled poorly-performing landmarks. However, these strategies will be some of the first steps taken when improving the application for future versions.  
+Accuracies were also recorded for each of the seventeen landmarks. Recording these accuracies serves two purposes. First, it diagnoses which buildings may require more training data. Second, when the application is scaled to more landmarks, these accuracies will dictate when a landmark is ready for production. For example, a landmark can be added to the client program only when its accuracy exceeds 80\%. For the results reported here, we neither selectively gathered data nor culled poorly-performing landmarks. However, these strategies will be some of the first steps taken when improving the application for future versions.  

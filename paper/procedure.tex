@@ -1,5 +1,5 @@
 Our object classification procedure can be broken down into 3 stages: feature
-extraction, codebook generation, and k-d tree construction.  This process is described in Figures 2 and 3.
+extraction, codebook generation, and \emph{k}-d tree construction.  This process is described in Figures 2 and 3.
 
 \subsection{Feature Extraction}
 First, points of interest were detected in the image using OpenCV's StarDetector,
@@ -11,8 +11,8 @@ SIFT was chosen for its strong invariance under lighting conditions and scale wh
 Additionally, these algorithms were chosen because they performed best in our initial experiments.
 
 \subsection{Codebook Generation}
-To quantize the SIFT feature space, a codebook with k words was constructed through the use of the k-means algorithm.
-Once we had a set of SIFT feature vectors for each image in our training set, k-means was applied to determine k cluster centers in the vector space. 
+To quantize the SIFT feature space, a codebook with \emph{k} words was constructed through the use of the k-means algorithm.
+Once we had a set of SIFT feature vectors for each image in our training set, \emph{k}-means was applied to determine \emph{k} cluster centers in the vector space. 
 This set of cluster centers in the SIFT feature space was used as the codebook. 
 A kd-tree was then constructed using OpenCV's FLANN \cite{muja2009fast} package to index the codebook so that it could be queried quickly. 
 At this point, we had a data structure to efficiently map a SIFT feature vector to a code word.
@@ -21,9 +21,9 @@ We experimented using different sizes of codebooks within our experiments, and t
 
 \subsection{K-d Tree Construction and BoW}
 Using this codebook, a histogram of word occurrences was constructed for each training image. 
-We use a FLANN k-d tree to index the features for each image into a histogram.
+We use a FLANN \emph{k}-d tree to index the features for each image into a histogram.
 This is known as a Bag of Words image representation and is a popular and state of the art method for image retrieval and classification.
-For each feature within the image we send the features down our k-d tree, and then sum the number of times a feature maps to a respective leaf node or code word for an image.
+For each feature within the image we send the features down our \emph{k}-d tree, and then sum the number of times a feature maps to a respective leaf node or code word for an image.
 We are then left with an unnormalized histogram representation of features within each image.
 We then normalize the images so that the sum of the histograms of each image is the same.
 Finally, we implement a TF-IDF weighting scheme to maximize the information that is available within each image histogram.
