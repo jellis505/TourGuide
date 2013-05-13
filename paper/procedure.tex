@@ -1,5 +1,5 @@
 Our object classification procedure can be broken down into 3 stages: feature
-extraction, codebook generation, and k-d tree construction.
+extraction, codebook generation, and k-d tree construction.  This process is described in Figures 2 and 3.
 
 \subsection{Feature Extraction}
 First, points of interest were detected in the image using OpenCV's StarDetector,
@@ -11,7 +11,7 @@ SIFT was chosen for its strong invariance under lighting conditions and scale wh
 Additionally, these algorithms were chosen because they performed best in our initial experiments.
 
 \subsection{Codebook Generation}
-To quantize the SIFT feature space, a codebook with k words was constructed.
+To quantize the SIFT feature space, a codebook with k words was constructed through the use of the k-means algorithm.
 Once we had a set of SIFT feature vectors for each image in our training set, k-means was applied to determine k cluster centers in the vector space. 
 This set of cluster centers in the SIFT feature space was used as the codebook. 
 A kd-tree was then constructed using OpenCV's FLANN \cite{muja2009fast} package to index the codebook so that it could be queried quickly. 
@@ -19,18 +19,18 @@ At this point, we had a data structure to efficiently map a SIFT feature vector 
 
 We experimented using different sizes of codebooks within our experiments, and the results can be seen in Table \ref{tab:results}.
 
-\subsection{K-d Tree Construction and BoW Implementation}
+\subsection{K-d Tree Construction and BoW}
 Using this codebook, a histogram of word occurrences was constructed for each training image. 
 We use a FLANN k-d tree to index the features for each image into a histogram.
 This is known as a Bag of Words image representation and is a popular and state of the art method for image retrieval and classification.
-For each feature within the image we send the features down our k-d tree, and then sum the number of times a feature maps to a respective leaf node or code word for a respective image.
+For each feature within the image we send the features down our k-d tree, and then sum the number of times a feature maps to a respective leaf node or code word for an image.
 We are then left with an unnormalized histogram representation of features within each image.
 We then normalize the images so that the sum of the histograms of each image is the same.
 Finally, we implement a TF-IDF weighting scheme to maximize the information that is available within each image histogram.
 TF-IDF is a commonly used technique in text processing to weight the important words within a document retrieval scheme.  
 Words that appear in many documents, such as ``and'' and ``the'' receive very low weights, and words that are more subject and document specific receive higher weights in the classification scheme.
 We use this idea for our image retrieval system utilizing our learned codebook.
-We weight each dimension of our BoW histogram representation using the equation \ref{eq:TF-IDF},
+We weight each dimension of our BoW histogram representation using equation \ref{eq:TF-IDF},
 \begin{equation}
 \label{eq:TF-IDF}
 w_{i} = ln\frac{N}{N_{i}},
@@ -41,7 +41,7 @@ We now have a data structure to efficiently map an unknown histogram to a known 
 In both vector spaces, euclidean distance is used as the distance metric. 
 This decision was made based on experimentation.
 
-Given a test image, the classification process consists of the following steps:
+Given a test image, the classification process can be summarized in the following steps:
 \begin{enumerate}
 \item Extract the set of SIFT features (vectors of length 128).
 
